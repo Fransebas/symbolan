@@ -17,6 +17,16 @@ public interface TreeLanListener extends ParseTreeListener {
 	 */
 	void exitTreeRule(TreeLanParser.TreeRuleContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link TreeLanParser#formula}.
+	 * @param ctx the parse tree
+	 */
+	void enterFormula(TreeLanParser.FormulaContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TreeLanParser#formula}.
+	 * @param ctx the parse tree
+	 */
+	void exitFormula(TreeLanParser.FormulaContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link TreeLanParser#treeDescriptor}.
 	 * @param ctx the parse tree
 	 */

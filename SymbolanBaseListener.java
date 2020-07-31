@@ -39,6 +39,18 @@ public class SymbolanBaseListener implements SymbolanListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterExpressionRule(SymbolanParser.ExpressionRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExpressionRule(SymbolanParser.ExpressionRuleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterExpr(SymbolanParser.ExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -46,18 +58,6 @@ public class SymbolanBaseListener implements SymbolanListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitExpr(SymbolanParser.ExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterFunction(SymbolanParser.FunctionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFunction(SymbolanParser.FunctionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

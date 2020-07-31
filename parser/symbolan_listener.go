@@ -14,11 +14,11 @@ type SymbolanListener interface {
 	// EnterSystem_functions is called when entering the system_functions production.
 	EnterSystem_functions(c *System_functionsContext)
 
+	// EnterExpressionRule is called when entering the expressionRule production.
+	EnterExpressionRule(c *ExpressionRuleContext)
+
 	// EnterExpr is called when entering the expr production.
 	EnterExpr(c *ExprContext)
-
-	// EnterFunction is called when entering the function production.
-	EnterFunction(c *FunctionContext)
 
 	// EnterLeft_par is called when entering the left_par production.
 	EnterLeft_par(c *Left_parContext)
@@ -47,11 +47,11 @@ type SymbolanListener interface {
 	// ExitSystem_functions is called when exiting the system_functions production.
 	ExitSystem_functions(c *System_functionsContext)
 
+	// ExitExpressionRule is called when exiting the expressionRule production.
+	ExitExpressionRule(c *ExpressionRuleContext)
+
 	// ExitExpr is called when exiting the expr production.
 	ExitExpr(c *ExprContext)
-
-	// ExitFunction is called when exiting the function production.
-	ExitFunction(c *FunctionContext)
 
 	// ExitLeft_par is called when exiting the left_par production.
 	ExitLeft_par(c *Left_parContext)

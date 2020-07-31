@@ -11,6 +11,7 @@ const (
 	ROOT_NODE = "ROOT_NODE"
 	LEAF_NODE = "LEAF_NODE"
 	TREE_RULE = "TREE_RULE"
+	FORMULA   = "FORMULA"
 )
 
 type TreeLanNode struct {
@@ -52,10 +53,36 @@ func ProcessString(data string) *TreeLanNode {
 
 func getRuleNode(ctx antlr.Tree) *TreeLanNode {
 	node := NewTreeLanNode(&ctx)
-	node.left = getTreeDescriptorNode(ctx.GetChild(0))
-	node.right = getTreeDescriptorNode(ctx.GetChild(2))
 
-	node.Type = TREE_RULE
+	// Formula on the right
+	if ctx.GetChildCount() == 4 {
+		node.left = getTreeDescriptorNode(ctx.GetChild(0))
+		node.right = getFormulaNode(ctx.GetChild(3))
+	} else {
+		node.left = getTreeDescriptorNode(ctx.GetChild(0))
+		node.right = getTreeDescriptorNode(ctx.GetChild(2))
+
+		node.Type = TREE_RULE
+	}
+
+	return node
+}
+
+func getFormulaNode(ctx antlr.Tree) *TreeLanNode {
+	node := NewTreeLanNode(&ctx)
+
+	node.main = getFormula(ctx.GetChild(0))
+
+	node.Type = FORMULA
+
+	return node
+}
+
+func getFormula(ctx antlr.Tree) *TreeLanNode {
+	node := NewTreeLanNode(&ctx)
+
+	node.IsLeaf = true
+	node.ID = (ctx.(antlr.TerminalNode)).GetText()
 
 	return node
 }

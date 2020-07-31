@@ -27,6 +27,18 @@ public class TreeLanBaseListener implements TreeLanListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFormula(TreeLanParser.FormulaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFormula(TreeLanParser.FormulaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterTreeDescriptor(TreeLanParser.TreeDescriptorContext ctx) { }
 	/**
 	 * {@inheritDoc}

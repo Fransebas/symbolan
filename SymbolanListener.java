@@ -27,6 +27,16 @@ public interface SymbolanListener extends ParseTreeListener {
 	 */
 	void exitSystem_functions(SymbolanParser.System_functionsContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link SymbolanParser#expressionRule}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpressionRule(SymbolanParser.ExpressionRuleContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SymbolanParser#expressionRule}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpressionRule(SymbolanParser.ExpressionRuleContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link SymbolanParser#expr}.
 	 * @param ctx the parse tree
 	 */
@@ -36,16 +46,6 @@ public interface SymbolanListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitExpr(SymbolanParser.ExprContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link SymbolanParser#function}.
-	 * @param ctx the parse tree
-	 */
-	void enterFunction(SymbolanParser.FunctionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SymbolanParser#function}.
-	 * @param ctx the parse tree
-	 */
-	void exitFunction(SymbolanParser.FunctionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SymbolanParser#left_par}.
 	 * @param ctx the parse tree

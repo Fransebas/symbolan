@@ -15,11 +15,15 @@ func main() {
 		panic(e)
 	}
 
-	config := Tree.TreeParsingConfig{
+	config := Tree.SymbolanProcessorConfig{
 		Simplify: Tree.NUMERIC_FUNCTIONS_2,
 	}
 
-	node := Tree.ProcessString(string(input), &config)
+	symbolanProcessor := Tree.NewSymbolanProcessor(&config)
+
+	node := symbolanProcessor.ProcessString(string(input))
+
+	fmt.Println(node.String())
 
 	substitute := map[string]string{
 		"x": "5",

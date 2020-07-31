@@ -13,7 +13,7 @@ import (
 const delta = 0.000001
 
 type Node struct {
-	ctx              *antlr.ParserRuleContext
+	ctx              *antlr.Tree
 	IsLeaf           bool
 	Value            string
 	classByValues    string
@@ -153,14 +153,12 @@ func (this *Node) simplifyZeroes() {
 	}
 }
 
-
 //Remove multiplications by 0 and multiplication by 1 and sum by 0
 func (this *Node) simplifyOnes() {
 	isLeftOne := this.left.classByValues == ValueClass.NUMERIC_CONSTANT && isEqual(this.left.numericValue, 1)
 	isRightOne := this.right.classByValues == ValueClass.NUMERIC_CONSTANT && isEqual(this.right.numericValue, 1)
 
 	if isLeftOne || isRightOne {
-		if
 		this.numericValue = 0
 		this.Value = "0"
 
@@ -232,7 +230,7 @@ func (this *Node) Substitute(substituteNode *Node) {
 	this.classByValues = substituteNode.classByValues
 }
 
-func NewNode(ctx *antlr.ParserRuleContext) *Node {
+func NewNode(ctx *antlr.Tree) *Node {
 	node := new(Node)
 	node.ctx = ctx
 	node.IsLeaf = false
@@ -277,7 +275,7 @@ func isConstant(node *Node) bool {
 
 func (this *Node) setNumericValueFromValue() {
 	var err error
-	this.numericValue, err = strconv.ParseFloat(this.Value, 64);
+	this.numericValue, err = strconv.ParseFloat(this.Value, 64)
 	if err != nil {
 		panic(err)
 	}
@@ -307,7 +305,7 @@ func (this *Node) calculateClassByValue() {
 		} else if isNumeric(this.left) || isNumeric(this.right) {
 			this.classByValues = ValueClass.NUMERIC_CONSTANT_EXPRESSION
 		} else {
-			panic("This case should happen");
+			panic("This case should happen")
 		}
 	}
 }
@@ -326,28 +324,28 @@ func isSystemFunction(op string) bool {
 }
 
 var OperationToEnum = map[string]string{
-	"+" : OperationClass.ADDITION,
+	"+":  OperationClass.ADDITION,
 	"-":  OperationClass.SUBSTRACTION,
 	"*":  OperationClass.MULTIPLICATION,
-	"":  OperationClass.MULTIPLICATION,
+	"":   OperationClass.MULTIPLICATION,
 	"/":  OperationClass.DIVISION,
 	"^":  OperationClass.EXPONENTIAL,
-	"**":  OperationClass.EXPONENTIAL,
+	"**": OperationClass.EXPONENTIAL,
 	"=":  OperationClass.EQUATION,
 }
 
 var OperationSimplifiedOnLeftOne = map[string]string{
 	"*":  OperationClass.MULTIPLICATION,
-	"":  OperationClass.MULTIPLICATION,
+	"":   OperationClass.MULTIPLICATION,
 	"^":  OperationClass.EXPONENTIAL,
-	"**":  OperationClass.EXPONENTIAL,
+	"**": OperationClass.EXPONENTIAL,
 }
 
 var OperationSimplifiedOnRightOne = map[string]string{
 	"*":  OperationClass.MULTIPLICATION,
-	"":  OperationClass.MULTIPLICATION,
+	"":   OperationClass.MULTIPLICATION,
 	"^":  OperationClass.EXPONENTIAL,
-	"**":  OperationClass.EXPONENTIAL,
+	"**": OperationClass.EXPONENTIAL,
 }
 
 func getOperationClass(op string) string {

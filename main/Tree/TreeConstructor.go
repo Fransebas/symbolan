@@ -24,10 +24,6 @@ type TreeParsingConfig struct {
 	Simplify SimplifyEnum
 }
 
-var DefaultConfig = TreeParsingConfig{
-	Simplify: NUMERIC_BASIC_OPS_1,
-}
-
 func (this *TreeShapeListener) pop() *Node {
 	node := this.peek()
 	this.stack = this.stack[:len(this.stack)-1]
@@ -55,28 +51,6 @@ func (this *TreeShapeListener) EnterEveryRule(ctx antlr.ParserRuleContext) {
 		panic("Node shouldn't have move than 3 children")
 	}
 	this.stack = append(this.stack, NewNode(&ctx))
-}
-
-func ProcessString(data string, config *TreeParsingConfig) *Node {
-
-	if config == nil {
-		config = &DefaultConfig
-	}
-
-	input := antlr.NewInputStream(data)
-	lexer := parser.NewSymbolanLexer(input)
-	stream := antlr.NewCommonTokenStream(lexer, 0)
-	p := parser.NewSymbolanParser(stream)
-	p.AddErrorListener(antlr.NewDiagnosticErrorListener(true))
-	p.BuildParseTrees = true
-
-	antrlTree := p.Eq()
-
-	tree := NewTreeShapeListener(config)
-
-	antlr.ParseTreeWalkerDefault.Walk(tree, antrlTree)
-
-	return tree.Root
 }
 
 func isParethesisNode(node *Node) bool {
@@ -117,7 +91,6 @@ func (this *TreeShapeListener) ExitEveryRule(ctx antlr.ParserRuleContext) {
 func (this *TreeShapeListener) onRootCreated() {
 	this.Root.calculateClassByValue()
 	this.Root.calculateClassByOperation()
-
 	this.Root.Simplify(this.config.Simplify)
 }
 

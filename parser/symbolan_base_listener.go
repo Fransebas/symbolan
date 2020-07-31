@@ -33,17 +33,17 @@ func (s *BaseSymbolanListener) EnterSystem_functions(ctx *System_functionsContex
 // ExitSystem_functions is called when production system_functions is exited.
 func (s *BaseSymbolanListener) ExitSystem_functions(ctx *System_functionsContext) {}
 
+// EnterExpressionRule is called when production expressionRule is entered.
+func (s *BaseSymbolanListener) EnterExpressionRule(ctx *ExpressionRuleContext) {}
+
+// ExitExpressionRule is called when production expressionRule is exited.
+func (s *BaseSymbolanListener) ExitExpressionRule(ctx *ExpressionRuleContext) {}
+
 // EnterExpr is called when production expr is entered.
 func (s *BaseSymbolanListener) EnterExpr(ctx *ExprContext) {}
 
 // ExitExpr is called when production expr is exited.
 func (s *BaseSymbolanListener) ExitExpr(ctx *ExprContext) {}
-
-// EnterFunction is called when production function is entered.
-func (s *BaseSymbolanListener) EnterFunction(ctx *FunctionContext) {}
-
-// ExitFunction is called when production function is exited.
-func (s *BaseSymbolanListener) ExitFunction(ctx *FunctionContext) {}
 
 // EnterLeft_par is called when production left_par is entered.
 func (s *BaseSymbolanListener) EnterLeft_par(ctx *Left_parContext) {}

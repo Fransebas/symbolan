@@ -19,6 +19,10 @@ system_functions
     | LOG
     ;
 
+expressionRule 
+	: expr '=>' expr
+	;
+
 expr 
     : expr expr
     | atom
@@ -26,11 +30,7 @@ expr
     | expr ('^'|'**') expr 
     | expr ('*'|'/') expr 
     | expr ('+'|'-') expr
-    | function
-    ;
-
-function 
-    : system_functions left_par expr right_par
+    | system_functions left_par expr right_par
     ;
 
 left_par
@@ -75,7 +75,6 @@ bi_operators
 // Lexer i.e. Tokens
 
 
-
 L_PAREN                : '(';
 R_PAREN                : ')';
 L_CURLY                : '{';
@@ -102,10 +101,13 @@ LOG                  : 'log';
 PI                  : 'pi';
 
 VAR : [x-z] (('_')[0-9]+)? ;
-
 CONST : [a-c] (('_')[0-9]+)? ;
-
 EULER : [e-e] ;
+
+
+CONST_RULE : [A-C] (('_')[0-9]+)? ;
+VAR_RULE : [X-Z] (('_')[0-9]+)? ;
+EXP_RULE : [F] (('_')[0-9]+)? ;
 
 IMAGINARY  : (DECIMALS | FLOAT_LIT) 'i';
 

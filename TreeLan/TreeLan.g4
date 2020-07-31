@@ -4,6 +4,11 @@ grammar TreeLan;
 
 treeRule
 	: treeDescriptor ASSIGN treeDescriptor
+	| treeDescriptor ASSIGN 'F_' formula
+	;
+
+formula
+	: ID
 	;
 
 treeDescriptor 
@@ -27,12 +32,13 @@ classValue :  NUMERIC_CONSTANT
 	| NUMERIC_CONSTANT_EXPRESSION 
 	| SYSTEM_FUNCTION 
 	| ANY 
-	| NUMBER    
+	| NUMBER   
+	| SPECIAL_NUMBER 
 	;       
 
 operationClass 
     : ADDITION
-    | SUBSTRACTION
+    | SUBTRACTION
     | MULTIPLICATION
     | DIVISION
     | EXPONENTIAL
@@ -47,7 +53,7 @@ operationClass
     ;
 
 ADDITION 		: 'ADDITION';
-SUBSTRACTION 	: 'SUBSTRACTION';
+SUBTRACTION 	: 'SUBTRACTION';
 MULTIPLICATION 	: 'MULTIPLICATION';
 DIVISION 		: 'DIVISION';
 EXPONENTIAL 	: 'EXPONENTIAL';
@@ -60,6 +66,7 @@ EQUATION 		: 'EQUATION';
 LEAF 			: 'LEAF';
 ANY 			: 'ANY';
 
+SPECIAL_NUMBER 				: SP_NUMBER;
 NUMERIC_CONSTANT            : 'NUMERIC_CONSTANT';
 CONSTANT                    : 'CONSTANT';
 VARIABLE                    : 'VARIABLE';
@@ -74,6 +81,10 @@ ASSIGN : '=>';
 
 NUMBER 
 	: INT
+	;
+
+fragment SP_NUMBER
+	: 'e' | 'pi'
 	;
 
 
