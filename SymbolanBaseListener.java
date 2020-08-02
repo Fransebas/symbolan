@@ -15,6 +15,18 @@ public class SymbolanBaseListener implements SymbolanListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterRuleSet(SymbolanParser.RuleSetContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRuleSet(SymbolanParser.RuleSetContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterEq(SymbolanParser.EqContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -39,6 +51,18 @@ public class SymbolanBaseListener implements SymbolanListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterRule_function(SymbolanParser.Rule_functionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRule_function(SymbolanParser.Rule_functionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterExpressionRule(SymbolanParser.ExpressionRuleContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -58,6 +82,66 @@ public class SymbolanBaseListener implements SymbolanListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitExpr(SymbolanParser.ExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterRuleAtom(SymbolanParser.RuleAtomContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRuleAtom(SymbolanParser.RuleAtomContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNumeric_rule(SymbolanParser.Numeric_ruleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNumeric_rule(SymbolanParser.Numeric_ruleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterConst_rule(SymbolanParser.Const_ruleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitConst_rule(SymbolanParser.Const_ruleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterVar_rule(SymbolanParser.Var_ruleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVar_rule(SymbolanParser.Var_ruleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExpr_rule(SymbolanParser.Expr_ruleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExpr_rule(SymbolanParser.Expr_ruleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -94,6 +178,42 @@ public class SymbolanBaseListener implements SymbolanListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAtom(SymbolanParser.AtomContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMath_constant(SymbolanParser.Math_constantContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMath_constant(SymbolanParser.Math_constantContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterInfinite(SymbolanParser.InfiniteContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInfinite(SymbolanParser.InfiniteContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterImaginary(SymbolanParser.ImaginaryContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitImaginary(SymbolanParser.ImaginaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

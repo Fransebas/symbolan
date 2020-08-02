@@ -5,6 +5,10 @@ grammar Symbolan;
 
 // Parser i.e. Rules
 
+ruleSet 
+	: (expressionRule NEWLINE*)*
+	;
+
 eq  
     : expr
     | expr '=' expr
@@ -19,19 +23,38 @@ system_functions
     | LOG
     ;
 
+rule_function
+	: IDENTIFIER '()'
+	;
+
 expressionRule 
 	: expr '=>' expr
+	| expr '=>' rule_function
 	;
 
 expr 
     : expr expr
-    | atom
     | left_par expr right_par
     | expr ('^'|'**') expr 
     | expr ('*'|'/') expr 
     | expr ('+'|'-') expr
     | system_functions left_par expr right_par
+    | atom
+    | ruleAtom
     ;
+
+ruleAtom 
+	: const_rule
+	| var_rule
+	| expr_rule
+	| numeric_rule
+	;
+
+numeric_rule: NUMERIC_RULE;
+const_rule: CONST_RULE;
+var_rule: VAR_RULE;
+expr_rule: EXPR_RULE;
+
 
 left_par
     : '('
@@ -46,16 +69,30 @@ atom
     | variable
     | constant
     | number
+    | math_constant
+    | imaginary
     ;
+
+math_constant 
+	: PI
+    | EULER
+    | INFINITE
+    | UNDEFINED
+    ;
+
+infinite
+	: INFINITE
+	;
+
+imaginary
+	: IMAGINARY_LIT
+	;
 
 number 
     : DECIMAL_LIT 
     | FLOAT_LIT
-    | IMAGINARY_LIT
     | OCTAL_LIT
     | HEX_LIT
-    | PI
-    | EULER
     ;
 
 variable 
@@ -96,6 +133,7 @@ SIN                  : 'sin';
 COS                  : 'cos';
 TAN                  : 'tan';
 LOG                  : 'log';
+SQRT                 : 'sqrt';
 
 
 PI                  : 'pi';
@@ -103,17 +141,19 @@ PI                  : 'pi';
 VAR : [x-z] (('_')[0-9]+)? ;
 CONST : [a-c] (('_')[0-9]+)? ;
 EULER : [e-e] ;
+INFINITE : [+-]?'inf';
+UNDEFINED : 'undef';
 
-
-CONST_RULE : [A-C] (('_')[0-9]+)? ;
-VAR_RULE : [X-Z] (('_')[0-9]+)? ;
-EXP_RULE : [F] (('_')[0-9]+)? ;
+NUMERIC_RULE 	: [+-]? [N] (('_')[0-9]+)? ;
+CONST_RULE 		: [+-]? [C] (('_')[0-9]+)? ;
+VAR_RULE 		: [+-]? [V] (('_')[0-9]+)? ;
+EXPR_RULE 		: [+-]? [F] (('_')[0-9]+)? ;
 
 IMAGINARY  : (DECIMALS | FLOAT_LIT) 'i';
 
 // Numbers
 
-DECIMAL_LIT            : [1-9] [0-9]*;
+DECIMAL_LIT            : [+-]? [1-9] [0-9]*;
 OCTAL_LIT              : '0' OCTAL_DIGIT*;
 HEX_LIT                : '0' [xX] HEX_DIGIT+;
 
@@ -126,18 +166,20 @@ IMAGINARY_LIT
     : (DECIMALS | FLOAT_LIT) 'i'
     ;
 
-//IDENTIFIER             : [d-zA-Z] [a-zA-Z]+ ;
+IDENTIFIER
+   : [a-zA-Z] [a-zA-Z0-9_]*
+   ;
 
 // Fragments
 
 fragment DECIMALS
-    : [0-9]+
+    : [+-]? [0-9]+
     ;
 fragment OCTAL_DIGIT
-    : [0-7]
+    : [+-]? [0-7]
     ;
 fragment HEX_DIGIT
-    : [0-9a-fA-F]
+    : [+-]? [0-9a-fA-F]
     ;
 fragment EXPONENT
     : [eE] [+-]? DECIMALS
@@ -145,9 +187,8 @@ fragment EXPONENT
 
 // \- since - means "range" inside [...]
 
-WS
-   : [ \t\n\r] + -> skip
-   ;
+NEWLINE:'\r'? '\n' ;
+WS : [ \t]+ -> skip ;
    
 LINE_COMMENT           : '//' ~[\r\n]*      -> channel(HIDDEN);
 

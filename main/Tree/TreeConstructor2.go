@@ -3,6 +3,8 @@ package Tree
 import (
 	"fmt"
 	"github.com/antlr/antlr4/runtime/Go/antlr"
+	"symbolan/main/OperationClass"
+	"symbolan/main/ValueClass"
 	"symbolan/parser"
 )
 
@@ -31,8 +33,7 @@ func NewSymbolanProcessor(config *SymbolanProcessorConfig) *SymbolanProcessor {
 	return symbolanProcessor
 }
 
-func (this *SymbolanProcessor) ProcessString(data string) *Node {
-
+func getANTLRparser(data string) *parser.SymbolanParser {
 	input := antlr.NewInputStream(data)
 	lexer := parser.NewSymbolanLexer(input)
 	stream := antlr.NewCommonTokenStream(lexer, 0)
@@ -40,7 +41,15 @@ func (this *SymbolanProcessor) ProcessString(data string) *Node {
 	p.AddErrorListener(antlr.NewDiagnosticErrorListener(true))
 	p.BuildParseTrees = true
 
-	antrlTree := p.Eq()
+	return p
+
+}
+
+func (this *SymbolanProcessor) ProcessString(data string) *Node {
+
+	antlrParser := getANTLRparser(data)
+
+	antrlTree := antlrParser.Expr()
 
 	this.Root = ExprNode(antrlTree)
 	this.initializeRoot()
@@ -48,20 +57,67 @@ func (this *SymbolanProcessor) ProcessString(data string) *Node {
 	return this.Root
 }
 
+func (this *SymbolanProcessor) ProcessRuleString(data string) *RuleSet {
+
+	antlrParser := getANTLRparser(data)
+
+	antrlTree := antlrParser.RuleSet()
+
+	return NewRuleSet(antrlTree)
+}
+
 func (this *SymbolanProcessor) initializeRoot() {
 	this.Root.calculateClassByValue()
-	this.Root.calculateClassByOperation()
+	//this.Root.calculateClassByOperation()
 	this.Root.Simplify(this.config.Simplify)
+
 }
 
 func EqNode(ctx antlr.Tree) *Node {
-	node := NewNode(&ctx)
+	node := NewNode()
 
-	node.left = ExprNode(ctx.GetChild(0))
-	node.Value = ctx.GetChild(1).(antlr.TerminalNode).GetText()
-	node.right = ExprNode(ctx.GetChild(2))
+	childrenCount := ctx.GetChildCount()
+	if childrenCount == 1 {
+		return node
+	} else if childrenCount == 3 {
+		node.Left = ExprNode(ctx.GetChild(0))
+		node.Value = ctx.GetChild(1).(antlr.TerminalNode).GetText()
+		node.Right = ExprNode(ctx.GetChild(2))
+		node.classByOperation = OperationClass.EQUATION
+		return node
+	} else {
+		panic(fmt.Sprintf("Eq node with %v children should never happen", childrenCount))
+	}
+}
+
+func RuleFunction(ctx antlr.Tree) *Node {
+	node := NewNode()
+
+	node.Value = ctx.GetChild(0).(antlr.TerminalNode).GetText()
+	node.IsLeaf = true
+	node.classByValues = ValueClass.RULE_FUNCTION
 
 	return node
+}
+
+func ExprRule(ctx antlr.Tree) *Node {
+	node := NewNode()
+	childrenCount := ctx.GetChildCount()
+
+	if childrenCount == 3 {
+		node.Left = ExprNode(ctx.GetChild(0))
+		node.Value = ctx.GetChild(1).(antlr.TerminalNode).GetText()
+
+		if ctx.GetChild(2).(antlr.ParserRuleContext).GetRuleIndex() == parser.SymbolanParserRULE_rule_function {
+			node.Right = RuleFunction(ctx.GetChild(2))
+		} else {
+			node.Right = ExprNode(ctx.GetChild(2))
+		}
+		node.classByOperation = OperationClass.RULE
+		return node
+	} else {
+		panic(fmt.Sprintf("ExprRule node with %v children should never happen", childrenCount))
+	}
 }
 
 func isParenthesis(ctx antlr.Tree) bool {
@@ -69,51 +125,67 @@ func isParenthesis(ctx antlr.Tree) bool {
 }
 
 func ExprNode(ctx antlr.Tree) *Node {
-	node := NewNode(&ctx)
+	node := NewNode()
 
 	// Function
-	if ctx.GetChildCount() == 4 {
-		node.left = FuntionNode(ctx.GetChild(0))
-		node.right = ExprNode(ctx.GetChild(2))
-	} else if ctx.GetChildCount() == 3 {
+	childrenCount := ctx.GetChildCount()
+	if childrenCount == 4 {
+		node.classByOperation = OperationClass.SYSTEM_FUNCTION
+		node.Left = FunctionNode(ctx.GetChild(0))
+		node.Right = ExprNode(ctx.GetChild(2))
+	} else if childrenCount == 3 {
 		if isParenthesis(ctx.GetChild(0)) {
 			return ExprNode(ctx.GetChild(1))
 		} else {
-			node.left = FuntionNode(ctx.GetChild(0))
-			node.Value = ctx.GetChild(1).(antlr.TerminalNode).GetText()
-			node.right = ExprNode(ctx.GetChild(2))
+			node.Left = ExprNode(ctx.GetChild(0))
+			node.Operation = ctx.GetChild(1).(antlr.TerminalNode).GetText()
+			node.Right = ExprNode(ctx.GetChild(2))
+
+			node.classByOperation = getOperationClass(node.Operation)
+
 			return node
 		}
-	} else if ctx.GetChildCount() == 2 {
-		node.left = ExprNode(ctx.GetChild(0))
-		node.right = ExprNode(ctx.GetChild(1))
-	} else if ctx.GetChildCount() == 1 {
-		node.left = ProcessLeaf(ctx.GetChild(0), ctx)
+	} else if childrenCount == 2 {
+		node.classByOperation = OperationClass.MULTIPLICATION
+		node.Left = ExprNode(ctx.GetChild(0))
+		node.Right = ExprNode(ctx.GetChild(1))
+	} else if childrenCount == 1 {
+		return ProcessLeaf(ctx.GetChild(0), ctx)
 	} else {
-		panic(fmt.Printf("Expr node with %v children should never happen", ctx.GetChildCount()))
+		panic(fmt.Sprintf("Expr node with %v children should never happen", childrenCount))
 	}
 
 	return node
 }
 
-func FuntionNode(ctx antlr.Tree) *Node {
-	subNodeCtx := ctx.GetChild(0).GetChild(0)
-	node := NewNode(&subNodeCtx)
+func FunctionNode(ctx antlr.Tree) *Node {
+	subNodeCtx := ctx.GetChild(0)
+	node := NewNode()
 	node.Value = subNodeCtx.(antlr.TerminalNode).GetText()
+	node.IsLeaf = true
+
+	node.classByValues = ValueClass.SYSTEM_FUNCTION
 
 	return node
 }
 
 func ProcessLeaf(ctx antlr.Tree, parentCtx antlr.Tree) *Node {
-	if ctx.GetChildCount() == 1 {
+	childrenCount := ctx.GetChildCount()
+	if childrenCount == 1 {
 		return ProcessLeaf(ctx.GetChild(0), ctx)
-	} else if ctx.GetChildCount() == 0 {
-		leafCtx := ctx.GetChild(0)
-		leafNode := NewNode(&parentCtx)
-		leafNode.Value = leafCtx.(antlr.TerminalNode).GetText()
+	} else if childrenCount == 0 {
+		leafNode := NewNode()
+		leafNode.Value = ctx.(antlr.TerminalNode).GetText()
 		leafNode.IsLeaf = true
+
+		leafNode.classByValues = getLeafClass(parentCtx.(antlr.ParserRuleContext).GetRuleIndex())
+
+		if leafNode.classByValues == ValueClass.NUMERIC_CONSTANT {
+			leafNode.setNumericValueFromValue()
+		}
+
 		return leafNode
 	} else {
-		panic(fmt.Printf("Leaf node with %v children should never happen", ctx.GetChildCount()))
+		panic(fmt.Sprintf("Leaf node with %v children should never happen", childrenCount))
 	}
 }

@@ -1,6 +1,7 @@
 package Tree
 
 import (
+	"fmt"
 	"io/ioutil"
 	"strings"
 	"testing"
@@ -13,10 +14,11 @@ func TestParsing(t *testing.T) {
 		panic(e)
 	}
 
-	config := TreeParsingConfig{
+	config := SymbolanProcessorConfig{
 		Simplify: NUMERIC_FUNCTIONS_2,
 	}
 
+	symbolanProcessor := NewSymbolanProcessor(&config)
 	data := string(input)
 
 	lines := strings.Split(data, "\n")
@@ -25,7 +27,7 @@ func TestParsing(t *testing.T) {
 		in := vals[0]
 		expectedOut := vals[1]
 
-		root := ProcessString(in, &config)
+		root := symbolanProcessor.ProcessString(in)
 		out := root.String()
 
 		if out != expectedOut {
@@ -41,9 +43,10 @@ func TestSimplify(t *testing.T) {
 		panic(e)
 	}
 
-	config := TreeParsingConfig{
-		Simplify: NUMERIC_FUNCTIONS_2,
+	config := SymbolanProcessorConfig{
+		Simplify: NUMERIC_BASIC_OPS_1,
 	}
+	symbolanProcessor := NewSymbolanProcessor(&config)
 
 	data := string(input)
 
@@ -53,8 +56,10 @@ func TestSimplify(t *testing.T) {
 		in := vals[0]
 		expectedOut := vals[1]
 
-		root := ProcessString(in, &config)
+		root := symbolanProcessor.ProcessString(in)
 		out := root.String()
+
+		fmt.Println(out)
 
 		if out != expectedOut {
 			t.Fail()
@@ -63,15 +68,16 @@ func TestSimplify(t *testing.T) {
 }
 
 func Test1Simplify(t *testing.T) {
-	config := TreeParsingConfig{
+	config := SymbolanProcessorConfig{
 		Simplify: NUMERIC_FUNCTIONS_2,
 	}
+	symbolanProcessor := NewSymbolanProcessor(&config)
 
 	data := "3sin(5)"
 
 	in := data
 
-	root := ProcessString(in, &config)
+	root := symbolanProcessor.ProcessString(in)
 	out := root.String()
 
 	if out != "-2.876773" {

@@ -21,16 +21,6 @@ func main() {
 
 	symbolanProcessor := Tree.NewSymbolanProcessor(&config)
 
-	node := symbolanProcessor.ProcessString(string(input))
+	node := symbolanProcessor.ProcessRuleString(string(input))
 
-	fmt.Println(node.String())
-
-	substitute := map[string]string{
-		"x": "5",
-		"y": "9",
-	}
-
-	node = Tree.Substitute(node, substitute, &config)
-
-	fmt.Println(node.String())
 }

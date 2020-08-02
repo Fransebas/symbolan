@@ -2,6 +2,11 @@
 
 grammar TreeLan;
 
+
+ruleSet 
+	: (treeRule NEWLINE)+
+	;
+
 treeRule
 	: treeDescriptor ASSIGN treeDescriptor
 	| treeDescriptor ASSIGN 'F_' formula
@@ -24,7 +29,8 @@ leafNode
 	: classValue '_' ID
 	;
 
-classValue :  NUMERIC_CONSTANT            
+classValue 
+	:  NUMERIC_CONSTANT            
 	| CONSTANT                    
 	| VARIABLE                    
 	| CONSTANT_EXPRESSION         
@@ -95,11 +101,8 @@ fragment INT
 // no leading zeros
 
 fragment EXP
-   : [Ee] [+\-]? INT
-   ;
+   : [Ee] [+\-]? INT // \- since - means "range" inside [...]
+   ; 
 
-// \- since - means "range" inside [...]
-
-WS
-   : [ \t\n\r] + -> skip
-   ;
+NEWLINE:'\r'? '\n' ;
+WS : [ \t]+ -> skip ;
