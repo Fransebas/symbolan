@@ -1,4 +1,4 @@
-package Tree
+package Node
 
 import "github.com/antlr/antlr4/runtime/Go/antlr"
 
@@ -14,7 +14,7 @@ func NewRuleSet(ctx antlr.Tree) *RuleSet {
 	childrenCount := ctx.GetChildCount()
 	for i := 0; i < childrenCount; i++ {
 		childrenCntx := ctx.GetChild(i)
-		if childrenCntx.GetChildCount() == 1 {
+		if childrenCntx.GetChildCount() == 0 {
 			continue
 		}
 		ruleSet.Rules = append(ruleSet.Rules, *ExprRule(childrenCntx))

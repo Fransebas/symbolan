@@ -153,7 +153,8 @@ IMAGINARY  : (DECIMALS | FLOAT_LIT) 'i';
 
 // Numbers
 
-DECIMAL_LIT            : [+-]? [1-9] [0-9]*;
+//DECIMAL_LIT            : [+-]? [1-9] [0-9]*;
+DECIMAL_LIT            :  [1-9] [0-9]*;
 OCTAL_LIT              : '0' OCTAL_DIGIT*;
 HEX_LIT                : '0' [xX] HEX_DIGIT+;
 

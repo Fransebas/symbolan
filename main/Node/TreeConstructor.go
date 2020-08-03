@@ -1,4 +1,4 @@
-package Tree
+package Node
 
 type SimplifyEnum string
 

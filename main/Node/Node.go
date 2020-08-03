@@ -1,8 +1,7 @@
-package Tree
+package Node
 
 import (
 	"fmt"
-	"math"
 	"strconv"
 	"symbolan/main/OperationClass"
 	"symbolan/main/ValueClass"
@@ -74,15 +73,15 @@ func (this *Node) String() string {
 
 }
 
-func Substitute(node *Node, valueSubstitution map[string]string, symbolanProcessor *SymbolanProcessor) *Node {
-	processedSubstitutions := make(map[string]*Node)
-	for key, value := range valueSubstitution {
-		processedSubstitutions[key] = symbolanProcessor.ProcessString(value)
-	}
-	newNode := node.Eval(&processedSubstitutions)
-	newNode.Simplify(symbolanProcessor.config.Simplify)
-	return &newNode
-}
+//func Substitute(node *Node, valueSubstitution map[string]string, symbolanProcessor *SymbolanProcessor) *Node {
+//	processedSubstitutions := make(map[string]*Node)
+//	for key, value := range valueSubstitution {
+//		processedSubstitutions[key] = symbolanProcessor.ProcessString(value)
+//	}
+//	newNode := node.Eval(&processedSubstitutions)
+//	newNode.Simplify(symbolanProcessor.config.Simplify)
+//	return &newNode
+//}
 
 func (this Node) Eval(valueSubstitution *map[string]*Node) Node {
 	if this.IsLeaf {
@@ -104,109 +103,14 @@ func (this Node) Eval(valueSubstitution *map[string]*Node) Node {
 	return this
 }
 
-func performFunctionOperation(function string, rightValue float64) float64 {
-
-	switch function {
-	case "sin":
-		return math.Sin(rightValue)
-	case "cos":
-		return math.Cos(rightValue)
-	case "tan":
-		return math.Tan(rightValue)
-	case "log":
-		return math.Log(rightValue)
-	case "sqrt":
-		return math.Sqrt(rightValue)
-	default:
-		panic(fmt.Sprintf("%v is not a valid system function", function))
-	}
-}
-
-func performOperation(op string, leftValue, rightValue float64) float64 {
-
-	switch op {
-	case "+":
-		return leftValue + rightValue
-	case "-":
-		return leftValue - rightValue
-	case "*":
-		return leftValue * rightValue
-	case "":
-		return leftValue * rightValue
-	case "/":
-		return leftValue / rightValue
-	case "^":
-		return math.Pow(leftValue, rightValue)
-	case "**":
-		return math.Pow(leftValue, rightValue)
-	default:
-		panic(fmt.Sprintf("%v is not a valid numeric operation", op))
-	}
-}
-
-func (this *Node) simplifyBasicOps() {
-	if this.Left.classByValues == ValueClass.NUMERIC_CONSTANT && this.Right.classByValues == ValueClass.NUMERIC_CONSTANT {
-		this.numericValue = performOperation(this.Operation, this.Left.NumericValue(), this.Right.NumericValue())
-		this.Value = fmt.Sprintf("%f", this.numericValue)
-
-		this.Left = nil
-		this.Right = nil
-		this.classByValues = ValueClass.NUMERIC_CONSTANT
-		this.IsOperation = false
-		this.IsLeaf = true
-		this.Operation = ""
-	}
-}
-
-func (this *Node) simplifyNumericFunctions() {
-
-	if this.Left == nil {
-		if this.IsLeaf {
-			fmt.Println("WTF")
-		}
-		fmt.Println(this.Value)
-	}
-	if this.Right == nil {
-		fmt.Println("Right " + this.Value)
-	}
-	if this.Left.classByValues == ValueClass.SYSTEM_FUNCTION && this.Right.classByValues == ValueClass.NUMERIC_CONSTANT {
-		this.numericValue = performFunctionOperation(this.Left.Value, this.Right.NumericValue())
-		this.Value = fmt.Sprintf("%f", this.numericValue)
-
-		this.Left = nil
-		this.Right = nil
-		this.classByValues = ValueClass.NUMERIC_CONSTANT
-		this.IsOperation = false
-		this.IsLeaf = true
-		this.Operation = ""
-	}
-}
-
-// Modifies the tree
-func (this *Node) Simplify(simplifyLevel SimplifyEnum) {
-	this.simplify(simplifyLevel)
-	this.CalculateHeightAndSize()
-}
-
-func (this *Node) simplify(simplifyLevel SimplifyEnum) {
-
-	// there is nothing to simplify
+func (this *Node) CalculateTreeHeightAndSize() {
 	if this.IsLeaf {
-		return
-	}
+		this.CalculateHeightAndSize()
+	} else {
+		this.Left.CalculateHeightAndSize()
+		this.Right.CalculateHeightAndSize()
 
-	this.Left.simplify(simplifyLevel)
-	this.Right.simplify(simplifyLevel)
-
-	if simplifyLevel == NUMERIC_BASIC_OPS_1 {
-		this.simplifyBasicOps()
-	}
-
-	if simplifyLevel == NUMERIC_FUNCTIONS_2 {
-		this.simplifyBasicOps()
-		if !this.IsLeaf {
-			this.simplifyNumericFunctions()
-		}
+		this.CalculateHeightAndSize()
 	}
 }
 
@@ -215,9 +119,6 @@ func (this *Node) CalculateHeightAndSize() {
 		this.height = 0
 		this.treeSize = 1
 	} else {
-		this.Left.CalculateHeightAndSize()
-		this.Right.CalculateHeightAndSize()
-
 		this.height = utils.Max(this.Left.height, this.Right.height) + 1
 		this.treeSize = this.Left.treeSize + this.Right.treeSize + 1
 	}
@@ -237,7 +138,7 @@ func NewNodeFromValue(value float64) *Node {
 	newNode := NewNode()
 
 	newNode.SetNumericValue(value)
-	newNode.classByValues = ValueClass.RULE_FUNCTION
+	newNode.classByValues = ValueClass.NUMERIC_CONSTANT
 	newNode.IsLeaf = true
 
 	newNode.treeSize = 1
@@ -272,6 +173,8 @@ func getLeafClass(rule int) ValueClass.ValueClass {
 		return ValueClass.VAR_RULE
 	case parser.SymbolanParserRULE_expr_rule:
 		return ValueClass.EXPR_RULE
+	case parser.SymbolanParserRULE_numeric_rule:
+		return ValueClass.NUMERIC_RULE
 	default:
 		panic(fmt.Sprintf("Rule %v should't exist", rule))
 	}
@@ -333,18 +236,24 @@ func (this *Node) setValueFromNumeric() {
 
 // Calculate the class by value of the node or in other words by leaf,
 // to do that, first the class of the subnodes should be already calculated
-func (this *Node) calculateClassByValue() {
+func (this *Node) calculateTreeClassByValue() {
 
 	if this.IsLeaf {
 		if this.classByValues == ValueClass.NUMERIC_CONSTANT {
 			this.setNumericValueFromValue()
 		}
 	} else {
-		this.Left.calculateClassByValue()
+		this.Left.calculateTreeClassByValue()
 		if this.Right != nil {
-			this.Right.calculateClassByValue()
+			this.Right.calculateTreeClassByValue()
 		}
 
+		this.CalculateClassByValue()
+	}
+}
+
+func (this *Node) CalculateClassByValue() {
+	if !this.IsLeaf {
 		if isGenericRule(this.Left) || isGenericRule(this.Right) {
 			this.classByValues = ValueClass.GENERIC_EXPR_RULE
 		} else if isVariableRule(this.Left) || isVariableRule(this.Right) {

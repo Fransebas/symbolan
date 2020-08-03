@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"symbolan/main/Tree"
+	"symbolan/main/Node"
 )
 
 func main() {
@@ -15,12 +15,13 @@ func main() {
 		panic(e)
 	}
 
-	config := Tree.SymbolanProcessorConfig{
-		Simplify: Tree.NUMERIC_FUNCTIONS_2,
+	config := Node.SymbolanProcessorConfig{
+		Simplify: Node.NUMERIC_FUNCTIONS_2,
 	}
 
-	symbolanProcessor := Tree.NewSymbolanProcessor(&config)
+	symbolanProcessor := Node.NewSymbolanProcessor(&config)
 
-	node := symbolanProcessor.ProcessRuleString(string(input))
+	node := symbolanProcessor.ProcessString(string(input))
 
+	fmt.Println(node.String())
 }

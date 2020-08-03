@@ -1,4 +1,4 @@
-package Tree
+package Node
 
 import (
 	"fmt"
@@ -50,8 +50,8 @@ func (this *SymbolanProcessor) ProcessString(data string) *Node {
 	antlrParser := getANTLRparser(data)
 
 	antrlTree := antlrParser.Expr()
-
 	this.Root = ExprNode(antrlTree)
+
 	this.initializeRoot()
 
 	return this.Root
@@ -63,14 +63,22 @@ func (this *SymbolanProcessor) ProcessRuleString(data string) *RuleSet {
 
 	antrlTree := antlrParser.RuleSet()
 
-	return NewRuleSet(antrlTree)
+	rules := NewRuleSet(antrlTree)
+
+	for _, rule := range rules.Rules {
+		rule.calculateTreeClassByValue()
+	}
+
+	return rules
 }
 
 func (this *SymbolanProcessor) initializeRoot() {
-	this.Root.calculateClassByValue()
+	this.Root.calculateTreeClassByValue()
 	//this.Root.calculateClassByOperation()
-	this.Root.Simplify(this.config.Simplify)
-
+	simplyfier := NewSimplyfier()
+	node := simplyfier.Simplify(*this.Root)
+	this.Root = &node
+	this.Root.CalculateHeightAndSize()
 }
 
 func EqNode(ctx antlr.Tree) *Node {
@@ -132,6 +140,7 @@ func ExprNode(ctx antlr.Tree) *Node {
 	if childrenCount == 4 {
 		node.classByOperation = OperationClass.SYSTEM_FUNCTION
 		node.Left = FunctionNode(ctx.GetChild(0))
+		node.Operation = "f"
 		node.Right = ExprNode(ctx.GetChild(2))
 	} else if childrenCount == 3 {
 		if isParenthesis(ctx.GetChild(0)) {
