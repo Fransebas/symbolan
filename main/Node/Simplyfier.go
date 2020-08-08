@@ -49,12 +49,14 @@ func (this *Simplyfier) Simplify(node Node) Node {
 	for _, rule := range rules {
 		matchRule := rule.node.Left
 		resultRule := rule.node.Right
-
-		if substitutions, ok := Compare(&node, matchRule); ok {
+		//fmt.Println(i)
+		substitutions, ok := Compare(&node, matchRule)
+		if ok {
 			if resultRule.ValueClass() == ValueClass.RULE_FUNCTION {
 				return this.manager.functions[resultRule.Value](&node)
 			}
-			return resultRule.Eval(substitutions)
+			nNode := resultRule.Eval(substitutions)
+			return this.Simplify(nNode)
 		}
 	}
 
@@ -80,103 +82,9 @@ func Compare(node *Node, rule *Node) (*map[string]*Node, bool) {
 }
 
 func compare(node *Node, rule *Node, knownNodes *map[string]*Node) bool {
-
-	if rule.ValueClass() == ValueClass.EXPR_RULE {
-		ruleName := rule.Value
-
-		if !isNodeKnown(ruleName, knownNodes) {
-			(*knownNodes)[ruleName] = node
-			return true
-		}
-		return equalToExisting(ruleName, node, knownNodes)
-	}
-
-	if rule.ValueClass() == ValueClass.GENERIC_EXPR_RULE {
-		return compare(node.Left, rule.Left, knownNodes) && compare(node.Right, rule.Right, knownNodes)
-	}
-
-	if rule.ValueClass() == ValueClass.VARIABLE_EXPR_RULE {
-		if node.ValueClass() == ValueClass.VARIABLE_EXPRESSION {
-			return compare(node.Left, rule.Left, knownNodes) && compare(node.Right, rule.Right, knownNodes)
-		}
-	}
-
-	if rule.ValueClass() == ValueClass.CONSTANT_EXPR_RULE {
-		if node.ValueClass() == ValueClass.CONSTANT_EXPRESSION || node.ValueClass() == ValueClass.NUMERIC_CONSTANT_EXPRESSION {
-			return compare(node.Left, rule.Left, knownNodes) && compare(node.Right, rule.Right, knownNodes)
-		}
-	}
-
-	if !node.IsLeaf && rule.IsLeaf {
-		return false
-	}
-
-	if node.IsLeaf && rule.IsLeaf {
-		ruleName := rule.Value
-
-		switch rule.ValueClass() {
-
-		case ValueClass.CONST_RULE:
-			if constRuleCase(node) {
-				if !isNodeKnown(ruleName, knownNodes) {
-					(*knownNodes)[ruleName] = node
-					return true
-				}
-				return equalToExisting(ruleName, node, knownNodes)
-			}
-			return false
-		case ValueClass.VAR_RULE:
-			if node.ValueClass() == ValueClass.VARIABLE_EXPRESSION {
-				if !isNodeKnown(ruleName, knownNodes) {
-					(*knownNodes)[ruleName] = node
-					return true
-				}
-				return equalToExisting(ruleName, node, knownNodes)
-			}
-			return false
-		case ValueClass.MATH_SYMBOL:
-			return node.Compare(rule)
-
-		case ValueClass.NUMERIC_CONSTANT:
-			return node.Compare(rule)
-
-		case ValueClass.NUMERIC_RULE:
-			return node.ValueClass() == ValueClass.NUMERIC_CONSTANT
-
-		case ValueClass.IMAGINARY_CONSTANT:
-			return true
-
-		case ValueClass.SYSTEM_FUNCTION:
-			return node.Compare(rule)
-
-		default:
-			return false
-		}
-	}
-
-	if rule.ValueClass() == ValueClass.CONST_RULE {
-		if ValueClass.IsNumeric(node.ValueClass()) || ValueClass.IsConstant(node.ValueClass()) {
-			return compare(node.Left, rule.Left, knownNodes) && compare(node.Right, rule.Right, knownNodes)
-		}
-	}
-
-	if rule.ValueClass() == ValueClass.VAR_RULE {
-		if ValueClass.IsVariable(node.ValueClass()) {
-			return compare(node.Left, rule.Left, knownNodes) && compare(node.Right, rule.Right, knownNodes)
-		}
-	}
-
-	return false
-}
-
-func compare2(node *Node, rule *Node, knownNodes *map[string]*Node) bool {
 	ruleName := rule.Value
 
 	ruleValueClass := rule.ValueClass()
-	//base case
-	if !node.IsLeaf && rule.IsLeaf {
-		return false
-	}
 
 	//generic case
 	if rule.ValueClass() == ValueClass.EXPR_RULE {
@@ -189,8 +97,36 @@ func compare2(node *Node, rule *Node, knownNodes *map[string]*Node) bool {
 		return equalToExisting(ruleName, node, knownNodes)
 	}
 
+	if node.OperationClass() != rule.OperationClass() {
+		return false
+	}
+
+	//base case
+	if !node.IsLeaf && rule.IsLeaf {
+		return false
+	}
+
 	if node.IsLeaf && rule.IsLeaf {
 		switch ruleValueClass {
+
+		case ValueClass.DERIVATIVE_RULE:
+			if node.ValueClass() == ValueClass.DERIVATIVE {
+				if !isNodeKnown(ruleName, knownNodes) {
+					(*knownNodes)[ruleName] = node
+					return true
+				}
+				return equalToExisting(ruleName, node, knownNodes)
+			}
+
+		case ValueClass.NUMERIC_RULE:
+			if node.ValueClass() == ValueClass.NUMERIC_CONSTANT {
+				if !isNodeKnown(ruleName, knownNodes) {
+					(*knownNodes)[ruleName] = node
+					return true
+				}
+				return equalToExisting(ruleName, node, knownNodes)
+			}
+
 		case ValueClass.CONST_RULE:
 			if constRuleCase(node) {
 				if !isNodeKnown(ruleName, knownNodes) {
@@ -200,8 +136,9 @@ func compare2(node *Node, rule *Node, knownNodes *map[string]*Node) bool {
 				return equalToExisting(ruleName, node, knownNodes)
 			}
 			return false
+
 		case ValueClass.VAR_RULE:
-			if node.ValueClass() == ValueClass.VARIABLE_EXPRESSION {
+			if node.ValueClass() == ValueClass.VARIABLE {
 				if !isNodeKnown(ruleName, knownNodes) {
 					(*knownNodes)[ruleName] = node
 					return true
@@ -209,14 +146,12 @@ func compare2(node *Node, rule *Node, knownNodes *map[string]*Node) bool {
 				return equalToExisting(ruleName, node, knownNodes)
 			}
 			return false
+
 		case ValueClass.MATH_SYMBOL:
 			return node.Compare(rule)
 
 		case ValueClass.NUMERIC_CONSTANT:
 			return node.Compare(rule)
-
-		case ValueClass.NUMERIC_RULE:
-			return node.ValueClass() == ValueClass.NUMERIC_CONSTANT
 
 		case ValueClass.IMAGINARY_CONSTANT:
 			return true
@@ -238,6 +173,20 @@ func compare2(node *Node, rule *Node, knownNodes *map[string]*Node) bool {
 		case ValueClass.CONSTANT_EXPR_RULE:
 			if node.ValueClass() == ValueClass.CONSTANT_EXPRESSION || node.ValueClass() == ValueClass.NUMERIC_CONSTANT_EXPRESSION {
 				return compare(node.Left, rule.Left, knownNodes) && compare(node.Right, rule.Right, knownNodes)
+			}
+		case ValueClass.CONSTANT_EXPRESSION:
+			if isConstant(node) {
+				return compare(node.Left, rule.Left, knownNodes) && compare(node.Right, rule.Right, knownNodes)
+			}
+
+		case ValueClass.NUMERIC_CONSTANT_EXPRESSION:
+			if node.ValueClass() == ValueClass.NUMERIC_CONSTANT_EXPRESSION {
+				return compare(node.Left, rule.Left, knownNodes) && compare(node.Right, rule.Right, knownNodes)
+			}
+
+		case ValueClass.SYSTEM_FUNCTION:
+			if node.ValueClass() == ValueClass.SYSTEM_FUNCTION {
+				return compare(node.Right, rule.Right, knownNodes)
 			}
 			//case ValueClass.CONST_RULE:
 			//	if ValueClass.IsNumeric(node.ValueClass()) || ValueClass.IsConstant(node.ValueClass()) {

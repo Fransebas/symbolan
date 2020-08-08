@@ -38,7 +38,7 @@ func getANTLRparser(data string) *parser.SymbolanParser {
 	lexer := parser.NewSymbolanLexer(input)
 	stream := antlr.NewCommonTokenStream(lexer, 0)
 	p := parser.NewSymbolanParser(stream)
-	p.AddErrorListener(antlr.NewDiagnosticErrorListener(true))
+	//p.AddErrorListener(antlr.NewDiagnosticErrorListener(true))
 	p.BuildParseTrees = true
 
 	return p
@@ -105,12 +105,15 @@ func RuleFunction(ctx antlr.Tree) *Node {
 	node.IsLeaf = true
 	node.classByValues = ValueClass.RULE_FUNCTION
 
+	node.IsRule = true
+
 	return node
 }
 
 func ExprRule(ctx antlr.Tree) *Node {
 	node := NewNode()
 	childrenCount := ctx.GetChildCount()
+	node.IsRule = true
 
 	if childrenCount == 3 {
 		node.Left = ExprNode(ctx.GetChild(0))
@@ -155,9 +158,16 @@ func ExprNode(ctx antlr.Tree) *Node {
 			return node
 		}
 	} else if childrenCount == 2 {
-		node.classByOperation = OperationClass.MULTIPLICATION
-		node.Left = ExprNode(ctx.GetChild(0))
-		node.Right = ExprNode(ctx.GetChild(1))
+		if ctx.GetChild(0).(antlr.ParserRuleContext).GetRuleIndex() == parser.SymbolanParserRULE_sign {
+			sign := SignNode(ctx.GetChild(0))
+			expr := ExprNode(ctx.GetChild(1))
+			expr.SetSign(sign)
+			return expr
+		} else {
+			node.classByOperation = OperationClass.MULTIPLICATION
+			node.Left = ExprNode(ctx.GetChild(0))
+			node.Right = ExprNode(ctx.GetChild(1))
+		}
 	} else if childrenCount == 1 {
 		return ProcessLeaf(ctx.GetChild(0), ctx)
 	} else {
@@ -165,6 +175,11 @@ func ExprNode(ctx antlr.Tree) *Node {
 	}
 
 	return node
+}
+
+func SignNode(ctx antlr.Tree) string {
+	sign := ctx.GetChild(0).(antlr.TerminalNode).GetText()
+	return sign
 }
 
 func FunctionNode(ctx antlr.Tree) *Node {
@@ -186,7 +201,7 @@ func ProcessLeaf(ctx antlr.Tree, parentCtx antlr.Tree) *Node {
 		leafNode := NewNode()
 		leafNode.Value = ctx.(antlr.TerminalNode).GetText()
 		leafNode.IsLeaf = true
-
+		leafNode.treeSize = 1
 		leafNode.classByValues = getLeafClass(parentCtx.(antlr.ParserRuleContext).GetRuleIndex())
 
 		if leafNode.classByValues == ValueClass.NUMERIC_CONSTANT {

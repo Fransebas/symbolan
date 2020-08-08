@@ -99,6 +99,54 @@ public class SymbolanBaseListener implements SymbolanListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterSign(SymbolanParser.SignContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSign(SymbolanParser.SignContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLeft_par(SymbolanParser.Left_parContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLeft_par(SymbolanParser.Left_parContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterRight_par(SymbolanParser.Right_parContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRight_par(SymbolanParser.Right_parContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDerivative_rule(SymbolanParser.Derivative_ruleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDerivative_rule(SymbolanParser.Derivative_ruleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterNumeric_rule(SymbolanParser.Numeric_ruleContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -142,30 +190,6 @@ public class SymbolanBaseListener implements SymbolanListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitExpr_rule(SymbolanParser.Expr_ruleContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterLeft_par(SymbolanParser.Left_parContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitLeft_par(SymbolanParser.Left_parContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterRight_par(SymbolanParser.Right_parContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitRight_par(SymbolanParser.Right_parContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -226,6 +250,18 @@ public class SymbolanBaseListener implements SymbolanListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitNumber(SymbolanParser.NumberContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDerivative(SymbolanParser.DerivativeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDerivative(SymbolanParser.DerivativeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

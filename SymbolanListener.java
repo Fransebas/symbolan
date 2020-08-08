@@ -77,6 +77,46 @@ public interface SymbolanListener extends ParseTreeListener {
 	 */
 	void exitRuleAtom(SymbolanParser.RuleAtomContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link SymbolanParser#sign}.
+	 * @param ctx the parse tree
+	 */
+	void enterSign(SymbolanParser.SignContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SymbolanParser#sign}.
+	 * @param ctx the parse tree
+	 */
+	void exitSign(SymbolanParser.SignContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SymbolanParser#left_par}.
+	 * @param ctx the parse tree
+	 */
+	void enterLeft_par(SymbolanParser.Left_parContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SymbolanParser#left_par}.
+	 * @param ctx the parse tree
+	 */
+	void exitLeft_par(SymbolanParser.Left_parContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SymbolanParser#right_par}.
+	 * @param ctx the parse tree
+	 */
+	void enterRight_par(SymbolanParser.Right_parContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SymbolanParser#right_par}.
+	 * @param ctx the parse tree
+	 */
+	void exitRight_par(SymbolanParser.Right_parContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SymbolanParser#derivative_rule}.
+	 * @param ctx the parse tree
+	 */
+	void enterDerivative_rule(SymbolanParser.Derivative_ruleContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SymbolanParser#derivative_rule}.
+	 * @param ctx the parse tree
+	 */
+	void exitDerivative_rule(SymbolanParser.Derivative_ruleContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link SymbolanParser#numeric_rule}.
 	 * @param ctx the parse tree
 	 */
@@ -116,26 +156,6 @@ public interface SymbolanListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitExpr_rule(SymbolanParser.Expr_ruleContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link SymbolanParser#left_par}.
-	 * @param ctx the parse tree
-	 */
-	void enterLeft_par(SymbolanParser.Left_parContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SymbolanParser#left_par}.
-	 * @param ctx the parse tree
-	 */
-	void exitLeft_par(SymbolanParser.Left_parContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link SymbolanParser#right_par}.
-	 * @param ctx the parse tree
-	 */
-	void enterRight_par(SymbolanParser.Right_parContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SymbolanParser#right_par}.
-	 * @param ctx the parse tree
-	 */
-	void exitRight_par(SymbolanParser.Right_parContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SymbolanParser#atom}.
 	 * @param ctx the parse tree
@@ -186,6 +206,16 @@ public interface SymbolanListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitNumber(SymbolanParser.NumberContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SymbolanParser#derivative}.
+	 * @param ctx the parse tree
+	 */
+	void enterDerivative(SymbolanParser.DerivativeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SymbolanParser#derivative}.
+	 * @param ctx the parse tree
+	 */
+	void exitDerivative(SymbolanParser.DerivativeContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SymbolanParser#variable}.
 	 * @param ctx the parse tree

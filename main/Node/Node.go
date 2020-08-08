@@ -17,6 +17,8 @@ type Node struct {
 	classByValues    ValueClass.ValueClass
 	classByOperation OperationClass.OperationClass
 	numericValue     float64
+	isNegative       bool // this value is only for non-numeric values
+	hasSign          bool
 
 	Left  *Node
 	Right *Node
@@ -28,8 +30,50 @@ type Node struct {
 	treeSize int64
 }
 
+func isRule(class ValueClass.ValueClass) bool {
+	return class == ValueClass.DERIVATIVE_RULE ||
+		class == ValueClass.NUMERIC_RULE ||
+		class == ValueClass.CONST_RULE ||
+		class == ValueClass.VAR_RULE ||
+		class == ValueClass.EXPR_RULE ||
+		class == ValueClass.GENERIC_EXPR_RULE ||
+		class == ValueClass.CONSTANT_EXPR_RULE ||
+		class == ValueClass.VARIABLE_EXPR_RULE ||
+		class == ValueClass.RULE_FUNCTION
+}
+
+func (this *Node) IsRule() bool {
+	return isRule(this.classByValues)
+}
+
+func (this *Node) SetSign(sign string) {
+	if this.classByValues == ValueClass.NUMERIC_CONSTANT {
+		if sign == "-" {
+			this.SetNumericValue(-1 * this.numericValue)
+		}
+	}
+	this.hasSign = true
+	this.isNegative = sign == "-"
+}
+
+func (this *Node) HasSign() bool {
+	if this.classByValues == ValueClass.NUMERIC_CONSTANT {
+		return this.numericValue < 0
+	}
+	return this.isNegative
+}
+
+func (this *Node) IsNegative() bool {
+	if this.classByValues == ValueClass.NUMERIC_CONSTANT {
+		return false
+	}
+	return this.hasSign
+}
+
 func (this *Node) SetNumericValue(value float64) {
 	this.numericValue = value
+	this.isNegative = false
+	this.hasSign = false
 	this.setValueFromNumeric()
 }
 
@@ -64,8 +108,22 @@ func (this *Node) String() string {
 	if this.classByOperation == OperationClass.SYSTEM_FUNCTION {
 		return this.Left.String() + "(" + this.Right.String() + ")"
 	} else {
-		if this.Right != nil {
+		if this.OperationClass() == OperationClass.ADDITION {
 			return this.Left.String() + this.Operation + this.Right.String()
+		} else if this.Right != nil {
+			left := ""
+			if this.Left.treeSize > 1 {
+				left = fmt.Sprintf("(%v)", this.Left.String())
+			} else {
+				left = fmt.Sprintf("%v", this.Left.String())
+			}
+			right := ""
+			if this.Right.treeSize > 1 {
+				right = fmt.Sprintf("(%v)", this.Right.String())
+			} else {
+				right = fmt.Sprintf("%v", this.Right.String())
+			}
+			return left + this.Operation + right
 		} else {
 			return this.Left.String() + this.Operation
 		}
@@ -84,8 +142,14 @@ func (this *Node) String() string {
 //}
 
 func (this Node) Eval(valueSubstitution *map[string]*Node) Node {
+	nNode := this.eval(valueSubstitution)
+	nNode.calculateTreeClassByValue()
+	return nNode
+}
+
+func (this Node) eval(valueSubstitution *map[string]*Node) Node {
 	if this.IsLeaf {
-		// Do not subtitute number, even though that could be interesting
+		// Do not substitute numbers, even though that could be interesting
 		if ValueClass.IsNumeric(this.classByValues) {
 			return this
 		}
@@ -93,10 +157,10 @@ func (this Node) Eval(valueSubstitution *map[string]*Node) Node {
 			return *val
 		}
 	} else {
-		left := this.Left.Eval(valueSubstitution)
+		left := this.Left.eval(valueSubstitution)
 		this.Left = &left
 		if this.Right != nil {
-			right := this.Right.Eval(valueSubstitution)
+			right := this.Right.eval(valueSubstitution)
 			this.Right = &right
 		}
 	}
@@ -134,6 +198,21 @@ func (this *Node) Substitute(substituteNode *Node) {
 	this.numericValue = substituteNode.numericValue
 }
 
+// Here the node/tree would be ( D ) f ( x )
+func NewNodeDerivatedVar(node *Node) *Node {
+	newNode := NewNode()
+
+	newNode.classByValues = ValueClass.DERIVATIVE
+	newNode.IsLeaf = true
+
+	newNode.treeSize = 1
+	newNode.height = 0
+
+	newNode.Value = "d" + node.Right.Value
+
+	return newNode
+}
+
 func NewNodeFromValue(value float64) *Node {
 	newNode := NewNode()
 
@@ -163,6 +242,8 @@ func getLeafClass(rule int) ValueClass.ValueClass {
 		return ValueClass.CONSTANT
 	case parser.SymbolanParserRULE_system_functions:
 		return ValueClass.SYSTEM_FUNCTION
+	case parser.SymbolanParserRULE_numeric_rule:
+		return ValueClass.NUMERIC_RULE
 	case parser.SymbolanParserRULE_imaginary:
 		return ValueClass.IMAGINARY_CONSTANT
 	case parser.SymbolanParserRULE_math_constant:
@@ -173,8 +254,10 @@ func getLeafClass(rule int) ValueClass.ValueClass {
 		return ValueClass.VAR_RULE
 	case parser.SymbolanParserRULE_expr_rule:
 		return ValueClass.EXPR_RULE
-	case parser.SymbolanParserRULE_numeric_rule:
-		return ValueClass.NUMERIC_RULE
+	case parser.SymbolanParserRULE_derivative:
+		return ValueClass.DERIVATIVE
+	case parser.SymbolanParserRULE_derivative_rule:
+		return ValueClass.DERIVATIVE_RULE
 	default:
 		panic(fmt.Sprintf("Rule %v should't exist", rule))
 	}

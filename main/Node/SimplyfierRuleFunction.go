@@ -13,7 +13,7 @@ func subtraction(node *Node) Node {
 }
 
 func multiplication(node *Node) Node {
-	return *NewNodeFromValue(node.Left.NumericValue() + node.Right.NumericValue())
+	return *NewNodeFromValue(node.Left.NumericValue() * node.Right.NumericValue())
 }
 
 func division(node *Node) Node {
@@ -22,4 +22,8 @@ func division(node *Node) Node {
 
 func exponential(node *Node) Node {
 	return *NewNodeFromValue(math.Pow(node.Left.NumericValue(), node.Right.NumericValue()))
+}
+
+func VarDerivative(node *Node) Node {
+	return *NewNodeDerivatedVar(node)
 }

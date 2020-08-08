@@ -63,6 +63,30 @@ func (s *BaseSymbolanListener) EnterRuleAtom(ctx *RuleAtomContext) {}
 // ExitRuleAtom is called when production ruleAtom is exited.
 func (s *BaseSymbolanListener) ExitRuleAtom(ctx *RuleAtomContext) {}
 
+// EnterSign is called when production sign is entered.
+func (s *BaseSymbolanListener) EnterSign(ctx *SignContext) {}
+
+// ExitSign is called when production sign is exited.
+func (s *BaseSymbolanListener) ExitSign(ctx *SignContext) {}
+
+// EnterLeft_par is called when production left_par is entered.
+func (s *BaseSymbolanListener) EnterLeft_par(ctx *Left_parContext) {}
+
+// ExitLeft_par is called when production left_par is exited.
+func (s *BaseSymbolanListener) ExitLeft_par(ctx *Left_parContext) {}
+
+// EnterRight_par is called when production right_par is entered.
+func (s *BaseSymbolanListener) EnterRight_par(ctx *Right_parContext) {}
+
+// ExitRight_par is called when production right_par is exited.
+func (s *BaseSymbolanListener) ExitRight_par(ctx *Right_parContext) {}
+
+// EnterDerivative_rule is called when production derivative_rule is entered.
+func (s *BaseSymbolanListener) EnterDerivative_rule(ctx *Derivative_ruleContext) {}
+
+// ExitDerivative_rule is called when production derivative_rule is exited.
+func (s *BaseSymbolanListener) ExitDerivative_rule(ctx *Derivative_ruleContext) {}
+
 // EnterNumeric_rule is called when production numeric_rule is entered.
 func (s *BaseSymbolanListener) EnterNumeric_rule(ctx *Numeric_ruleContext) {}
 
@@ -86,18 +110,6 @@ func (s *BaseSymbolanListener) EnterExpr_rule(ctx *Expr_ruleContext) {}
 
 // ExitExpr_rule is called when production expr_rule is exited.
 func (s *BaseSymbolanListener) ExitExpr_rule(ctx *Expr_ruleContext) {}
-
-// EnterLeft_par is called when production left_par is entered.
-func (s *BaseSymbolanListener) EnterLeft_par(ctx *Left_parContext) {}
-
-// ExitLeft_par is called when production left_par is exited.
-func (s *BaseSymbolanListener) ExitLeft_par(ctx *Left_parContext) {}
-
-// EnterRight_par is called when production right_par is entered.
-func (s *BaseSymbolanListener) EnterRight_par(ctx *Right_parContext) {}
-
-// ExitRight_par is called when production right_par is exited.
-func (s *BaseSymbolanListener) ExitRight_par(ctx *Right_parContext) {}
 
 // EnterAtom is called when production atom is entered.
 func (s *BaseSymbolanListener) EnterAtom(ctx *AtomContext) {}
@@ -128,6 +140,12 @@ func (s *BaseSymbolanListener) EnterNumber(ctx *NumberContext) {}
 
 // ExitNumber is called when production number is exited.
 func (s *BaseSymbolanListener) ExitNumber(ctx *NumberContext) {}
+
+// EnterDerivative is called when production derivative is entered.
+func (s *BaseSymbolanListener) EnterDerivative(ctx *DerivativeContext) {}
+
+// ExitDerivative is called when production derivative is exited.
+func (s *BaseSymbolanListener) ExitDerivative(ctx *DerivativeContext) {}
 
 // EnterVariable is called when production variable is entered.
 func (s *BaseSymbolanListener) EnterVariable(ctx *VariableContext) {}

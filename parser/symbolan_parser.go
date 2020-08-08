@@ -16,69 +16,76 @@ var _ = reflect.Copy
 var _ = strconv.Itoa
 
 var parserATN = []uint16{
-	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 46, 152,
+	3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 49, 169,
 	4, 2, 9, 2, 4, 3, 9, 3, 4, 4, 9, 4, 4, 5, 9, 5, 4, 6, 9, 6, 4, 7, 9, 7,
 	4, 8, 9, 8, 4, 9, 9, 9, 4, 10, 9, 10, 4, 11, 9, 11, 4, 12, 9, 12, 4, 13,
 	9, 13, 4, 14, 9, 14, 4, 15, 9, 15, 4, 16, 9, 16, 4, 17, 9, 17, 4, 18, 9,
-	18, 4, 19, 9, 19, 4, 20, 9, 20, 4, 21, 9, 21, 4, 22, 9, 22, 3, 2, 3, 2,
-	7, 2, 47, 10, 2, 12, 2, 14, 2, 50, 11, 2, 7, 2, 52, 10, 2, 12, 2, 14, 2,
-	55, 11, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 5, 3, 62, 10, 3, 3, 4, 3, 4, 3,
-	5, 3, 5, 3, 5, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 5, 6, 77,
-	10, 6, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7,
-	3, 7, 5, 7, 91, 10, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7,
-	3, 7, 3, 7, 3, 7, 7, 7, 104, 10, 7, 12, 7, 14, 7, 107, 11, 7, 3, 8, 3,
-	8, 3, 8, 3, 8, 5, 8, 113, 10, 8, 3, 9, 3, 9, 3, 10, 3, 10, 3, 11, 3, 11,
-	3, 12, 3, 12, 3, 13, 3, 13, 3, 14, 3, 14, 3, 15, 3, 15, 3, 15, 3, 15, 3,
-	15, 3, 15, 5, 15, 133, 10, 15, 3, 16, 3, 16, 3, 17, 3, 17, 3, 18, 3, 18,
-	3, 19, 3, 19, 3, 20, 3, 20, 3, 21, 3, 21, 3, 22, 3, 22, 3, 22, 5, 22, 150,
-	10, 22, 3, 22, 2, 3, 12, 23, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24,
-	26, 28, 30, 32, 34, 36, 38, 40, 42, 2, 8, 3, 2, 20, 25, 3, 2, 5, 6, 3,
-	2, 7, 8, 3, 2, 9, 10, 4, 2, 27, 27, 30, 32, 3, 2, 38, 41, 2, 151, 2, 53,
-	3, 2, 2, 2, 4, 61, 3, 2, 2, 2, 6, 63, 3, 2, 2, 2, 8, 65, 3, 2, 2, 2, 10,
-	76, 3, 2, 2, 2, 12, 90, 3, 2, 2, 2, 14, 112, 3, 2, 2, 2, 16, 114, 3, 2,
-	2, 2, 18, 116, 3, 2, 2, 2, 20, 118, 3, 2, 2, 2, 22, 120, 3, 2, 2, 2, 24,
-	122, 3, 2, 2, 2, 26, 124, 3, 2, 2, 2, 28, 132, 3, 2, 2, 2, 30, 134, 3,
-	2, 2, 2, 32, 136, 3, 2, 2, 2, 34, 138, 3, 2, 2, 2, 36, 140, 3, 2, 2, 2,
-	38, 142, 3, 2, 2, 2, 40, 144, 3, 2, 2, 2, 42, 149, 3, 2, 2, 2, 44, 48,
-	5, 10, 6, 2, 45, 47, 7, 44, 2, 2, 46, 45, 3, 2, 2, 2, 47, 50, 3, 2, 2,
-	2, 48, 46, 3, 2, 2, 2, 48, 49, 3, 2, 2, 2, 49, 52, 3, 2, 2, 2, 50, 48,
-	3, 2, 2, 2, 51, 44, 3, 2, 2, 2, 52, 55, 3, 2, 2, 2, 53, 51, 3, 2, 2, 2,
-	53, 54, 3, 2, 2, 2, 54, 3, 3, 2, 2, 2, 55, 53, 3, 2, 2, 2, 56, 62, 5, 12,
-	7, 2, 57, 58, 5, 12, 7, 2, 58, 59, 7, 17, 2, 2, 59, 60, 5, 12, 7, 2, 60,
-	62, 3, 2, 2, 2, 61, 56, 3, 2, 2, 2, 61, 57, 3, 2, 2, 2, 62, 5, 3, 2, 2,
-	2, 63, 64, 9, 2, 2, 2, 64, 7, 3, 2, 2, 2, 65, 66, 7, 43, 2, 2, 66, 67,
-	7, 3, 2, 2, 67, 9, 3, 2, 2, 2, 68, 69, 5, 12, 7, 2, 69, 70, 7, 4, 2, 2,
-	70, 71, 5, 12, 7, 2, 71, 77, 3, 2, 2, 2, 72, 73, 5, 12, 7, 2, 73, 74, 7,
-	4, 2, 2, 74, 75, 5, 8, 5, 2, 75, 77, 3, 2, 2, 2, 76, 68, 3, 2, 2, 2, 76,
-	72, 3, 2, 2, 2, 77, 11, 3, 2, 2, 2, 78, 79, 8, 7, 1, 2, 79, 80, 5, 24,
-	13, 2, 80, 81, 5, 12, 7, 2, 81, 82, 5, 26, 14, 2, 82, 91, 3, 2, 2, 2, 83,
-	84, 5, 6, 4, 2, 84, 85, 5, 24, 13, 2, 85, 86, 5, 12, 7, 2, 86, 87, 5, 26,
-	14, 2, 87, 91, 3, 2, 2, 2, 88, 91, 5, 28, 15, 2, 89, 91, 5, 14, 8, 2, 90,
-	78, 3, 2, 2, 2, 90, 83, 3, 2, 2, 2, 90, 88, 3, 2, 2, 2, 90, 89, 3, 2, 2,
-	2, 91, 105, 3, 2, 2, 2, 92, 93, 12, 10, 2, 2, 93, 104, 5, 12, 7, 11, 94,
-	95, 12, 8, 2, 2, 95, 96, 9, 3, 2, 2, 96, 104, 5, 12, 7, 9, 97, 98, 12,
-	7, 2, 2, 98, 99, 9, 4, 2, 2, 99, 104, 5, 12, 7, 8, 100, 101, 12, 6, 2,
-	2, 101, 102, 9, 5, 2, 2, 102, 104, 5, 12, 7, 7, 103, 92, 3, 2, 2, 2, 103,
-	94, 3, 2, 2, 2, 103, 97, 3, 2, 2, 2, 103, 100, 3, 2, 2, 2, 104, 107, 3,
-	2, 2, 2, 105, 103, 3, 2, 2, 2, 105, 106, 3, 2, 2, 2, 106, 13, 3, 2, 2,
-	2, 107, 105, 3, 2, 2, 2, 108, 113, 5, 18, 10, 2, 109, 113, 5, 20, 11, 2,
-	110, 113, 5, 22, 12, 2, 111, 113, 5, 16, 9, 2, 112, 108, 3, 2, 2, 2, 112,
-	109, 3, 2, 2, 2, 112, 110, 3, 2, 2, 2, 112, 111, 3, 2, 2, 2, 113, 15, 3,
-	2, 2, 2, 114, 115, 7, 33, 2, 2, 115, 17, 3, 2, 2, 2, 116, 117, 7, 34, 2,
-	2, 117, 19, 3, 2, 2, 2, 118, 119, 7, 35, 2, 2, 119, 21, 3, 2, 2, 2, 120,
-	121, 7, 36, 2, 2, 121, 23, 3, 2, 2, 2, 122, 123, 7, 11, 2, 2, 123, 25,
-	3, 2, 2, 2, 124, 125, 7, 12, 2, 2, 125, 27, 3, 2, 2, 2, 126, 133, 5, 36,
-	19, 2, 127, 133, 5, 38, 20, 2, 128, 133, 5, 40, 21, 2, 129, 133, 5, 36,
-	19, 2, 130, 133, 5, 30, 16, 2, 131, 133, 5, 34, 18, 2, 132, 126, 3, 2,
-	2, 2, 132, 127, 3, 2, 2, 2, 132, 128, 3, 2, 2, 2, 132, 129, 3, 2, 2, 2,
-	132, 130, 3, 2, 2, 2, 132, 131, 3, 2, 2, 2, 133, 29, 3, 2, 2, 2, 134, 135,
-	9, 6, 2, 2, 135, 31, 3, 2, 2, 2, 136, 137, 7, 31, 2, 2, 137, 33, 3, 2,
-	2, 2, 138, 139, 7, 42, 2, 2, 139, 35, 3, 2, 2, 2, 140, 141, 9, 7, 2, 2,
-	141, 37, 3, 2, 2, 2, 142, 143, 7, 28, 2, 2, 143, 39, 3, 2, 2, 2, 144, 145,
-	7, 29, 2, 2, 145, 41, 3, 2, 2, 2, 146, 150, 9, 3, 2, 2, 147, 150, 9, 4,
-	2, 2, 148, 150, 9, 5, 2, 2, 149, 146, 3, 2, 2, 2, 149, 147, 3, 2, 2, 2,
-	149, 148, 3, 2, 2, 2, 150, 43, 3, 2, 2, 2, 12, 48, 53, 61, 76, 90, 103,
-	105, 112, 132, 149,
+	18, 4, 19, 9, 19, 4, 20, 9, 20, 4, 21, 9, 21, 4, 22, 9, 22, 4, 23, 9, 23,
+	4, 24, 9, 24, 4, 25, 9, 25, 3, 2, 3, 2, 7, 2, 53, 10, 2, 12, 2, 14, 2,
+	56, 11, 2, 7, 2, 58, 10, 2, 12, 2, 14, 2, 61, 11, 2, 3, 3, 3, 3, 3, 3,
+	3, 3, 3, 3, 5, 3, 68, 10, 3, 3, 4, 3, 4, 3, 5, 3, 5, 3, 5, 3, 6, 3, 6,
+	3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 3, 6, 5, 6, 83, 10, 6, 3, 7, 3, 7, 3, 7,
+	3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7,
+	5, 7, 100, 10, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7, 3, 7,
+	3, 7, 3, 7, 7, 7, 113, 10, 7, 12, 7, 14, 7, 116, 11, 7, 3, 8, 3, 8, 3,
+	8, 3, 8, 3, 8, 5, 8, 123, 10, 8, 3, 9, 3, 9, 3, 10, 3, 10, 3, 11, 3, 11,
+	3, 12, 3, 12, 3, 13, 3, 13, 3, 14, 3, 14, 3, 15, 3, 15, 3, 16, 3, 16, 3,
+	17, 3, 17, 3, 17, 3, 17, 3, 17, 3, 17, 3, 17, 5, 17, 148, 10, 17, 3, 18,
+	3, 18, 3, 19, 3, 19, 3, 20, 3, 20, 3, 21, 3, 21, 3, 22, 3, 22, 3, 23, 3,
+	23, 3, 24, 3, 24, 3, 25, 3, 25, 3, 25, 5, 25, 167, 10, 25, 3, 25, 2, 3,
+	12, 26, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34,
+	36, 38, 40, 42, 44, 46, 48, 2, 8, 4, 2, 20, 25, 27, 27, 3, 2, 5, 6, 3,
+	2, 7, 8, 3, 2, 9, 10, 4, 2, 28, 28, 32, 34, 3, 2, 41, 44, 2, 168, 2, 59,
+	3, 2, 2, 2, 4, 67, 3, 2, 2, 2, 6, 69, 3, 2, 2, 2, 8, 71, 3, 2, 2, 2, 10,
+	82, 3, 2, 2, 2, 12, 99, 3, 2, 2, 2, 14, 122, 3, 2, 2, 2, 16, 124, 3, 2,
+	2, 2, 18, 126, 3, 2, 2, 2, 20, 128, 3, 2, 2, 2, 22, 130, 3, 2, 2, 2, 24,
+	132, 3, 2, 2, 2, 26, 134, 3, 2, 2, 2, 28, 136, 3, 2, 2, 2, 30, 138, 3,
+	2, 2, 2, 32, 147, 3, 2, 2, 2, 34, 149, 3, 2, 2, 2, 36, 151, 3, 2, 2, 2,
+	38, 153, 3, 2, 2, 2, 40, 155, 3, 2, 2, 2, 42, 157, 3, 2, 2, 2, 44, 159,
+	3, 2, 2, 2, 46, 161, 3, 2, 2, 2, 48, 166, 3, 2, 2, 2, 50, 54, 5, 10, 6,
+	2, 51, 53, 7, 47, 2, 2, 52, 51, 3, 2, 2, 2, 53, 56, 3, 2, 2, 2, 54, 52,
+	3, 2, 2, 2, 54, 55, 3, 2, 2, 2, 55, 58, 3, 2, 2, 2, 56, 54, 3, 2, 2, 2,
+	57, 50, 3, 2, 2, 2, 58, 61, 3, 2, 2, 2, 59, 57, 3, 2, 2, 2, 59, 60, 3,
+	2, 2, 2, 60, 3, 3, 2, 2, 2, 61, 59, 3, 2, 2, 2, 62, 68, 5, 12, 7, 2, 63,
+	64, 5, 12, 7, 2, 64, 65, 7, 17, 2, 2, 65, 66, 5, 12, 7, 2, 66, 68, 3, 2,
+	2, 2, 67, 62, 3, 2, 2, 2, 67, 63, 3, 2, 2, 2, 68, 5, 3, 2, 2, 2, 69, 70,
+	9, 2, 2, 2, 70, 7, 3, 2, 2, 2, 71, 72, 7, 46, 2, 2, 72, 73, 7, 3, 2, 2,
+	73, 9, 3, 2, 2, 2, 74, 75, 5, 12, 7, 2, 75, 76, 7, 4, 2, 2, 76, 77, 5,
+	12, 7, 2, 77, 83, 3, 2, 2, 2, 78, 79, 5, 12, 7, 2, 79, 80, 7, 4, 2, 2,
+	80, 81, 5, 8, 5, 2, 81, 83, 3, 2, 2, 2, 82, 74, 3, 2, 2, 2, 82, 78, 3,
+	2, 2, 2, 83, 11, 3, 2, 2, 2, 84, 85, 8, 7, 1, 2, 85, 86, 5, 18, 10, 2,
+	86, 87, 5, 12, 7, 2, 87, 88, 5, 20, 11, 2, 88, 100, 3, 2, 2, 2, 89, 90,
+	5, 16, 9, 2, 90, 91, 5, 12, 7, 6, 91, 100, 3, 2, 2, 2, 92, 93, 5, 6, 4,
+	2, 93, 94, 5, 18, 10, 2, 94, 95, 5, 12, 7, 2, 95, 96, 5, 20, 11, 2, 96,
+	100, 3, 2, 2, 2, 97, 100, 5, 32, 17, 2, 98, 100, 5, 14, 8, 2, 99, 84, 3,
+	2, 2, 2, 99, 89, 3, 2, 2, 2, 99, 92, 3, 2, 2, 2, 99, 97, 3, 2, 2, 2, 99,
+	98, 3, 2, 2, 2, 100, 114, 3, 2, 2, 2, 101, 102, 12, 11, 2, 2, 102, 113,
+	5, 12, 7, 12, 103, 104, 12, 9, 2, 2, 104, 105, 9, 3, 2, 2, 105, 113, 5,
+	12, 7, 10, 106, 107, 12, 8, 2, 2, 107, 108, 9, 4, 2, 2, 108, 113, 5, 12,
+	7, 9, 109, 110, 12, 7, 2, 2, 110, 111, 9, 5, 2, 2, 111, 113, 5, 12, 7,
+	8, 112, 101, 3, 2, 2, 2, 112, 103, 3, 2, 2, 2, 112, 106, 3, 2, 2, 2, 112,
+	109, 3, 2, 2, 2, 113, 116, 3, 2, 2, 2, 114, 112, 3, 2, 2, 2, 114, 115,
+	3, 2, 2, 2, 115, 13, 3, 2, 2, 2, 116, 114, 3, 2, 2, 2, 117, 123, 5, 26,
+	14, 2, 118, 123, 5, 28, 15, 2, 119, 123, 5, 30, 16, 2, 120, 123, 5, 24,
+	13, 2, 121, 123, 5, 22, 12, 2, 122, 117, 3, 2, 2, 2, 122, 118, 3, 2, 2,
+	2, 122, 119, 3, 2, 2, 2, 122, 120, 3, 2, 2, 2, 122, 121, 3, 2, 2, 2, 123,
+	15, 3, 2, 2, 2, 124, 125, 9, 5, 2, 2, 125, 17, 3, 2, 2, 2, 126, 127, 7,
+	11, 2, 2, 127, 19, 3, 2, 2, 2, 128, 129, 7, 12, 2, 2, 129, 21, 3, 2, 2,
+	2, 130, 131, 7, 35, 2, 2, 131, 23, 3, 2, 2, 2, 132, 133, 7, 36, 2, 2, 133,
+	25, 3, 2, 2, 2, 134, 135, 7, 37, 2, 2, 135, 27, 3, 2, 2, 2, 136, 137, 7,
+	38, 2, 2, 137, 29, 3, 2, 2, 2, 138, 139, 7, 39, 2, 2, 139, 31, 3, 2, 2,
+	2, 140, 148, 5, 40, 21, 2, 141, 148, 5, 44, 23, 2, 142, 148, 5, 46, 24,
+	2, 143, 148, 5, 40, 21, 2, 144, 148, 5, 34, 18, 2, 145, 148, 5, 38, 20,
+	2, 146, 148, 5, 42, 22, 2, 147, 140, 3, 2, 2, 2, 147, 141, 3, 2, 2, 2,
+	147, 142, 3, 2, 2, 2, 147, 143, 3, 2, 2, 2, 147, 144, 3, 2, 2, 2, 147,
+	145, 3, 2, 2, 2, 147, 146, 3, 2, 2, 2, 148, 33, 3, 2, 2, 2, 149, 150, 9,
+	6, 2, 2, 150, 35, 3, 2, 2, 2, 151, 152, 7, 33, 2, 2, 152, 37, 3, 2, 2,
+	2, 153, 154, 7, 45, 2, 2, 154, 39, 3, 2, 2, 2, 155, 156, 9, 7, 2, 2, 156,
+	41, 3, 2, 2, 2, 157, 158, 7, 29, 2, 2, 158, 43, 3, 2, 2, 2, 159, 160, 7,
+	30, 2, 2, 160, 45, 3, 2, 2, 2, 161, 162, 7, 31, 2, 2, 162, 47, 3, 2, 2,
+	2, 163, 167, 9, 3, 2, 2, 164, 167, 9, 4, 2, 2, 165, 167, 9, 5, 2, 2, 166,
+	163, 3, 2, 2, 2, 166, 164, 3, 2, 2, 2, 166, 165, 3, 2, 2, 2, 167, 49, 3,
+	2, 2, 2, 12, 54, 59, 67, 82, 99, 112, 114, 122, 147, 166,
 }
 var deserializer = antlr.NewATNDeserializer(nil)
 var deserializedATN = deserializer.DeserializeFromUInt16(parserATN)
@@ -86,22 +93,25 @@ var deserializedATN = deserializer.DeserializeFromUInt16(parserATN)
 var literalNames = []string{
 	"", "'()'", "'=>'", "'^'", "'**'", "'*'", "'/'", "'+'", "'-'", "'('", "')'",
 	"'{'", "'}'", "'['", "']'", "'='", "','", "'!'", "'min'", "'max'", "'sin'",
-	"'cos'", "'tan'", "'log'", "'sqrt'", "'pi'", "", "", "", "", "'undef'",
+	"'cos'", "'tan'", "'log'", "'sqrt'", "'D'", "'pi'", "", "", "", "", "",
+	"'undef'",
 }
 var symbolicNames = []string{
 	"", "", "", "", "", "", "", "", "", "L_PAREN", "R_PAREN", "L_CURLY", "R_CURLY",
 	"L_BRACKET", "R_BRACKET", "ASSIGN", "COMMA", "FACTORIAL", "MIN", "MAX",
-	"SIN", "COS", "TAN", "LOG", "SQRT", "PI", "VAR", "CONST", "EULER", "INFINITE",
-	"UNDEFINED", "NUMERIC_RULE", "CONST_RULE", "VAR_RULE", "EXPR_RULE", "IMAGINARY",
-	"DECIMAL_LIT", "OCTAL_LIT", "HEX_LIT", "FLOAT_LIT", "IMAGINARY_LIT", "IDENTIFIER",
-	"NEWLINE", "WS", "LINE_COMMENT",
+	"SIN", "COS", "TAN", "LOG", "SQRT", "DERIVATIVE_OPERATOR", "PI", "DERIVATIVE",
+	"VAR", "CONST", "EULER", "INFINITE", "UNDEFINED", "DERIVATE_RULE", "NUMERIC_RULE",
+	"CONST_RULE", "VAR_RULE", "EXPR_RULE", "IMAGINARY", "DECIMAL_LIT", "OCTAL_LIT",
+	"HEX_LIT", "FLOAT_LIT", "IMAGINARY_LIT", "IDENTIFIER", "NEWLINE", "WS",
+	"LINE_COMMENT",
 }
 
 var ruleNames = []string{
 	"ruleSet", "eq", "system_functions", "rule_function", "expressionRule",
-	"expr", "ruleAtom", "numeric_rule", "const_rule", "var_rule", "expr_rule",
-	"left_par", "right_par", "atom", "math_constant", "infinite", "imaginary",
-	"number", "variable", "constant", "bi_operators",
+	"expr", "ruleAtom", "sign", "left_par", "right_par", "derivative_rule",
+	"numeric_rule", "const_rule", "var_rule", "expr_rule", "atom", "math_constant",
+	"infinite", "imaginary", "number", "derivative", "variable", "constant",
+	"bi_operators",
 }
 var decisionToDFA = make([]*antlr.DFA, len(deserializedATN.DecisionToState))
 
@@ -131,51 +141,54 @@ func NewSymbolanParser(input antlr.TokenStream) *SymbolanParser {
 
 // SymbolanParser tokens.
 const (
-	SymbolanParserEOF           = antlr.TokenEOF
-	SymbolanParserT__0          = 1
-	SymbolanParserT__1          = 2
-	SymbolanParserT__2          = 3
-	SymbolanParserT__3          = 4
-	SymbolanParserT__4          = 5
-	SymbolanParserT__5          = 6
-	SymbolanParserT__6          = 7
-	SymbolanParserT__7          = 8
-	SymbolanParserL_PAREN       = 9
-	SymbolanParserR_PAREN       = 10
-	SymbolanParserL_CURLY       = 11
-	SymbolanParserR_CURLY       = 12
-	SymbolanParserL_BRACKET     = 13
-	SymbolanParserR_BRACKET     = 14
-	SymbolanParserASSIGN        = 15
-	SymbolanParserCOMMA         = 16
-	SymbolanParserFACTORIAL     = 17
-	SymbolanParserMIN           = 18
-	SymbolanParserMAX           = 19
-	SymbolanParserSIN           = 20
-	SymbolanParserCOS           = 21
-	SymbolanParserTAN           = 22
-	SymbolanParserLOG           = 23
-	SymbolanParserSQRT          = 24
-	SymbolanParserPI            = 25
-	SymbolanParserVAR           = 26
-	SymbolanParserCONST         = 27
-	SymbolanParserEULER         = 28
-	SymbolanParserINFINITE      = 29
-	SymbolanParserUNDEFINED     = 30
-	SymbolanParserNUMERIC_RULE  = 31
-	SymbolanParserCONST_RULE    = 32
-	SymbolanParserVAR_RULE      = 33
-	SymbolanParserEXPR_RULE     = 34
-	SymbolanParserIMAGINARY     = 35
-	SymbolanParserDECIMAL_LIT   = 36
-	SymbolanParserOCTAL_LIT     = 37
-	SymbolanParserHEX_LIT       = 38
-	SymbolanParserFLOAT_LIT     = 39
-	SymbolanParserIMAGINARY_LIT = 40
-	SymbolanParserIDENTIFIER    = 41
-	SymbolanParserNEWLINE       = 42
-	SymbolanParserWS            = 43
-	SymbolanParserLINE_COMMENT  = 44
+	SymbolanParserEOF                 = antlr.TokenEOF
+	SymbolanParserT__0                = 1
+	SymbolanParserT__1                = 2
+	SymbolanParserT__2                = 3
+	SymbolanParserT__3                = 4
+	SymbolanParserT__4                = 5
+	SymbolanParserT__5                = 6
+	SymbolanParserT__6                = 7
+	SymbolanParserT__7                = 8
+	SymbolanParserL_PAREN             = 9
+	SymbolanParserR_PAREN             = 10
+	SymbolanParserL_CURLY             = 11
+	SymbolanParserR_CURLY             = 12
+	SymbolanParserL_BRACKET           = 13
+	SymbolanParserR_BRACKET           = 14
+	SymbolanParserASSIGN              = 15
+	SymbolanParserCOMMA               = 16
+	SymbolanParserFACTORIAL           = 17
+	SymbolanParserMIN                 = 18
+	SymbolanParserMAX                 = 19
+	SymbolanParserSIN                 = 20
+	SymbolanParserCOS                 = 21
+	SymbolanParserTAN                 = 22
+	SymbolanParserLOG                 = 23
+	SymbolanParserSQRT                = 24
+	SymbolanParserDERIVATIVE_OPERATOR = 25
+	SymbolanParserPI                  = 26
+	SymbolanParserDERIVATIVE          = 27
+	SymbolanParserVAR                 = 28
+	SymbolanParserCONST               = 29
+	SymbolanParserEULER               = 30
+	SymbolanParserINFINITE            = 31
+	SymbolanParserUNDEFINED           = 32
+	SymbolanParserDERIVATE_RULE       = 33
+	SymbolanParserNUMERIC_RULE        = 34
+	SymbolanParserCONST_RULE          = 35
+	SymbolanParserVAR_RULE            = 36
+	SymbolanParserEXPR_RULE           = 37
+	SymbolanParserIMAGINARY           = 38
+	SymbolanParserDECIMAL_LIT         = 39
+	SymbolanParserOCTAL_LIT           = 40
+	SymbolanParserHEX_LIT             = 41
+	SymbolanParserFLOAT_LIT           = 42
+	SymbolanParserIMAGINARY_LIT       = 43
+	SymbolanParserIDENTIFIER          = 44
+	SymbolanParserNEWLINE             = 45
+	SymbolanParserWS                  = 46
+	SymbolanParserLINE_COMMENT        = 47
 )
 
 // SymbolanParser rules.
@@ -187,20 +200,23 @@ const (
 	SymbolanParserRULE_expressionRule   = 4
 	SymbolanParserRULE_expr             = 5
 	SymbolanParserRULE_ruleAtom         = 6
-	SymbolanParserRULE_numeric_rule     = 7
-	SymbolanParserRULE_const_rule       = 8
-	SymbolanParserRULE_var_rule         = 9
-	SymbolanParserRULE_expr_rule        = 10
-	SymbolanParserRULE_left_par         = 11
-	SymbolanParserRULE_right_par        = 12
-	SymbolanParserRULE_atom             = 13
-	SymbolanParserRULE_math_constant    = 14
-	SymbolanParserRULE_infinite         = 15
-	SymbolanParserRULE_imaginary        = 16
-	SymbolanParserRULE_number           = 17
-	SymbolanParserRULE_variable         = 18
-	SymbolanParserRULE_constant         = 19
-	SymbolanParserRULE_bi_operators     = 20
+	SymbolanParserRULE_sign             = 7
+	SymbolanParserRULE_left_par         = 8
+	SymbolanParserRULE_right_par        = 9
+	SymbolanParserRULE_derivative_rule  = 10
+	SymbolanParserRULE_numeric_rule     = 11
+	SymbolanParserRULE_const_rule       = 12
+	SymbolanParserRULE_var_rule         = 13
+	SymbolanParserRULE_expr_rule        = 14
+	SymbolanParserRULE_atom             = 15
+	SymbolanParserRULE_math_constant    = 16
+	SymbolanParserRULE_infinite         = 17
+	SymbolanParserRULE_imaginary        = 18
+	SymbolanParserRULE_number           = 19
+	SymbolanParserRULE_derivative       = 20
+	SymbolanParserRULE_variable         = 21
+	SymbolanParserRULE_constant         = 22
+	SymbolanParserRULE_bi_operators     = 23
 )
 
 // IRuleSetContext is an interface to support dynamic dispatch.
@@ -314,31 +330,31 @@ func (p *SymbolanParser) RuleSet() (localctx IRuleSetContext) {
 	}()
 
 	p.EnterOuterAlt(localctx, 1)
-	p.SetState(51)
+	p.SetState(57)
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
-	for ((_la-9)&-(0x1f+1)) == 0 && ((1<<uint((_la-9)))&((1<<(SymbolanParserL_PAREN-9))|(1<<(SymbolanParserMIN-9))|(1<<(SymbolanParserMAX-9))|(1<<(SymbolanParserSIN-9))|(1<<(SymbolanParserCOS-9))|(1<<(SymbolanParserTAN-9))|(1<<(SymbolanParserLOG-9))|(1<<(SymbolanParserPI-9))|(1<<(SymbolanParserVAR-9))|(1<<(SymbolanParserCONST-9))|(1<<(SymbolanParserEULER-9))|(1<<(SymbolanParserINFINITE-9))|(1<<(SymbolanParserUNDEFINED-9))|(1<<(SymbolanParserNUMERIC_RULE-9))|(1<<(SymbolanParserCONST_RULE-9))|(1<<(SymbolanParserVAR_RULE-9))|(1<<(SymbolanParserEXPR_RULE-9))|(1<<(SymbolanParserDECIMAL_LIT-9))|(1<<(SymbolanParserOCTAL_LIT-9))|(1<<(SymbolanParserHEX_LIT-9))|(1<<(SymbolanParserFLOAT_LIT-9))|(1<<(SymbolanParserIMAGINARY_LIT-9)))) != 0 {
+	for (((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<SymbolanParserT__6)|(1<<SymbolanParserT__7)|(1<<SymbolanParserL_PAREN)|(1<<SymbolanParserMIN)|(1<<SymbolanParserMAX)|(1<<SymbolanParserSIN)|(1<<SymbolanParserCOS)|(1<<SymbolanParserTAN)|(1<<SymbolanParserLOG)|(1<<SymbolanParserDERIVATIVE_OPERATOR)|(1<<SymbolanParserPI)|(1<<SymbolanParserDERIVATIVE)|(1<<SymbolanParserVAR)|(1<<SymbolanParserCONST)|(1<<SymbolanParserEULER)|(1<<SymbolanParserINFINITE))) != 0) || (((_la-32)&-(0x1f+1)) == 0 && ((1<<uint((_la-32)))&((1<<(SymbolanParserUNDEFINED-32))|(1<<(SymbolanParserDERIVATE_RULE-32))|(1<<(SymbolanParserNUMERIC_RULE-32))|(1<<(SymbolanParserCONST_RULE-32))|(1<<(SymbolanParserVAR_RULE-32))|(1<<(SymbolanParserEXPR_RULE-32))|(1<<(SymbolanParserDECIMAL_LIT-32))|(1<<(SymbolanParserOCTAL_LIT-32))|(1<<(SymbolanParserHEX_LIT-32))|(1<<(SymbolanParserFLOAT_LIT-32))|(1<<(SymbolanParserIMAGINARY_LIT-32)))) != 0) {
 		{
-			p.SetState(42)
+			p.SetState(48)
 			p.ExpressionRule()
 		}
-		p.SetState(46)
+		p.SetState(52)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 
 		for _la == SymbolanParserNEWLINE {
 			{
-				p.SetState(43)
+				p.SetState(49)
 				p.Match(SymbolanParserNEWLINE)
 			}
 
-			p.SetState(48)
+			p.SetState(54)
 			p.GetErrorHandler().Sync(p)
 			_la = p.GetTokenStream().LA(1)
 		}
 
-		p.SetState(53)
+		p.SetState(59)
 		p.GetErrorHandler().Sync(p)
 		_la = p.GetTokenStream().LA(1)
 	}
@@ -447,28 +463,28 @@ func (p *SymbolanParser) Eq() (localctx IEqContext) {
 		}
 	}()
 
-	p.SetState(59)
+	p.SetState(65)
 	p.GetErrorHandler().Sync(p)
 	switch p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 2, p.GetParserRuleContext()) {
 	case 1:
 		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(54)
+			p.SetState(60)
 			p.expr(0)
 		}
 
 	case 2:
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(55)
+			p.SetState(61)
 			p.expr(0)
 		}
 		{
-			p.SetState(56)
+			p.SetState(62)
 			p.Match(SymbolanParserASSIGN)
 		}
 		{
-			p.SetState(57)
+			p.SetState(63)
 			p.expr(0)
 		}
 
@@ -539,6 +555,10 @@ func (s *System_functionsContext) LOG() antlr.TerminalNode {
 	return s.GetToken(SymbolanParserLOG, 0)
 }
 
+func (s *System_functionsContext) DERIVATIVE_OPERATOR() antlr.TerminalNode {
+	return s.GetToken(SymbolanParserDERIVATIVE_OPERATOR, 0)
+}
+
 func (s *System_functionsContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
@@ -582,10 +602,10 @@ func (p *SymbolanParser) System_functions() (localctx ISystem_functionsContext) 
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(61)
+		p.SetState(67)
 		_la = p.GetTokenStream().LA(1)
 
-		if !(((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<SymbolanParserMIN)|(1<<SymbolanParserMAX)|(1<<SymbolanParserSIN)|(1<<SymbolanParserCOS)|(1<<SymbolanParserTAN)|(1<<SymbolanParserLOG))) != 0) {
+		if !(((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<SymbolanParserMIN)|(1<<SymbolanParserMAX)|(1<<SymbolanParserSIN)|(1<<SymbolanParserCOS)|(1<<SymbolanParserTAN)|(1<<SymbolanParserLOG)|(1<<SymbolanParserDERIVATIVE_OPERATOR))) != 0) {
 			p.GetErrorHandler().RecoverInline(p)
 		} else {
 			p.GetErrorHandler().ReportMatch(p)
@@ -680,11 +700,11 @@ func (p *SymbolanParser) Rule_function() (localctx IRule_functionContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(63)
+		p.SetState(69)
 		p.Match(SymbolanParserIDENTIFIER)
 	}
 	{
-		p.SetState(64)
+		p.SetState(70)
 		p.Match(SymbolanParserT__0)
 	}
 
@@ -802,36 +822,36 @@ func (p *SymbolanParser) ExpressionRule() (localctx IExpressionRuleContext) {
 		}
 	}()
 
-	p.SetState(74)
+	p.SetState(80)
 	p.GetErrorHandler().Sync(p)
 	switch p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 3, p.GetParserRuleContext()) {
 	case 1:
 		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(66)
+			p.SetState(72)
 			p.expr(0)
 		}
 		{
-			p.SetState(67)
+			p.SetState(73)
 			p.Match(SymbolanParserT__1)
 		}
 		{
-			p.SetState(68)
+			p.SetState(74)
 			p.expr(0)
 		}
 
 	case 2:
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(70)
+			p.SetState(76)
 			p.expr(0)
 		}
 		{
-			p.SetState(71)
+			p.SetState(77)
 			p.Match(SymbolanParserT__1)
 		}
 		{
-			p.SetState(72)
+			p.SetState(78)
 			p.Rule_function()
 		}
 
@@ -921,6 +941,16 @@ func (s *ExprContext) Right_par() IRight_parContext {
 	return t.(IRight_parContext)
 }
 
+func (s *ExprContext) Sign() ISignContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*ISignContext)(nil)).Elem(), 0)
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(ISignContext)
+}
+
 func (s *ExprContext) System_functions() ISystem_functionsContext {
 	var t = s.GetTypedRuleContext(reflect.TypeOf((*ISystem_functionsContext)(nil)).Elem(), 0)
 
@@ -1004,51 +1034,61 @@ func (p *SymbolanParser) expr(_p int) (localctx IExprContext) {
 	var _alt int
 
 	p.EnterOuterAlt(localctx, 1)
-	p.SetState(88)
+	p.SetState(97)
 	p.GetErrorHandler().Sync(p)
 
 	switch p.GetTokenStream().LA(1) {
 	case SymbolanParserL_PAREN:
 		{
-			p.SetState(77)
-			p.Left_par()
-		}
-		{
-			p.SetState(78)
-			p.expr(0)
-		}
-		{
-			p.SetState(79)
-			p.Right_par()
-		}
-
-	case SymbolanParserMIN, SymbolanParserMAX, SymbolanParserSIN, SymbolanParserCOS, SymbolanParserTAN, SymbolanParserLOG:
-		{
-			p.SetState(81)
-			p.System_functions()
-		}
-		{
-			p.SetState(82)
-			p.Left_par()
-		}
-		{
 			p.SetState(83)
-			p.expr(0)
+			p.Left_par()
 		}
 		{
 			p.SetState(84)
+			p.expr(0)
+		}
+		{
+			p.SetState(85)
 			p.Right_par()
 		}
 
-	case SymbolanParserPI, SymbolanParserVAR, SymbolanParserCONST, SymbolanParserEULER, SymbolanParserINFINITE, SymbolanParserUNDEFINED, SymbolanParserDECIMAL_LIT, SymbolanParserOCTAL_LIT, SymbolanParserHEX_LIT, SymbolanParserFLOAT_LIT, SymbolanParserIMAGINARY_LIT:
+	case SymbolanParserT__6, SymbolanParserT__7:
 		{
-			p.SetState(86)
+			p.SetState(87)
+			p.Sign()
+		}
+		{
+			p.SetState(88)
+			p.expr(4)
+		}
+
+	case SymbolanParserMIN, SymbolanParserMAX, SymbolanParserSIN, SymbolanParserCOS, SymbolanParserTAN, SymbolanParserLOG, SymbolanParserDERIVATIVE_OPERATOR:
+		{
+			p.SetState(90)
+			p.System_functions()
+		}
+		{
+			p.SetState(91)
+			p.Left_par()
+		}
+		{
+			p.SetState(92)
+			p.expr(0)
+		}
+		{
+			p.SetState(93)
+			p.Right_par()
+		}
+
+	case SymbolanParserPI, SymbolanParserDERIVATIVE, SymbolanParserVAR, SymbolanParserCONST, SymbolanParserEULER, SymbolanParserINFINITE, SymbolanParserUNDEFINED, SymbolanParserDECIMAL_LIT, SymbolanParserOCTAL_LIT, SymbolanParserHEX_LIT, SymbolanParserFLOAT_LIT, SymbolanParserIMAGINARY_LIT:
+		{
+			p.SetState(95)
 			p.Atom()
 		}
 
-	case SymbolanParserNUMERIC_RULE, SymbolanParserCONST_RULE, SymbolanParserVAR_RULE, SymbolanParserEXPR_RULE:
+	case SymbolanParserDERIVATE_RULE, SymbolanParserNUMERIC_RULE, SymbolanParserCONST_RULE, SymbolanParserVAR_RULE, SymbolanParserEXPR_RULE:
 		{
-			p.SetState(87)
+			p.SetState(96)
 			p.RuleAtom()
 		}
 
@@ -1056,7 +1096,7 @@ func (p *SymbolanParser) expr(_p int) (localctx IExprContext) {
 		panic(antlr.NewNoViableAltException(p, nil, nil, nil, nil, nil))
 	}
 	p.GetParserRuleContext().SetStop(p.GetTokenStream().LT(-1))
-	p.SetState(103)
+	p.SetState(112)
 	p.GetErrorHandler().Sync(p)
 	_alt = p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 6, p.GetParserRuleContext())
 
@@ -1066,32 +1106,32 @@ func (p *SymbolanParser) expr(_p int) (localctx IExprContext) {
 				p.TriggerExitRuleEvent()
 			}
 			_prevctx = localctx
-			p.SetState(101)
+			p.SetState(110)
 			p.GetErrorHandler().Sync(p)
 			switch p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 5, p.GetParserRuleContext()) {
 			case 1:
 				localctx = NewExprContext(p, _parentctx, _parentState)
 				p.PushNewRecursionContext(localctx, _startState, SymbolanParserRULE_expr)
-				p.SetState(90)
+				p.SetState(99)
 
-				if !(p.Precpred(p.GetParserRuleContext(), 8)) {
-					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 8)", ""))
+				if !(p.Precpred(p.GetParserRuleContext(), 9)) {
+					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 9)", ""))
 				}
 				{
-					p.SetState(91)
-					p.expr(9)
+					p.SetState(100)
+					p.expr(10)
 				}
 
 			case 2:
 				localctx = NewExprContext(p, _parentctx, _parentState)
 				p.PushNewRecursionContext(localctx, _startState, SymbolanParserRULE_expr)
-				p.SetState(92)
+				p.SetState(101)
 
-				if !(p.Precpred(p.GetParserRuleContext(), 6)) {
-					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 6)", ""))
+				if !(p.Precpred(p.GetParserRuleContext(), 7)) {
+					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 7)", ""))
 				}
 				{
-					p.SetState(93)
+					p.SetState(102)
 					_la = p.GetTokenStream().LA(1)
 
 					if !(_la == SymbolanParserT__2 || _la == SymbolanParserT__3) {
@@ -1102,20 +1142,20 @@ func (p *SymbolanParser) expr(_p int) (localctx IExprContext) {
 					}
 				}
 				{
-					p.SetState(94)
-					p.expr(7)
+					p.SetState(103)
+					p.expr(8)
 				}
 
 			case 3:
 				localctx = NewExprContext(p, _parentctx, _parentState)
 				p.PushNewRecursionContext(localctx, _startState, SymbolanParserRULE_expr)
-				p.SetState(95)
+				p.SetState(104)
 
-				if !(p.Precpred(p.GetParserRuleContext(), 5)) {
-					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 5)", ""))
+				if !(p.Precpred(p.GetParserRuleContext(), 6)) {
+					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 6)", ""))
 				}
 				{
-					p.SetState(96)
+					p.SetState(105)
 					_la = p.GetTokenStream().LA(1)
 
 					if !(_la == SymbolanParserT__4 || _la == SymbolanParserT__5) {
@@ -1126,20 +1166,20 @@ func (p *SymbolanParser) expr(_p int) (localctx IExprContext) {
 					}
 				}
 				{
-					p.SetState(97)
-					p.expr(6)
+					p.SetState(106)
+					p.expr(7)
 				}
 
 			case 4:
 				localctx = NewExprContext(p, _parentctx, _parentState)
 				p.PushNewRecursionContext(localctx, _startState, SymbolanParserRULE_expr)
-				p.SetState(98)
+				p.SetState(107)
 
-				if !(p.Precpred(p.GetParserRuleContext(), 4)) {
-					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 4)", ""))
+				if !(p.Precpred(p.GetParserRuleContext(), 5)) {
+					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 5)", ""))
 				}
 				{
-					p.SetState(99)
+					p.SetState(108)
 					_la = p.GetTokenStream().LA(1)
 
 					if !(_la == SymbolanParserT__6 || _la == SymbolanParserT__7) {
@@ -1150,14 +1190,14 @@ func (p *SymbolanParser) expr(_p int) (localctx IExprContext) {
 					}
 				}
 				{
-					p.SetState(100)
-					p.expr(5)
+					p.SetState(109)
+					p.expr(6)
 				}
 
 			}
 
 		}
-		p.SetState(105)
+		p.SetState(114)
 		p.GetErrorHandler().Sync(p)
 		_alt = p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 6, p.GetParserRuleContext())
 	}
@@ -1243,6 +1283,16 @@ func (s *RuleAtomContext) Numeric_rule() INumeric_ruleContext {
 	return t.(INumeric_ruleContext)
 }
 
+func (s *RuleAtomContext) Derivative_rule() IDerivative_ruleContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IDerivative_ruleContext)(nil)).Elem(), 0)
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IDerivative_ruleContext)
+}
+
 func (s *RuleAtomContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
@@ -1283,40 +1333,404 @@ func (p *SymbolanParser) RuleAtom() (localctx IRuleAtomContext) {
 		}
 	}()
 
-	p.SetState(110)
+	p.SetState(120)
 	p.GetErrorHandler().Sync(p)
 
 	switch p.GetTokenStream().LA(1) {
 	case SymbolanParserCONST_RULE:
 		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(106)
+			p.SetState(115)
 			p.Const_rule()
 		}
 
 	case SymbolanParserVAR_RULE:
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(107)
+			p.SetState(116)
 			p.Var_rule()
 		}
 
 	case SymbolanParserEXPR_RULE:
 		p.EnterOuterAlt(localctx, 3)
 		{
-			p.SetState(108)
+			p.SetState(117)
 			p.Expr_rule()
 		}
 
 	case SymbolanParserNUMERIC_RULE:
 		p.EnterOuterAlt(localctx, 4)
 		{
-			p.SetState(109)
+			p.SetState(118)
 			p.Numeric_rule()
+		}
+
+	case SymbolanParserDERIVATE_RULE:
+		p.EnterOuterAlt(localctx, 5)
+		{
+			p.SetState(119)
+			p.Derivative_rule()
 		}
 
 	default:
 		panic(antlr.NewNoViableAltException(p, nil, nil, nil, nil, nil))
+	}
+
+	return localctx
+}
+
+// ISignContext is an interface to support dynamic dispatch.
+type ISignContext interface {
+	antlr.ParserRuleContext
+
+	// GetParser returns the parser.
+	GetParser() antlr.Parser
+
+	// IsSignContext differentiates from other interfaces.
+	IsSignContext()
+}
+
+type SignContext struct {
+	*antlr.BaseParserRuleContext
+	parser antlr.Parser
+}
+
+func NewEmptySignContext() *SignContext {
+	var p = new(SignContext)
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
+	p.RuleIndex = SymbolanParserRULE_sign
+	return p
+}
+
+func (*SignContext) IsSignContext() {}
+
+func NewSignContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *SignContext {
+	var p = new(SignContext)
+
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
+
+	p.parser = parser
+	p.RuleIndex = SymbolanParserRULE_sign
+
+	return p
+}
+
+func (s *SignContext) GetParser() antlr.Parser { return s.parser }
+func (s *SignContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *SignContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+	return antlr.TreesStringTree(s, ruleNames, recog)
+}
+
+func (s *SignContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(SymbolanListener); ok {
+		listenerT.EnterSign(s)
+	}
+}
+
+func (s *SignContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(SymbolanListener); ok {
+		listenerT.ExitSign(s)
+	}
+}
+
+func (p *SymbolanParser) Sign() (localctx ISignContext) {
+	localctx = NewSignContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 14, SymbolanParserRULE_sign)
+	var _la int
+
+	defer func() {
+		p.ExitRule()
+	}()
+
+	defer func() {
+		if err := recover(); err != nil {
+			if v, ok := err.(antlr.RecognitionException); ok {
+				localctx.SetException(v)
+				p.GetErrorHandler().ReportError(p, v)
+				p.GetErrorHandler().Recover(p, v)
+			} else {
+				panic(err)
+			}
+		}
+	}()
+
+	p.EnterOuterAlt(localctx, 1)
+	{
+		p.SetState(122)
+		_la = p.GetTokenStream().LA(1)
+
+		if !(_la == SymbolanParserT__6 || _la == SymbolanParserT__7) {
+			p.GetErrorHandler().RecoverInline(p)
+		} else {
+			p.GetErrorHandler().ReportMatch(p)
+			p.Consume()
+		}
+	}
+
+	return localctx
+}
+
+// ILeft_parContext is an interface to support dynamic dispatch.
+type ILeft_parContext interface {
+	antlr.ParserRuleContext
+
+	// GetParser returns the parser.
+	GetParser() antlr.Parser
+
+	// IsLeft_parContext differentiates from other interfaces.
+	IsLeft_parContext()
+}
+
+type Left_parContext struct {
+	*antlr.BaseParserRuleContext
+	parser antlr.Parser
+}
+
+func NewEmptyLeft_parContext() *Left_parContext {
+	var p = new(Left_parContext)
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
+	p.RuleIndex = SymbolanParserRULE_left_par
+	return p
+}
+
+func (*Left_parContext) IsLeft_parContext() {}
+
+func NewLeft_parContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *Left_parContext {
+	var p = new(Left_parContext)
+
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
+
+	p.parser = parser
+	p.RuleIndex = SymbolanParserRULE_left_par
+
+	return p
+}
+
+func (s *Left_parContext) GetParser() antlr.Parser { return s.parser }
+func (s *Left_parContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *Left_parContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+	return antlr.TreesStringTree(s, ruleNames, recog)
+}
+
+func (s *Left_parContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(SymbolanListener); ok {
+		listenerT.EnterLeft_par(s)
+	}
+}
+
+func (s *Left_parContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(SymbolanListener); ok {
+		listenerT.ExitLeft_par(s)
+	}
+}
+
+func (p *SymbolanParser) Left_par() (localctx ILeft_parContext) {
+	localctx = NewLeft_parContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 16, SymbolanParserRULE_left_par)
+
+	defer func() {
+		p.ExitRule()
+	}()
+
+	defer func() {
+		if err := recover(); err != nil {
+			if v, ok := err.(antlr.RecognitionException); ok {
+				localctx.SetException(v)
+				p.GetErrorHandler().ReportError(p, v)
+				p.GetErrorHandler().Recover(p, v)
+			} else {
+				panic(err)
+			}
+		}
+	}()
+
+	p.EnterOuterAlt(localctx, 1)
+	{
+		p.SetState(124)
+		p.Match(SymbolanParserL_PAREN)
+	}
+
+	return localctx
+}
+
+// IRight_parContext is an interface to support dynamic dispatch.
+type IRight_parContext interface {
+	antlr.ParserRuleContext
+
+	// GetParser returns the parser.
+	GetParser() antlr.Parser
+
+	// IsRight_parContext differentiates from other interfaces.
+	IsRight_parContext()
+}
+
+type Right_parContext struct {
+	*antlr.BaseParserRuleContext
+	parser antlr.Parser
+}
+
+func NewEmptyRight_parContext() *Right_parContext {
+	var p = new(Right_parContext)
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
+	p.RuleIndex = SymbolanParserRULE_right_par
+	return p
+}
+
+func (*Right_parContext) IsRight_parContext() {}
+
+func NewRight_parContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *Right_parContext {
+	var p = new(Right_parContext)
+
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
+
+	p.parser = parser
+	p.RuleIndex = SymbolanParserRULE_right_par
+
+	return p
+}
+
+func (s *Right_parContext) GetParser() antlr.Parser { return s.parser }
+func (s *Right_parContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *Right_parContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+	return antlr.TreesStringTree(s, ruleNames, recog)
+}
+
+func (s *Right_parContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(SymbolanListener); ok {
+		listenerT.EnterRight_par(s)
+	}
+}
+
+func (s *Right_parContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(SymbolanListener); ok {
+		listenerT.ExitRight_par(s)
+	}
+}
+
+func (p *SymbolanParser) Right_par() (localctx IRight_parContext) {
+	localctx = NewRight_parContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 18, SymbolanParserRULE_right_par)
+
+	defer func() {
+		p.ExitRule()
+	}()
+
+	defer func() {
+		if err := recover(); err != nil {
+			if v, ok := err.(antlr.RecognitionException); ok {
+				localctx.SetException(v)
+				p.GetErrorHandler().ReportError(p, v)
+				p.GetErrorHandler().Recover(p, v)
+			} else {
+				panic(err)
+			}
+		}
+	}()
+
+	p.EnterOuterAlt(localctx, 1)
+	{
+		p.SetState(126)
+		p.Match(SymbolanParserR_PAREN)
+	}
+
+	return localctx
+}
+
+// IDerivative_ruleContext is an interface to support dynamic dispatch.
+type IDerivative_ruleContext interface {
+	antlr.ParserRuleContext
+
+	// GetParser returns the parser.
+	GetParser() antlr.Parser
+
+	// IsDerivative_ruleContext differentiates from other interfaces.
+	IsDerivative_ruleContext()
+}
+
+type Derivative_ruleContext struct {
+	*antlr.BaseParserRuleContext
+	parser antlr.Parser
+}
+
+func NewEmptyDerivative_ruleContext() *Derivative_ruleContext {
+	var p = new(Derivative_ruleContext)
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
+	p.RuleIndex = SymbolanParserRULE_derivative_rule
+	return p
+}
+
+func (*Derivative_ruleContext) IsDerivative_ruleContext() {}
+
+func NewDerivative_ruleContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *Derivative_ruleContext {
+	var p = new(Derivative_ruleContext)
+
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
+
+	p.parser = parser
+	p.RuleIndex = SymbolanParserRULE_derivative_rule
+
+	return p
+}
+
+func (s *Derivative_ruleContext) GetParser() antlr.Parser { return s.parser }
+
+func (s *Derivative_ruleContext) DERIVATE_RULE() antlr.TerminalNode {
+	return s.GetToken(SymbolanParserDERIVATE_RULE, 0)
+}
+
+func (s *Derivative_ruleContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *Derivative_ruleContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+	return antlr.TreesStringTree(s, ruleNames, recog)
+}
+
+func (s *Derivative_ruleContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(SymbolanListener); ok {
+		listenerT.EnterDerivative_rule(s)
+	}
+}
+
+func (s *Derivative_ruleContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(SymbolanListener); ok {
+		listenerT.ExitDerivative_rule(s)
+	}
+}
+
+func (p *SymbolanParser) Derivative_rule() (localctx IDerivative_ruleContext) {
+	localctx = NewDerivative_ruleContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 20, SymbolanParserRULE_derivative_rule)
+
+	defer func() {
+		p.ExitRule()
+	}()
+
+	defer func() {
+		if err := recover(); err != nil {
+			if v, ok := err.(antlr.RecognitionException); ok {
+				localctx.SetException(v)
+				p.GetErrorHandler().ReportError(p, v)
+				p.GetErrorHandler().Recover(p, v)
+			} else {
+				panic(err)
+			}
+		}
+	}()
+
+	p.EnterOuterAlt(localctx, 1)
+	{
+		p.SetState(128)
+		p.Match(SymbolanParserDERIVATE_RULE)
 	}
 
 	return localctx
@@ -1386,7 +1800,7 @@ func (s *Numeric_ruleContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *SymbolanParser) Numeric_rule() (localctx INumeric_ruleContext) {
 	localctx = NewNumeric_ruleContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 14, SymbolanParserRULE_numeric_rule)
+	p.EnterRule(localctx, 22, SymbolanParserRULE_numeric_rule)
 
 	defer func() {
 		p.ExitRule()
@@ -1406,7 +1820,7 @@ func (p *SymbolanParser) Numeric_rule() (localctx INumeric_ruleContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(112)
+		p.SetState(130)
 		p.Match(SymbolanParserNUMERIC_RULE)
 	}
 
@@ -1477,7 +1891,7 @@ func (s *Const_ruleContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *SymbolanParser) Const_rule() (localctx IConst_ruleContext) {
 	localctx = NewConst_ruleContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 16, SymbolanParserRULE_const_rule)
+	p.EnterRule(localctx, 24, SymbolanParserRULE_const_rule)
 
 	defer func() {
 		p.ExitRule()
@@ -1497,7 +1911,7 @@ func (p *SymbolanParser) Const_rule() (localctx IConst_ruleContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(114)
+		p.SetState(132)
 		p.Match(SymbolanParserCONST_RULE)
 	}
 
@@ -1568,7 +1982,7 @@ func (s *Var_ruleContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *SymbolanParser) Var_rule() (localctx IVar_ruleContext) {
 	localctx = NewVar_ruleContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 18, SymbolanParserRULE_var_rule)
+	p.EnterRule(localctx, 26, SymbolanParserRULE_var_rule)
 
 	defer func() {
 		p.ExitRule()
@@ -1588,7 +2002,7 @@ func (p *SymbolanParser) Var_rule() (localctx IVar_ruleContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(116)
+		p.SetState(134)
 		p.Match(SymbolanParserVAR_RULE)
 	}
 
@@ -1659,7 +2073,7 @@ func (s *Expr_ruleContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *SymbolanParser) Expr_rule() (localctx IExpr_ruleContext) {
 	localctx = NewExpr_ruleContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 20, SymbolanParserRULE_expr_rule)
+	p.EnterRule(localctx, 28, SymbolanParserRULE_expr_rule)
 
 	defer func() {
 		p.ExitRule()
@@ -1679,180 +2093,8 @@ func (p *SymbolanParser) Expr_rule() (localctx IExpr_ruleContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(118)
+		p.SetState(136)
 		p.Match(SymbolanParserEXPR_RULE)
-	}
-
-	return localctx
-}
-
-// ILeft_parContext is an interface to support dynamic dispatch.
-type ILeft_parContext interface {
-	antlr.ParserRuleContext
-
-	// GetParser returns the parser.
-	GetParser() antlr.Parser
-
-	// IsLeft_parContext differentiates from other interfaces.
-	IsLeft_parContext()
-}
-
-type Left_parContext struct {
-	*antlr.BaseParserRuleContext
-	parser antlr.Parser
-}
-
-func NewEmptyLeft_parContext() *Left_parContext {
-	var p = new(Left_parContext)
-	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
-	p.RuleIndex = SymbolanParserRULE_left_par
-	return p
-}
-
-func (*Left_parContext) IsLeft_parContext() {}
-
-func NewLeft_parContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *Left_parContext {
-	var p = new(Left_parContext)
-
-	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
-
-	p.parser = parser
-	p.RuleIndex = SymbolanParserRULE_left_par
-
-	return p
-}
-
-func (s *Left_parContext) GetParser() antlr.Parser { return s.parser }
-func (s *Left_parContext) GetRuleContext() antlr.RuleContext {
-	return s
-}
-
-func (s *Left_parContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
-	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *Left_parContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(SymbolanListener); ok {
-		listenerT.EnterLeft_par(s)
-	}
-}
-
-func (s *Left_parContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(SymbolanListener); ok {
-		listenerT.ExitLeft_par(s)
-	}
-}
-
-func (p *SymbolanParser) Left_par() (localctx ILeft_parContext) {
-	localctx = NewLeft_parContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 22, SymbolanParserRULE_left_par)
-
-	defer func() {
-		p.ExitRule()
-	}()
-
-	defer func() {
-		if err := recover(); err != nil {
-			if v, ok := err.(antlr.RecognitionException); ok {
-				localctx.SetException(v)
-				p.GetErrorHandler().ReportError(p, v)
-				p.GetErrorHandler().Recover(p, v)
-			} else {
-				panic(err)
-			}
-		}
-	}()
-
-	p.EnterOuterAlt(localctx, 1)
-	{
-		p.SetState(120)
-		p.Match(SymbolanParserL_PAREN)
-	}
-
-	return localctx
-}
-
-// IRight_parContext is an interface to support dynamic dispatch.
-type IRight_parContext interface {
-	antlr.ParserRuleContext
-
-	// GetParser returns the parser.
-	GetParser() antlr.Parser
-
-	// IsRight_parContext differentiates from other interfaces.
-	IsRight_parContext()
-}
-
-type Right_parContext struct {
-	*antlr.BaseParserRuleContext
-	parser antlr.Parser
-}
-
-func NewEmptyRight_parContext() *Right_parContext {
-	var p = new(Right_parContext)
-	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
-	p.RuleIndex = SymbolanParserRULE_right_par
-	return p
-}
-
-func (*Right_parContext) IsRight_parContext() {}
-
-func NewRight_parContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *Right_parContext {
-	var p = new(Right_parContext)
-
-	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
-
-	p.parser = parser
-	p.RuleIndex = SymbolanParserRULE_right_par
-
-	return p
-}
-
-func (s *Right_parContext) GetParser() antlr.Parser { return s.parser }
-func (s *Right_parContext) GetRuleContext() antlr.RuleContext {
-	return s
-}
-
-func (s *Right_parContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
-	return antlr.TreesStringTree(s, ruleNames, recog)
-}
-
-func (s *Right_parContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(SymbolanListener); ok {
-		listenerT.EnterRight_par(s)
-	}
-}
-
-func (s *Right_parContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(SymbolanListener); ok {
-		listenerT.ExitRight_par(s)
-	}
-}
-
-func (p *SymbolanParser) Right_par() (localctx IRight_parContext) {
-	localctx = NewRight_parContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 24, SymbolanParserRULE_right_par)
-
-	defer func() {
-		p.ExitRule()
-	}()
-
-	defer func() {
-		if err := recover(); err != nil {
-			if v, ok := err.(antlr.RecognitionException); ok {
-				localctx.SetException(v)
-				p.GetErrorHandler().ReportError(p, v)
-				p.GetErrorHandler().Recover(p, v)
-			} else {
-				panic(err)
-			}
-		}
-	}()
-
-	p.EnterOuterAlt(localctx, 1)
-	{
-		p.SetState(122)
-		p.Match(SymbolanParserR_PAREN)
 	}
 
 	return localctx
@@ -1946,6 +2188,16 @@ func (s *AtomContext) Imaginary() IImaginaryContext {
 	return t.(IImaginaryContext)
 }
 
+func (s *AtomContext) Derivative() IDerivativeContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*IDerivativeContext)(nil)).Elem(), 0)
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IDerivativeContext)
+}
+
 func (s *AtomContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
@@ -1968,7 +2220,7 @@ func (s *AtomContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *SymbolanParser) Atom() (localctx IAtomContext) {
 	localctx = NewAtomContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 26, SymbolanParserRULE_atom)
+	p.EnterRule(localctx, 30, SymbolanParserRULE_atom)
 
 	defer func() {
 		p.ExitRule()
@@ -1986,49 +2238,56 @@ func (p *SymbolanParser) Atom() (localctx IAtomContext) {
 		}
 	}()
 
-	p.SetState(130)
+	p.SetState(145)
 	p.GetErrorHandler().Sync(p)
 	switch p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 8, p.GetParserRuleContext()) {
 	case 1:
 		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(124)
+			p.SetState(138)
 			p.Number()
 		}
 
 	case 2:
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(125)
+			p.SetState(139)
 			p.Variable()
 		}
 
 	case 3:
 		p.EnterOuterAlt(localctx, 3)
 		{
-			p.SetState(126)
+			p.SetState(140)
 			p.Constant()
 		}
 
 	case 4:
 		p.EnterOuterAlt(localctx, 4)
 		{
-			p.SetState(127)
+			p.SetState(141)
 			p.Number()
 		}
 
 	case 5:
 		p.EnterOuterAlt(localctx, 5)
 		{
-			p.SetState(128)
+			p.SetState(142)
 			p.Math_constant()
 		}
 
 	case 6:
 		p.EnterOuterAlt(localctx, 6)
 		{
-			p.SetState(129)
+			p.SetState(143)
 			p.Imaginary()
+		}
+
+	case 7:
+		p.EnterOuterAlt(localctx, 7)
+		{
+			p.SetState(144)
+			p.Derivative()
 		}
 
 	}
@@ -2112,7 +2371,7 @@ func (s *Math_constantContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *SymbolanParser) Math_constant() (localctx IMath_constantContext) {
 	localctx = NewMath_constantContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 28, SymbolanParserRULE_math_constant)
+	p.EnterRule(localctx, 32, SymbolanParserRULE_math_constant)
 	var _la int
 
 	defer func() {
@@ -2133,10 +2392,10 @@ func (p *SymbolanParser) Math_constant() (localctx IMath_constantContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(132)
+		p.SetState(147)
 		_la = p.GetTokenStream().LA(1)
 
-		if !(((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<SymbolanParserPI)|(1<<SymbolanParserEULER)|(1<<SymbolanParserINFINITE)|(1<<SymbolanParserUNDEFINED))) != 0) {
+		if !(((_la-26)&-(0x1f+1)) == 0 && ((1<<uint((_la-26)))&((1<<(SymbolanParserPI-26))|(1<<(SymbolanParserEULER-26))|(1<<(SymbolanParserINFINITE-26))|(1<<(SymbolanParserUNDEFINED-26)))) != 0) {
 			p.GetErrorHandler().RecoverInline(p)
 		} else {
 			p.GetErrorHandler().ReportMatch(p)
@@ -2211,7 +2470,7 @@ func (s *InfiniteContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *SymbolanParser) Infinite() (localctx IInfiniteContext) {
 	localctx = NewInfiniteContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 30, SymbolanParserRULE_infinite)
+	p.EnterRule(localctx, 34, SymbolanParserRULE_infinite)
 
 	defer func() {
 		p.ExitRule()
@@ -2231,7 +2490,7 @@ func (p *SymbolanParser) Infinite() (localctx IInfiniteContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(134)
+		p.SetState(149)
 		p.Match(SymbolanParserINFINITE)
 	}
 
@@ -2302,7 +2561,7 @@ func (s *ImaginaryContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *SymbolanParser) Imaginary() (localctx IImaginaryContext) {
 	localctx = NewImaginaryContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 32, SymbolanParserRULE_imaginary)
+	p.EnterRule(localctx, 36, SymbolanParserRULE_imaginary)
 
 	defer func() {
 		p.ExitRule()
@@ -2322,7 +2581,7 @@ func (p *SymbolanParser) Imaginary() (localctx IImaginaryContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(136)
+		p.SetState(151)
 		p.Match(SymbolanParserIMAGINARY_LIT)
 	}
 
@@ -2405,7 +2664,7 @@ func (s *NumberContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *SymbolanParser) Number() (localctx INumberContext) {
 	localctx = NewNumberContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 34, SymbolanParserRULE_number)
+	p.EnterRule(localctx, 38, SymbolanParserRULE_number)
 	var _la int
 
 	defer func() {
@@ -2426,15 +2685,106 @@ func (p *SymbolanParser) Number() (localctx INumberContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(138)
+		p.SetState(153)
 		_la = p.GetTokenStream().LA(1)
 
-		if !(((_la-36)&-(0x1f+1)) == 0 && ((1<<uint((_la-36)))&((1<<(SymbolanParserDECIMAL_LIT-36))|(1<<(SymbolanParserOCTAL_LIT-36))|(1<<(SymbolanParserHEX_LIT-36))|(1<<(SymbolanParserFLOAT_LIT-36)))) != 0) {
+		if !(((_la-39)&-(0x1f+1)) == 0 && ((1<<uint((_la-39)))&((1<<(SymbolanParserDECIMAL_LIT-39))|(1<<(SymbolanParserOCTAL_LIT-39))|(1<<(SymbolanParserHEX_LIT-39))|(1<<(SymbolanParserFLOAT_LIT-39)))) != 0) {
 			p.GetErrorHandler().RecoverInline(p)
 		} else {
 			p.GetErrorHandler().ReportMatch(p)
 			p.Consume()
 		}
+	}
+
+	return localctx
+}
+
+// IDerivativeContext is an interface to support dynamic dispatch.
+type IDerivativeContext interface {
+	antlr.ParserRuleContext
+
+	// GetParser returns the parser.
+	GetParser() antlr.Parser
+
+	// IsDerivativeContext differentiates from other interfaces.
+	IsDerivativeContext()
+}
+
+type DerivativeContext struct {
+	*antlr.BaseParserRuleContext
+	parser antlr.Parser
+}
+
+func NewEmptyDerivativeContext() *DerivativeContext {
+	var p = new(DerivativeContext)
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(nil, -1)
+	p.RuleIndex = SymbolanParserRULE_derivative
+	return p
+}
+
+func (*DerivativeContext) IsDerivativeContext() {}
+
+func NewDerivativeContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *DerivativeContext {
+	var p = new(DerivativeContext)
+
+	p.BaseParserRuleContext = antlr.NewBaseParserRuleContext(parent, invokingState)
+
+	p.parser = parser
+	p.RuleIndex = SymbolanParserRULE_derivative
+
+	return p
+}
+
+func (s *DerivativeContext) GetParser() antlr.Parser { return s.parser }
+
+func (s *DerivativeContext) DERIVATIVE() antlr.TerminalNode {
+	return s.GetToken(SymbolanParserDERIVATIVE, 0)
+}
+
+func (s *DerivativeContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *DerivativeContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+	return antlr.TreesStringTree(s, ruleNames, recog)
+}
+
+func (s *DerivativeContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(SymbolanListener); ok {
+		listenerT.EnterDerivative(s)
+	}
+}
+
+func (s *DerivativeContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(SymbolanListener); ok {
+		listenerT.ExitDerivative(s)
+	}
+}
+
+func (p *SymbolanParser) Derivative() (localctx IDerivativeContext) {
+	localctx = NewDerivativeContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 40, SymbolanParserRULE_derivative)
+
+	defer func() {
+		p.ExitRule()
+	}()
+
+	defer func() {
+		if err := recover(); err != nil {
+			if v, ok := err.(antlr.RecognitionException); ok {
+				localctx.SetException(v)
+				p.GetErrorHandler().ReportError(p, v)
+				p.GetErrorHandler().Recover(p, v)
+			} else {
+				panic(err)
+			}
+		}
+	}()
+
+	p.EnterOuterAlt(localctx, 1)
+	{
+		p.SetState(155)
+		p.Match(SymbolanParserDERIVATIVE)
 	}
 
 	return localctx
@@ -2504,7 +2854,7 @@ func (s *VariableContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *SymbolanParser) Variable() (localctx IVariableContext) {
 	localctx = NewVariableContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 36, SymbolanParserRULE_variable)
+	p.EnterRule(localctx, 42, SymbolanParserRULE_variable)
 
 	defer func() {
 		p.ExitRule()
@@ -2524,7 +2874,7 @@ func (p *SymbolanParser) Variable() (localctx IVariableContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(140)
+		p.SetState(157)
 		p.Match(SymbolanParserVAR)
 	}
 
@@ -2595,7 +2945,7 @@ func (s *ConstantContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *SymbolanParser) Constant() (localctx IConstantContext) {
 	localctx = NewConstantContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 38, SymbolanParserRULE_constant)
+	p.EnterRule(localctx, 44, SymbolanParserRULE_constant)
 
 	defer func() {
 		p.ExitRule()
@@ -2615,7 +2965,7 @@ func (p *SymbolanParser) Constant() (localctx IConstantContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(142)
+		p.SetState(159)
 		p.Match(SymbolanParserCONST)
 	}
 
@@ -2681,7 +3031,7 @@ func (s *Bi_operatorsContext) ExitRule(listener antlr.ParseTreeListener) {
 
 func (p *SymbolanParser) Bi_operators() (localctx IBi_operatorsContext) {
 	localctx = NewBi_operatorsContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 40, SymbolanParserRULE_bi_operators)
+	p.EnterRule(localctx, 46, SymbolanParserRULE_bi_operators)
 	var _la int
 
 	defer func() {
@@ -2700,14 +3050,14 @@ func (p *SymbolanParser) Bi_operators() (localctx IBi_operatorsContext) {
 		}
 	}()
 
-	p.SetState(147)
+	p.SetState(164)
 	p.GetErrorHandler().Sync(p)
 
 	switch p.GetTokenStream().LA(1) {
 	case SymbolanParserT__2, SymbolanParserT__3:
 		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(144)
+			p.SetState(161)
 			_la = p.GetTokenStream().LA(1)
 
 			if !(_la == SymbolanParserT__2 || _la == SymbolanParserT__3) {
@@ -2721,7 +3071,7 @@ func (p *SymbolanParser) Bi_operators() (localctx IBi_operatorsContext) {
 	case SymbolanParserT__4, SymbolanParserT__5:
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(145)
+			p.SetState(162)
 			_la = p.GetTokenStream().LA(1)
 
 			if !(_la == SymbolanParserT__4 || _la == SymbolanParserT__5) {
@@ -2735,7 +3085,7 @@ func (p *SymbolanParser) Bi_operators() (localctx IBi_operatorsContext) {
 	case SymbolanParserT__6, SymbolanParserT__7:
 		p.EnterOuterAlt(localctx, 3)
 		{
-			p.SetState(146)
+			p.SetState(163)
 			_la = p.GetTokenStream().LA(1)
 
 			if !(_la == SymbolanParserT__6 || _la == SymbolanParserT__7) {
@@ -2770,16 +3120,16 @@ func (p *SymbolanParser) Sempred(localctx antlr.RuleContext, ruleIndex, predInde
 func (p *SymbolanParser) Expr_Sempred(localctx antlr.RuleContext, predIndex int) bool {
 	switch predIndex {
 	case 0:
-		return p.Precpred(p.GetParserRuleContext(), 8)
+		return p.Precpred(p.GetParserRuleContext(), 9)
 
 	case 1:
-		return p.Precpred(p.GetParserRuleContext(), 6)
+		return p.Precpred(p.GetParserRuleContext(), 7)
 
 	case 2:
-		return p.Precpred(p.GetParserRuleContext(), 5)
+		return p.Precpred(p.GetParserRuleContext(), 6)
 
 	case 3:
-		return p.Precpred(p.GetParserRuleContext(), 4)
+		return p.Precpred(p.GetParserRuleContext(), 5)
 
 	default:
 		panic("No predicate with index: " + fmt.Sprint(predIndex))

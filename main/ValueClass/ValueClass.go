@@ -3,6 +3,7 @@ package ValueClass
 type ValueClass string
 
 const (
+	DERIVATIVE                  ValueClass = "DERIVATIVE"
 	MATH_SYMBOL                 ValueClass = "MATH_SYMBOL"
 	NUMERIC_CONSTANT            ValueClass = "NUMERIC_CONSTANT"
 	IMAGINARY_CONSTANT          ValueClass = "IMAGINARY_CONSTANT"
@@ -15,6 +16,7 @@ const (
 )
 
 const (
+	DERIVATIVE_RULE    ValueClass = "DERIVATIVE_RULE"
 	NUMERIC_RULE       ValueClass = "NUMERIC_RULE"
 	CONST_RULE         ValueClass = "CONST_RULE"
 	VAR_RULE           ValueClass = "VAR_RULE"
@@ -35,7 +37,7 @@ func IsGenericRule(classByValues ValueClass) bool {
 }
 
 func IsVariableRule(classByValues ValueClass) bool {
-	return classByValues == VAR_RULE || classByValues == VARIABLE_EXPR_RULE
+	return classByValues == VAR_RULE || classByValues == VARIABLE_EXPR_RULE || classByValues == DERIVATIVE_RULE
 }
 
 func IsNumeric(classByValues ValueClass) bool {
@@ -43,7 +45,7 @@ func IsNumeric(classByValues ValueClass) bool {
 }
 
 func IsVariable(classByValues ValueClass) bool {
-	return classByValues == VARIABLE || classByValues == VARIABLE_EXPRESSION
+	return classByValues == VARIABLE || classByValues == VARIABLE_EXPRESSION || classByValues == DERIVATIVE
 }
 
 func IsConstant(classByValues ValueClass) bool {

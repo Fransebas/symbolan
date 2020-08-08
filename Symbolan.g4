@@ -21,6 +21,7 @@ system_functions
     | COS
     | TAN
     | LOG
+    | DERIVATIVE_OPERATOR
     ;
 
 rule_function
@@ -33,12 +34,13 @@ expressionRule
 	;
 
 expr 
-    : expr expr
-    | left_par expr right_par
+	: left_par expr right_par
     | expr ('^'|'**') expr 
     | expr ('*'|'/') expr 
     | expr ('+'|'-') expr
+    | expr expr
     | system_functions left_par expr right_par
+    | sign expr
     | atom
     | ruleAtom
     ;
@@ -48,21 +50,20 @@ ruleAtom
 	| var_rule
 	| expr_rule
 	| numeric_rule
+	| derivative_rule
 	;
 
+sign: '+' | '-';
+left_par: '(';
+right_par: ')';
+
+
+derivative_rule: DERIVATE_RULE; 
 numeric_rule: NUMERIC_RULE;
 const_rule: CONST_RULE;
 var_rule: VAR_RULE;
 expr_rule: EXPR_RULE;
 
-
-left_par
-    : '('
-    ;
-
-right_par
-    : ')'
-    ;
 
 atom 
     : number
@@ -71,6 +72,7 @@ atom
     | number
     | math_constant
     | imaginary
+    | derivative
     ;
 
 math_constant 
@@ -94,6 +96,10 @@ number
     | OCTAL_LIT
     | HEX_LIT
     ;
+
+derivative
+	: DERIVATIVE
+	;
 
 variable 
     : VAR
@@ -134,16 +140,19 @@ COS                  : 'cos';
 TAN                  : 'tan';
 LOG                  : 'log';
 SQRT                 : 'sqrt';
+DERIVATIVE_OPERATOR  : 'D';
 
 
 PI                  : 'pi';
 
+DERIVATIVE : 'd' [x-z] (('_')[0-9]+)? ;
 VAR : [x-z] (('_')[0-9]+)? ;
 CONST : [a-c] (('_')[0-9]+)? ;
 EULER : [e-e] ;
 INFINITE : [+-]?'inf';
 UNDEFINED : 'undef';
 
+DERIVATE_RULE	: 'd'   [V] (('_')[0-9]+)? ;
 NUMERIC_RULE 	: [+-]? [N] (('_')[0-9]+)? ;
 CONST_RULE 		: [+-]? [C] (('_')[0-9]+)? ;
 VAR_RULE 		: [+-]? [V] (('_')[0-9]+)? ;
@@ -168,7 +177,7 @@ IMAGINARY_LIT
     ;
 
 IDENTIFIER
-   : [a-zA-Z] [a-zA-Z0-9_]*
+   : [A-Z] [a-zA-Z0-9_]*
    ;
 
 // Fragments

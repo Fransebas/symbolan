@@ -29,6 +29,18 @@ type SymbolanListener interface {
 	// EnterRuleAtom is called when entering the ruleAtom production.
 	EnterRuleAtom(c *RuleAtomContext)
 
+	// EnterSign is called when entering the sign production.
+	EnterSign(c *SignContext)
+
+	// EnterLeft_par is called when entering the left_par production.
+	EnterLeft_par(c *Left_parContext)
+
+	// EnterRight_par is called when entering the right_par production.
+	EnterRight_par(c *Right_parContext)
+
+	// EnterDerivative_rule is called when entering the derivative_rule production.
+	EnterDerivative_rule(c *Derivative_ruleContext)
+
 	// EnterNumeric_rule is called when entering the numeric_rule production.
 	EnterNumeric_rule(c *Numeric_ruleContext)
 
@@ -40,12 +52,6 @@ type SymbolanListener interface {
 
 	// EnterExpr_rule is called when entering the expr_rule production.
 	EnterExpr_rule(c *Expr_ruleContext)
-
-	// EnterLeft_par is called when entering the left_par production.
-	EnterLeft_par(c *Left_parContext)
-
-	// EnterRight_par is called when entering the right_par production.
-	EnterRight_par(c *Right_parContext)
 
 	// EnterAtom is called when entering the atom production.
 	EnterAtom(c *AtomContext)
@@ -61,6 +67,9 @@ type SymbolanListener interface {
 
 	// EnterNumber is called when entering the number production.
 	EnterNumber(c *NumberContext)
+
+	// EnterDerivative is called when entering the derivative production.
+	EnterDerivative(c *DerivativeContext)
 
 	// EnterVariable is called when entering the variable production.
 	EnterVariable(c *VariableContext)
@@ -92,6 +101,18 @@ type SymbolanListener interface {
 	// ExitRuleAtom is called when exiting the ruleAtom production.
 	ExitRuleAtom(c *RuleAtomContext)
 
+	// ExitSign is called when exiting the sign production.
+	ExitSign(c *SignContext)
+
+	// ExitLeft_par is called when exiting the left_par production.
+	ExitLeft_par(c *Left_parContext)
+
+	// ExitRight_par is called when exiting the right_par production.
+	ExitRight_par(c *Right_parContext)
+
+	// ExitDerivative_rule is called when exiting the derivative_rule production.
+	ExitDerivative_rule(c *Derivative_ruleContext)
+
 	// ExitNumeric_rule is called when exiting the numeric_rule production.
 	ExitNumeric_rule(c *Numeric_ruleContext)
 
@@ -103,12 +124,6 @@ type SymbolanListener interface {
 
 	// ExitExpr_rule is called when exiting the expr_rule production.
 	ExitExpr_rule(c *Expr_ruleContext)
-
-	// ExitLeft_par is called when exiting the left_par production.
-	ExitLeft_par(c *Left_parContext)
-
-	// ExitRight_par is called when exiting the right_par production.
-	ExitRight_par(c *Right_parContext)
 
 	// ExitAtom is called when exiting the atom production.
 	ExitAtom(c *AtomContext)
@@ -124,6 +139,9 @@ type SymbolanListener interface {
 
 	// ExitNumber is called when exiting the number production.
 	ExitNumber(c *NumberContext)
+
+	// ExitDerivative is called when exiting the derivative production.
+	ExitDerivative(c *DerivativeContext)
 
 	// ExitVariable is called when exiting the variable production.
 	ExitVariable(c *VariableContext)
