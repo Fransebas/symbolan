@@ -56,6 +56,10 @@ func (this *Simplyfier) Simplify(node Node) Node {
 				return this.manager.functions[resultRule.Value](&node)
 			}
 			nNode := resultRule.Eval(substitutions)
+			nNode.SetSign(parseSign(nNode.IsNegative() != node.IsNegative()))
+			if resultRule.hasSign {
+				nNode.SetSign(parseSign(resultRule.IsNegative()))
+			}
 			return this.Simplify(nNode)
 		}
 	}
@@ -85,6 +89,12 @@ func compare(node *Node, rule *Node, knownNodes *map[string]*Node) bool {
 	ruleName := rule.Value
 
 	ruleValueClass := rule.ValueClass()
+
+	if rule.hasSign {
+		if rule.IsNegative() != node.IsNegative() {
+			return false
+		}
+	}
 
 	//generic case
 	if rule.ValueClass() == ValueClass.EXPR_RULE {

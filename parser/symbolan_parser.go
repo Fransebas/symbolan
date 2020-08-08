@@ -55,16 +55,16 @@ var parserATN = []uint16{
 	80, 81, 5, 8, 5, 2, 81, 83, 3, 2, 2, 2, 82, 74, 3, 2, 2, 2, 82, 78, 3,
 	2, 2, 2, 83, 11, 3, 2, 2, 2, 84, 85, 8, 7, 1, 2, 85, 86, 5, 18, 10, 2,
 	86, 87, 5, 12, 7, 2, 87, 88, 5, 20, 11, 2, 88, 100, 3, 2, 2, 2, 89, 90,
-	5, 16, 9, 2, 90, 91, 5, 12, 7, 6, 91, 100, 3, 2, 2, 2, 92, 93, 5, 6, 4,
-	2, 93, 94, 5, 18, 10, 2, 94, 95, 5, 12, 7, 2, 95, 96, 5, 20, 11, 2, 96,
-	100, 3, 2, 2, 2, 97, 100, 5, 32, 17, 2, 98, 100, 5, 14, 8, 2, 99, 84, 3,
-	2, 2, 2, 99, 89, 3, 2, 2, 2, 99, 92, 3, 2, 2, 2, 99, 97, 3, 2, 2, 2, 99,
-	98, 3, 2, 2, 2, 100, 114, 3, 2, 2, 2, 101, 102, 12, 11, 2, 2, 102, 113,
-	5, 12, 7, 12, 103, 104, 12, 9, 2, 2, 104, 105, 9, 3, 2, 2, 105, 113, 5,
-	12, 7, 10, 106, 107, 12, 8, 2, 2, 107, 108, 9, 4, 2, 2, 108, 113, 5, 12,
-	7, 9, 109, 110, 12, 7, 2, 2, 110, 111, 9, 5, 2, 2, 111, 113, 5, 12, 7,
-	8, 112, 101, 3, 2, 2, 2, 112, 103, 3, 2, 2, 2, 112, 106, 3, 2, 2, 2, 112,
-	109, 3, 2, 2, 2, 113, 116, 3, 2, 2, 2, 114, 112, 3, 2, 2, 2, 114, 115,
+	5, 6, 4, 2, 90, 91, 5, 18, 10, 2, 91, 92, 5, 12, 7, 2, 92, 93, 5, 20, 11,
+	2, 93, 100, 3, 2, 2, 2, 94, 95, 5, 16, 9, 2, 95, 96, 5, 12, 7, 5, 96, 100,
+	3, 2, 2, 2, 97, 100, 5, 32, 17, 2, 98, 100, 5, 14, 8, 2, 99, 84, 3, 2,
+	2, 2, 99, 89, 3, 2, 2, 2, 99, 94, 3, 2, 2, 2, 99, 97, 3, 2, 2, 2, 99, 98,
+	3, 2, 2, 2, 100, 114, 3, 2, 2, 2, 101, 102, 12, 10, 2, 2, 102, 103, 9,
+	3, 2, 2, 103, 113, 5, 12, 7, 11, 104, 105, 12, 9, 2, 2, 105, 106, 9, 4,
+	2, 2, 106, 113, 5, 12, 7, 10, 107, 108, 12, 8, 2, 2, 108, 109, 9, 5, 2,
+	2, 109, 113, 5, 12, 7, 9, 110, 111, 12, 7, 2, 2, 111, 113, 5, 12, 7, 8,
+	112, 101, 3, 2, 2, 2, 112, 104, 3, 2, 2, 2, 112, 107, 3, 2, 2, 2, 112,
+	110, 3, 2, 2, 2, 113, 116, 3, 2, 2, 2, 114, 112, 3, 2, 2, 2, 114, 115,
 	3, 2, 2, 2, 115, 13, 3, 2, 2, 2, 116, 114, 3, 2, 2, 2, 117, 123, 5, 26,
 	14, 2, 118, 123, 5, 28, 15, 2, 119, 123, 5, 30, 16, 2, 120, 123, 5, 24,
 	13, 2, 121, 123, 5, 22, 12, 2, 122, 117, 3, 2, 2, 2, 122, 118, 3, 2, 2,
@@ -941,16 +941,6 @@ func (s *ExprContext) Right_par() IRight_parContext {
 	return t.(IRight_parContext)
 }
 
-func (s *ExprContext) Sign() ISignContext {
-	var t = s.GetTypedRuleContext(reflect.TypeOf((*ISignContext)(nil)).Elem(), 0)
-
-	if t == nil {
-		return nil
-	}
-
-	return t.(ISignContext)
-}
-
 func (s *ExprContext) System_functions() ISystem_functionsContext {
 	var t = s.GetTypedRuleContext(reflect.TypeOf((*ISystem_functionsContext)(nil)).Elem(), 0)
 
@@ -959,6 +949,16 @@ func (s *ExprContext) System_functions() ISystem_functionsContext {
 	}
 
 	return t.(ISystem_functionsContext)
+}
+
+func (s *ExprContext) Sign() ISignContext {
+	var t = s.GetTypedRuleContext(reflect.TypeOf((*ISignContext)(nil)).Elem(), 0)
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(ISignContext)
 }
 
 func (s *ExprContext) Atom() IAtomContext {
@@ -1052,32 +1052,32 @@ func (p *SymbolanParser) expr(_p int) (localctx IExprContext) {
 			p.Right_par()
 		}
 
-	case SymbolanParserT__6, SymbolanParserT__7:
-		{
-			p.SetState(87)
-			p.Sign()
-		}
-		{
-			p.SetState(88)
-			p.expr(4)
-		}
-
 	case SymbolanParserMIN, SymbolanParserMAX, SymbolanParserSIN, SymbolanParserCOS, SymbolanParserTAN, SymbolanParserLOG, SymbolanParserDERIVATIVE_OPERATOR:
 		{
-			p.SetState(90)
+			p.SetState(87)
 			p.System_functions()
 		}
 		{
-			p.SetState(91)
+			p.SetState(88)
 			p.Left_par()
 		}
 		{
-			p.SetState(92)
+			p.SetState(89)
 			p.expr(0)
 		}
 		{
-			p.SetState(93)
+			p.SetState(90)
 			p.Right_par()
+		}
+
+	case SymbolanParserT__6, SymbolanParserT__7:
+		{
+			p.SetState(92)
+			p.Sign()
+		}
+		{
+			p.SetState(93)
+			p.expr(3)
 		}
 
 	case SymbolanParserPI, SymbolanParserDERIVATIVE, SymbolanParserVAR, SymbolanParserCONST, SymbolanParserEULER, SymbolanParserINFINITE, SymbolanParserUNDEFINED, SymbolanParserDECIMAL_LIT, SymbolanParserOCTAL_LIT, SymbolanParserHEX_LIT, SymbolanParserFLOAT_LIT, SymbolanParserIMAGINARY_LIT:
@@ -1114,24 +1114,11 @@ func (p *SymbolanParser) expr(_p int) (localctx IExprContext) {
 				p.PushNewRecursionContext(localctx, _startState, SymbolanParserRULE_expr)
 				p.SetState(99)
 
-				if !(p.Precpred(p.GetParserRuleContext(), 9)) {
-					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 9)", ""))
+				if !(p.Precpred(p.GetParserRuleContext(), 8)) {
+					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 8)", ""))
 				}
 				{
 					p.SetState(100)
-					p.expr(10)
-				}
-
-			case 2:
-				localctx = NewExprContext(p, _parentctx, _parentState)
-				p.PushNewRecursionContext(localctx, _startState, SymbolanParserRULE_expr)
-				p.SetState(101)
-
-				if !(p.Precpred(p.GetParserRuleContext(), 7)) {
-					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 7)", ""))
-				}
-				{
-					p.SetState(102)
 					_la = p.GetTokenStream().LA(1)
 
 					if !(_la == SymbolanParserT__2 || _la == SymbolanParserT__3) {
@@ -1142,20 +1129,20 @@ func (p *SymbolanParser) expr(_p int) (localctx IExprContext) {
 					}
 				}
 				{
-					p.SetState(103)
-					p.expr(8)
+					p.SetState(101)
+					p.expr(9)
 				}
 
-			case 3:
+			case 2:
 				localctx = NewExprContext(p, _parentctx, _parentState)
 				p.PushNewRecursionContext(localctx, _startState, SymbolanParserRULE_expr)
-				p.SetState(104)
+				p.SetState(102)
 
-				if !(p.Precpred(p.GetParserRuleContext(), 6)) {
-					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 6)", ""))
+				if !(p.Precpred(p.GetParserRuleContext(), 7)) {
+					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 7)", ""))
 				}
 				{
-					p.SetState(105)
+					p.SetState(103)
 					_la = p.GetTokenStream().LA(1)
 
 					if !(_la == SymbolanParserT__4 || _la == SymbolanParserT__5) {
@@ -1166,20 +1153,20 @@ func (p *SymbolanParser) expr(_p int) (localctx IExprContext) {
 					}
 				}
 				{
-					p.SetState(106)
-					p.expr(7)
+					p.SetState(104)
+					p.expr(8)
 				}
 
-			case 4:
+			case 3:
 				localctx = NewExprContext(p, _parentctx, _parentState)
 				p.PushNewRecursionContext(localctx, _startState, SymbolanParserRULE_expr)
-				p.SetState(107)
+				p.SetState(105)
 
-				if !(p.Precpred(p.GetParserRuleContext(), 5)) {
-					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 5)", ""))
+				if !(p.Precpred(p.GetParserRuleContext(), 6)) {
+					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 6)", ""))
 				}
 				{
-					p.SetState(108)
+					p.SetState(106)
 					_la = p.GetTokenStream().LA(1)
 
 					if !(_la == SymbolanParserT__6 || _la == SymbolanParserT__7) {
@@ -1188,6 +1175,19 @@ func (p *SymbolanParser) expr(_p int) (localctx IExprContext) {
 						p.GetErrorHandler().ReportMatch(p)
 						p.Consume()
 					}
+				}
+				{
+					p.SetState(107)
+					p.expr(7)
+				}
+
+			case 4:
+				localctx = NewExprContext(p, _parentctx, _parentState)
+				p.PushNewRecursionContext(localctx, _startState, SymbolanParserRULE_expr)
+				p.SetState(108)
+
+				if !(p.Precpred(p.GetParserRuleContext(), 5)) {
+					panic(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 5)", ""))
 				}
 				{
 					p.SetState(109)
@@ -3120,7 +3120,7 @@ func (p *SymbolanParser) Sempred(localctx antlr.RuleContext, ruleIndex, predInde
 func (p *SymbolanParser) Expr_Sempred(localctx antlr.RuleContext, predIndex int) bool {
 	switch predIndex {
 	case 0:
-		return p.Precpred(p.GetParserRuleContext(), 9)
+		return p.Precpred(p.GetParserRuleContext(), 8)
 
 	case 1:
 		return p.Precpred(p.GetParserRuleContext(), 7)

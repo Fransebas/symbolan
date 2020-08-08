@@ -2,6 +2,10 @@ F * 0 => 0
 0 * F => 0
 1 * F => F
 F * 1 => F
+
+(-F_1) * (-F_2) => (+F_1) * (+F_2)
+
+(-1) * (+F) => -F
 // Multiplications ^
 
 
@@ -51,20 +55,6 @@ V * (V ^ C) => V ^ (C + 1)
 (C ^ N) * C => C ^ (N + 1)
 C * (C ^ N) => C ^ (N + 1)
 
-// Derivatives
-D(C) => 0
-D(V) => VarDerivative()
-D(C * V) => C*D(V)
-D(F * F_2) => D(F) * F_2 + F * D(F_2)
-D(F + F_2) => D(F) + D(F_2)
-D(F - F_2) => D(F) - D(F_2)
-D(F ^ F_2) => F_2 * (F ^ F_2 - 1) D(F) + (F ^ F_2) * log(F) * D(F_2)
-D(F / F_2) => (D(F) * F_2 - F * D(F_2))/(F_2^2)
-D(sin(F)) => D(F) * cos(F)
-D(cos(F)) => 0 - D(F) * sin(F)
-D(log(F)) => D(F) / F
-D(dV) => dV ^ 2
-
 
 //i ^ 2 => -1
 //i ^ C => imaginaryExponents()
@@ -81,4 +71,20 @@ log(e) => 1
 log(F ^ F_2) => F_2 * log(F)
 log(F * F_2) => log(F) + log(F_2)
 log(F / F_2) => log(F) - log(F_2)
+
+
+
+// Derivatives
+D(C) => 0
+D(V) => VarDerivative()
+D(C * V) => C*D(V)
+D(F * F_2) => D(F) * F_2 + F * D(F_2)
+D(F + F_2) => D(F) + D(F_2)
+D(F - F_2) => D(F) - D(F_2)
+D(F ^ F_2) => F_2 * (F ^ F_2 - 1) D(F) + (F ^ F_2) * log(F) * D(F_2)
+D(F / F_2) => (D(F) * F_2 - F * D(F_2))/(F_2^2)
+D(sin(F)) => D(F) * cos(F)
+D(cos(F)) => 0 - D(F) * sin(F)
+D(log(F)) => D(F) / F
+D(dV) => dV ^ 2
 

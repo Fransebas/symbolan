@@ -45,6 +45,23 @@ expr
     | ruleAtom
     ;
 
+//
+//
+//
+//expr 
+//	: left_par expr right_par
+//    | expr ('^'|'**') expr 
+//    | expr ('*'|'/') expr 
+//    | expr ('+'|'-') expr
+//    | expr expr
+//    | system_functions left_par expr right_par
+//    | sign atom
+//    | sign ruleAtom
+//    | sign left_par expr right_par
+//    | atom
+//    | ruleAtom
+//    ;
+
 ruleAtom 
 	: const_rule
 	| var_rule
@@ -153,10 +170,10 @@ INFINITE : [+-]?'inf';
 UNDEFINED : 'undef';
 
 DERIVATE_RULE	: 'd'   [V] (('_')[0-9]+)? ;
-NUMERIC_RULE 	: [+-]? [N] (('_')[0-9]+)? ;
-CONST_RULE 		: [+-]? [C] (('_')[0-9]+)? ;
-VAR_RULE 		: [+-]? [V] (('_')[0-9]+)? ;
-EXPR_RULE 		: [+-]? [F] (('_')[0-9]+)? ;
+NUMERIC_RULE 	: [N] (('_')[0-9]+)? ;
+CONST_RULE 		: [C] (('_')[0-9]+)? ;
+VAR_RULE 		: [V] (('_')[0-9]+)? ;
+EXPR_RULE 		: [F] (('_')[0-9]+)? ;
 
 IMAGINARY  : (DECIMALS | FLOAT_LIT) 'i';
 
@@ -183,13 +200,13 @@ IDENTIFIER
 // Fragments
 
 fragment DECIMALS
-    : [+-]? [0-9]+
+    : [0-9]+
     ;
 fragment OCTAL_DIGIT
-    : [+-]? [0-7]
+    : [0-7]
     ;
 fragment HEX_DIGIT
-    : [+-]? [0-9a-fA-F]
+    : [0-9a-fA-F]
     ;
 fragment EXPONENT
     : [eE] [+-]? DECIMALS

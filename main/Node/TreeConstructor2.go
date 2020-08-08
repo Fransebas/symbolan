@@ -105,15 +105,12 @@ func RuleFunction(ctx antlr.Tree) *Node {
 	node.IsLeaf = true
 	node.classByValues = ValueClass.RULE_FUNCTION
 
-	node.IsRule = true
-
 	return node
 }
 
 func ExprRule(ctx antlr.Tree) *Node {
 	node := NewNode()
 	childrenCount := ctx.GetChildCount()
-	node.IsRule = true
 
 	if childrenCount == 3 {
 		node.Left = ExprNode(ctx.GetChild(0))

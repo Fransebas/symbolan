@@ -47,13 +47,15 @@ func (this *Node) IsRule() bool {
 }
 
 func (this *Node) SetSign(sign string) {
+	isNegative := sign == "-"
 	if this.classByValues == ValueClass.NUMERIC_CONSTANT {
-		if sign == "-" {
+		if isNegative {
 			this.SetNumericValue(-1 * this.numericValue)
 		}
+	} else {
+		this.hasSign = true
+		this.isNegative = this.isNegative != isNegative
 	}
-	this.hasSign = true
-	this.isNegative = sign == "-"
 }
 
 func (this *Node) HasSign() bool {
@@ -65,9 +67,9 @@ func (this *Node) HasSign() bool {
 
 func (this *Node) IsNegative() bool {
 	if this.classByValues == ValueClass.NUMERIC_CONSTANT {
-		return false
+		return this.numericValue < 0
 	}
-	return this.hasSign
+	return this.isNegative
 }
 
 func (this *Node) SetNumericValue(value float64) {
@@ -101,12 +103,15 @@ func (this *Node) NumericValue() float64 {
 }
 
 func (this *Node) String() string {
-	if this.IsLeaf {
-		return this.Value
+	sign := parseSign(this.isNegative)
+	if sign == "+" {
+		sign = ""
 	}
-
+	if this.IsLeaf {
+		return sign + this.Value
+	}
 	if this.classByOperation == OperationClass.SYSTEM_FUNCTION {
-		return this.Left.String() + "(" + this.Right.String() + ")"
+		return sign + this.Left.String() + "(" + this.Right.String() + ")"
 	} else {
 		if this.OperationClass() == OperationClass.ADDITION {
 			return this.Left.String() + this.Operation + this.Right.String()
@@ -123,9 +128,9 @@ func (this *Node) String() string {
 			} else {
 				right = fmt.Sprintf("%v", this.Right.String())
 			}
-			return left + this.Operation + right
+			return sign + left + this.Operation + right
 		} else {
-			return this.Left.String() + this.Operation
+			return sign + this.Left.String() + this.Operation
 		}
 	}
 
@@ -147,6 +152,13 @@ func (this Node) Eval(valueSubstitution *map[string]*Node) Node {
 	return nNode
 }
 
+func parseSign(isNegative bool) string {
+	if isNegative {
+		return "-"
+	}
+	return "+"
+}
+
 func (this Node) eval(valueSubstitution *map[string]*Node) Node {
 	if this.IsLeaf {
 		// Do not substitute numbers, even though that could be interesting
@@ -154,6 +166,12 @@ func (this Node) eval(valueSubstitution *map[string]*Node) Node {
 			return this
 		}
 		if val, ok := (*valueSubstitution)[this.Value]; ok {
+			val.SetSign(parseSign(this.IsNegative() != val.IsNegative()))
+			if this.IsRule() {
+				if this.hasSign {
+					val.SetSign(parseSign(this.isNegative))
+				}
+			}
 			return *val
 		}
 	} else {
@@ -399,6 +417,11 @@ func getOperationClass(op string) OperationClass.OperationClass {
 }
 
 func (this *Node) Compare(node *Node) bool {
+
+	if this.IsRule() || node.IsRule() {
+		panic("Comparing rules with this functions is not supported")
+	}
+
 	if this.height != node.height || this.treeSize != node.treeSize {
 		return false
 	}
@@ -415,6 +438,11 @@ func (this *Node) Compare(node *Node) bool {
 		sameClass := this.ValueClass() == node.ValueClass()
 		sameNumericValue := utils.Compare(this.numericValue, node.numericValue)
 		sameValue := this.Value == node.Value
+		smaeSign := this.IsNegative() == node.IsNegative()
+
+		if !smaeSign {
+			return false
+		}
 
 		if !sameClass {
 			return false
