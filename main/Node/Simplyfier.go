@@ -1,6 +1,7 @@
 package Node
 
 import (
+	"fmt"
 	"symbolan/main/ValueClass"
 )
 
@@ -46,20 +47,16 @@ func (this *Simplyfier) Simplify(node Node) Node {
 
 	rules := this.manager.GetRules(&node)
 
-	for _, rule := range rules {
+	for i, rule := range rules {
 		matchRule := rule.node.Left
 		resultRule := rule.node.Right
-		//fmt.Println(i)
+		fmt.Println(i)
 		substitutions, ok := Compare(&node, matchRule)
 		if ok {
 			if resultRule.ValueClass() == ValueClass.RULE_FUNCTION {
 				return this.manager.functions[resultRule.Value](&node)
 			}
 			nNode := resultRule.Eval(substitutions)
-			nNode.SetSign(parseSign(nNode.IsNegative() != node.IsNegative()))
-			if resultRule.hasSign {
-				nNode.SetSign(parseSign(resultRule.IsNegative()))
-			}
 			return this.Simplify(nNode)
 		}
 	}
@@ -90,14 +87,8 @@ func compare(node *Node, rule *Node, knownNodes *map[string]*Node) bool {
 
 	ruleValueClass := rule.ValueClass()
 
-	if rule.hasSign {
-		if rule.IsNegative() != node.IsNegative() {
-			return false
-		}
-	}
-
 	//generic case
-	if rule.ValueClass() == ValueClass.EXPR_RULE {
+	if node.ValueClass() != ValueClass.SIGN && rule.ValueClass() == ValueClass.EXPR_RULE {
 		ruleName := rule.Value
 
 		if !isNodeKnown(ruleName, knownNodes) {
@@ -167,6 +158,9 @@ func compare(node *Node, rule *Node, knownNodes *map[string]*Node) bool {
 			return true
 
 		case ValueClass.SYSTEM_FUNCTION:
+			return node.Compare(rule)
+
+		case ValueClass.SIGN:
 			return node.Compare(rule)
 
 		default:

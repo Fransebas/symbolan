@@ -2,6 +2,7 @@ package Node
 
 import (
 	"fmt"
+	"math"
 	"strconv"
 	"symbolan/main/OperationClass"
 	"symbolan/main/ValueClass"
@@ -17,8 +18,6 @@ type Node struct {
 	classByValues    ValueClass.ValueClass
 	classByOperation OperationClass.OperationClass
 	numericValue     float64
-	isNegative       bool // this value is only for non-numeric values
-	hasSign          bool
 
 	Left  *Node
 	Right *Node
@@ -46,36 +45,8 @@ func (this *Node) IsRule() bool {
 	return isRule(this.classByValues)
 }
 
-func (this *Node) SetSign(sign string) {
-	isNegative := sign == "-"
-	if this.classByValues == ValueClass.NUMERIC_CONSTANT {
-		if isNegative {
-			this.SetNumericValue(-1 * this.numericValue)
-		}
-	} else {
-		this.hasSign = true
-		this.isNegative = this.isNegative != isNegative
-	}
-}
-
-func (this *Node) HasSign() bool {
-	if this.classByValues == ValueClass.NUMERIC_CONSTANT {
-		return this.numericValue < 0
-	}
-	return this.isNegative
-}
-
-func (this *Node) IsNegative() bool {
-	if this.classByValues == ValueClass.NUMERIC_CONSTANT {
-		return this.numericValue < 0
-	}
-	return this.isNegative
-}
-
 func (this *Node) SetNumericValue(value float64) {
 	this.numericValue = value
-	this.isNegative = false
-	this.hasSign = false
 	this.setValueFromNumeric()
 }
 
@@ -103,19 +74,19 @@ func (this *Node) NumericValue() float64 {
 }
 
 func (this *Node) String() string {
-	sign := parseSign(this.isNegative)
-	if sign == "+" {
-		sign = ""
-	}
 	if this.IsLeaf {
-		return sign + this.Value
+		return this.Value
 	}
 	if this.classByOperation == OperationClass.SYSTEM_FUNCTION {
-		return sign + this.Left.String() + "(" + this.Right.String() + ")"
+		return this.Left.String() + "(" + this.Right.String() + ")"
 	} else {
 		if this.OperationClass() == OperationClass.ADDITION {
 			return this.Left.String() + this.Operation + this.Right.String()
 		} else if this.Right != nil {
+			operation := this.Operation
+			if this.OperationClass() == OperationClass.SIGN {
+				operation = ""
+			}
 			left := ""
 			if this.Left.treeSize > 1 {
 				left = fmt.Sprintf("(%v)", this.Left.String())
@@ -128,9 +99,9 @@ func (this *Node) String() string {
 			} else {
 				right = fmt.Sprintf("%v", this.Right.String())
 			}
-			return sign + left + this.Operation + right
+			return left + operation + right
 		} else {
-			return sign + this.Left.String() + this.Operation
+			return this.Left.String() + this.Operation
 		}
 	}
 
@@ -152,13 +123,6 @@ func (this Node) Eval(valueSubstitution *map[string]*Node) Node {
 	return nNode
 }
 
-func parseSign(isNegative bool) string {
-	if isNegative {
-		return "-"
-	}
-	return "+"
-}
-
 func (this Node) eval(valueSubstitution *map[string]*Node) Node {
 	if this.IsLeaf {
 		// Do not substitute numbers, even though that could be interesting
@@ -166,12 +130,6 @@ func (this Node) eval(valueSubstitution *map[string]*Node) Node {
 			return this
 		}
 		if val, ok := (*valueSubstitution)[this.Value]; ok {
-			val.SetSign(parseSign(this.IsNegative() != val.IsNegative()))
-			if this.IsRule() {
-				if this.hasSign {
-					val.SetSign(parseSign(this.isNegative))
-				}
-			}
 			return *val
 		}
 	} else {
@@ -231,17 +189,44 @@ func NewNodeDerivatedVar(node *Node) *Node {
 	return newNode
 }
 
+func NewSignNode(sign string) *Node {
+	node := NewNode()
+	node.height = 0
+	node.treeSize = 1
+	node.classByValues = ValueClass.SIGN
+	node.IsLeaf = true
+	node.Value = sign
+
+	return node
+}
+
 func NewNodeFromValue(value float64) *Node {
-	newNode := NewNode()
 
-	newNode.SetNumericValue(value)
-	newNode.classByValues = ValueClass.NUMERIC_CONSTANT
-	newNode.IsLeaf = true
+	node := NewNode()
 
-	newNode.treeSize = 1
-	newNode.height = 0
+	node.SetNumericValue(value)
+	node.classByValues = ValueClass.NUMERIC_CONSTANT
+	node.IsLeaf = true
 
-	return newNode
+	node.treeSize = 1
+	node.height = 0
+
+	if value < 0 {
+		node.SetNumericValue(math.Abs(value))
+
+		expNode := NewNode()
+		expNode.Right = node
+		expNode.Left = NewSignNode("-")
+		expNode.classByValues = ValueClass.NUMERIC_CONSTANT
+		expNode.treeSize = 3
+		expNode.height = 1
+		expNode.classByOperation = OperationClass.SIGN
+		expNode.Operation = "sign"
+		return expNode
+	} else {
+		return node
+	}
+
 }
 
 func NewNode() *Node {
@@ -276,6 +261,8 @@ func getLeafClass(rule int) ValueClass.ValueClass {
 		return ValueClass.DERIVATIVE
 	case parser.SymbolanParserRULE_derivative_rule:
 		return ValueClass.DERIVATIVE_RULE
+	case parser.SymbolanParserRULE_sign:
+		return ValueClass.SIGN
 	default:
 		panic(fmt.Sprintf("Rule %v should't exist", rule))
 	}
@@ -438,11 +425,6 @@ func (this *Node) Compare(node *Node) bool {
 		sameClass := this.ValueClass() == node.ValueClass()
 		sameNumericValue := utils.Compare(this.numericValue, node.numericValue)
 		sameValue := this.Value == node.Value
-		smaeSign := this.IsNegative() == node.IsNegative()
-
-		if !smaeSign {
-			return false
-		}
 
 		if !sameClass {
 			return false

@@ -35,13 +35,13 @@ var parserATN = []uint16{
 	23, 3, 24, 3, 24, 3, 25, 3, 25, 3, 25, 5, 25, 167, 10, 25, 3, 25, 2, 3,
 	12, 26, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34,
 	36, 38, 40, 42, 44, 46, 48, 2, 8, 4, 2, 20, 25, 27, 27, 3, 2, 5, 6, 3,
-	2, 7, 8, 3, 2, 9, 10, 4, 2, 28, 28, 32, 34, 3, 2, 41, 44, 2, 168, 2, 59,
-	3, 2, 2, 2, 4, 67, 3, 2, 2, 2, 6, 69, 3, 2, 2, 2, 8, 71, 3, 2, 2, 2, 10,
-	82, 3, 2, 2, 2, 12, 99, 3, 2, 2, 2, 14, 122, 3, 2, 2, 2, 16, 124, 3, 2,
-	2, 2, 18, 126, 3, 2, 2, 2, 20, 128, 3, 2, 2, 2, 22, 130, 3, 2, 2, 2, 24,
-	132, 3, 2, 2, 2, 26, 134, 3, 2, 2, 2, 28, 136, 3, 2, 2, 2, 30, 138, 3,
-	2, 2, 2, 32, 147, 3, 2, 2, 2, 34, 149, 3, 2, 2, 2, 36, 151, 3, 2, 2, 2,
-	38, 153, 3, 2, 2, 2, 40, 155, 3, 2, 2, 2, 42, 157, 3, 2, 2, 2, 44, 159,
+	2, 7, 8, 3, 2, 9, 10, 5, 2, 28, 28, 32, 34, 40, 40, 3, 2, 41, 44, 2, 168,
+	2, 59, 3, 2, 2, 2, 4, 67, 3, 2, 2, 2, 6, 69, 3, 2, 2, 2, 8, 71, 3, 2, 2,
+	2, 10, 82, 3, 2, 2, 2, 12, 99, 3, 2, 2, 2, 14, 122, 3, 2, 2, 2, 16, 124,
+	3, 2, 2, 2, 18, 126, 3, 2, 2, 2, 20, 128, 3, 2, 2, 2, 22, 130, 3, 2, 2,
+	2, 24, 132, 3, 2, 2, 2, 26, 134, 3, 2, 2, 2, 28, 136, 3, 2, 2, 2, 30, 138,
+	3, 2, 2, 2, 32, 147, 3, 2, 2, 2, 34, 149, 3, 2, 2, 2, 36, 151, 3, 2, 2,
+	2, 38, 153, 3, 2, 2, 2, 40, 155, 3, 2, 2, 2, 42, 157, 3, 2, 2, 2, 44, 159,
 	3, 2, 2, 2, 46, 161, 3, 2, 2, 2, 48, 166, 3, 2, 2, 2, 50, 54, 5, 10, 6,
 	2, 51, 53, 7, 47, 2, 2, 52, 51, 3, 2, 2, 2, 53, 56, 3, 2, 2, 2, 54, 52,
 	3, 2, 2, 2, 54, 55, 3, 2, 2, 2, 55, 58, 3, 2, 2, 2, 56, 54, 3, 2, 2, 2,
@@ -94,7 +94,7 @@ var literalNames = []string{
 	"", "'()'", "'=>'", "'^'", "'**'", "'*'", "'/'", "'+'", "'-'", "'('", "')'",
 	"'{'", "'}'", "'['", "']'", "'='", "','", "'!'", "'min'", "'max'", "'sin'",
 	"'cos'", "'tan'", "'log'", "'sqrt'", "'D'", "'pi'", "", "", "", "", "",
-	"'undef'",
+	"'undef'", "", "", "", "", "", "'i'",
 }
 var symbolicNames = []string{
 	"", "", "", "", "", "", "", "", "", "L_PAREN", "R_PAREN", "L_CURLY", "R_CURLY",
@@ -334,7 +334,7 @@ func (p *SymbolanParser) RuleSet() (localctx IRuleSetContext) {
 	p.GetErrorHandler().Sync(p)
 	_la = p.GetTokenStream().LA(1)
 
-	for (((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<SymbolanParserT__6)|(1<<SymbolanParserT__7)|(1<<SymbolanParserL_PAREN)|(1<<SymbolanParserMIN)|(1<<SymbolanParserMAX)|(1<<SymbolanParserSIN)|(1<<SymbolanParserCOS)|(1<<SymbolanParserTAN)|(1<<SymbolanParserLOG)|(1<<SymbolanParserDERIVATIVE_OPERATOR)|(1<<SymbolanParserPI)|(1<<SymbolanParserDERIVATIVE)|(1<<SymbolanParserVAR)|(1<<SymbolanParserCONST)|(1<<SymbolanParserEULER)|(1<<SymbolanParserINFINITE))) != 0) || (((_la-32)&-(0x1f+1)) == 0 && ((1<<uint((_la-32)))&((1<<(SymbolanParserUNDEFINED-32))|(1<<(SymbolanParserDERIVATE_RULE-32))|(1<<(SymbolanParserNUMERIC_RULE-32))|(1<<(SymbolanParserCONST_RULE-32))|(1<<(SymbolanParserVAR_RULE-32))|(1<<(SymbolanParserEXPR_RULE-32))|(1<<(SymbolanParserDECIMAL_LIT-32))|(1<<(SymbolanParserOCTAL_LIT-32))|(1<<(SymbolanParserHEX_LIT-32))|(1<<(SymbolanParserFLOAT_LIT-32))|(1<<(SymbolanParserIMAGINARY_LIT-32)))) != 0) {
+	for (((_la)&-(0x1f+1)) == 0 && ((1<<uint(_la))&((1<<SymbolanParserT__6)|(1<<SymbolanParserT__7)|(1<<SymbolanParserL_PAREN)|(1<<SymbolanParserMIN)|(1<<SymbolanParserMAX)|(1<<SymbolanParserSIN)|(1<<SymbolanParserCOS)|(1<<SymbolanParserTAN)|(1<<SymbolanParserLOG)|(1<<SymbolanParserDERIVATIVE_OPERATOR)|(1<<SymbolanParserPI)|(1<<SymbolanParserDERIVATIVE)|(1<<SymbolanParserVAR)|(1<<SymbolanParserCONST)|(1<<SymbolanParserEULER)|(1<<SymbolanParserINFINITE))) != 0) || (((_la-32)&-(0x1f+1)) == 0 && ((1<<uint((_la-32)))&((1<<(SymbolanParserUNDEFINED-32))|(1<<(SymbolanParserDERIVATE_RULE-32))|(1<<(SymbolanParserNUMERIC_RULE-32))|(1<<(SymbolanParserCONST_RULE-32))|(1<<(SymbolanParserVAR_RULE-32))|(1<<(SymbolanParserEXPR_RULE-32))|(1<<(SymbolanParserIMAGINARY-32))|(1<<(SymbolanParserDECIMAL_LIT-32))|(1<<(SymbolanParserOCTAL_LIT-32))|(1<<(SymbolanParserHEX_LIT-32))|(1<<(SymbolanParserFLOAT_LIT-32))|(1<<(SymbolanParserIMAGINARY_LIT-32)))) != 0) {
 		{
 			p.SetState(48)
 			p.ExpressionRule()
@@ -1080,7 +1080,7 @@ func (p *SymbolanParser) expr(_p int) (localctx IExprContext) {
 			p.expr(3)
 		}
 
-	case SymbolanParserPI, SymbolanParserDERIVATIVE, SymbolanParserVAR, SymbolanParserCONST, SymbolanParserEULER, SymbolanParserINFINITE, SymbolanParserUNDEFINED, SymbolanParserDECIMAL_LIT, SymbolanParserOCTAL_LIT, SymbolanParserHEX_LIT, SymbolanParserFLOAT_LIT, SymbolanParserIMAGINARY_LIT:
+	case SymbolanParserPI, SymbolanParserDERIVATIVE, SymbolanParserVAR, SymbolanParserCONST, SymbolanParserEULER, SymbolanParserINFINITE, SymbolanParserUNDEFINED, SymbolanParserIMAGINARY, SymbolanParserDECIMAL_LIT, SymbolanParserOCTAL_LIT, SymbolanParserHEX_LIT, SymbolanParserFLOAT_LIT, SymbolanParserIMAGINARY_LIT:
 		{
 			p.SetState(95)
 			p.Atom()
@@ -2349,6 +2349,10 @@ func (s *Math_constantContext) UNDEFINED() antlr.TerminalNode {
 	return s.GetToken(SymbolanParserUNDEFINED, 0)
 }
 
+func (s *Math_constantContext) IMAGINARY() antlr.TerminalNode {
+	return s.GetToken(SymbolanParserIMAGINARY, 0)
+}
+
 func (s *Math_constantContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
@@ -2395,7 +2399,7 @@ func (p *SymbolanParser) Math_constant() (localctx IMath_constantContext) {
 		p.SetState(147)
 		_la = p.GetTokenStream().LA(1)
 
-		if !(((_la-26)&-(0x1f+1)) == 0 && ((1<<uint((_la-26)))&((1<<(SymbolanParserPI-26))|(1<<(SymbolanParserEULER-26))|(1<<(SymbolanParserINFINITE-26))|(1<<(SymbolanParserUNDEFINED-26)))) != 0) {
+		if !(((_la-26)&-(0x1f+1)) == 0 && ((1<<uint((_la-26)))&((1<<(SymbolanParserPI-26))|(1<<(SymbolanParserEULER-26))|(1<<(SymbolanParserINFINITE-26))|(1<<(SymbolanParserUNDEFINED-26))|(1<<(SymbolanParserIMAGINARY-26)))) != 0) {
 			p.GetErrorHandler().RecoverInline(p)
 		} else {
 			p.GetErrorHandler().ReportMatch(p)

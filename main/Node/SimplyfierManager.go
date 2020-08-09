@@ -71,12 +71,13 @@ func NewSimplyfierManager() *Manager {
 
 	manager.readRules()
 	manager.functions = map[string]func(node *Node) Node{
-		"Addition":       addition,
-		"Subtraction":    subtraction,
-		"Multiplication": multiplication,
-		"Division":       division,
-		"Exponential":    exponential,
-		"VarDerivative":  VarDerivative,
+		"Addition":          addition,
+		"Subtraction":       subtraction,
+		"Multiplication":    multiplication,
+		"Division":          division,
+		"Exponential":       exponential,
+		"VarDerivative":     VarDerivative,
+		"SignedExponential": signedExponential,
 	}
 
 	return manager

@@ -97,6 +97,7 @@ math_constant
     | EULER
     | INFINITE
     | UNDEFINED
+    | IMAGINARY
     ;
 
 infinite
@@ -175,7 +176,7 @@ CONST_RULE 		: [C] (('_')[0-9]+)? ;
 VAR_RULE 		: [V] (('_')[0-9]+)? ;
 EXPR_RULE 		: [F] (('_')[0-9]+)? ;
 
-IMAGINARY  : (DECIMALS | FLOAT_LIT) 'i';
+IMAGINARY  : 'i';
 
 // Numbers
 

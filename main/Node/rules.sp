@@ -3,14 +3,16 @@ F * 0 => 0
 1 * F => F
 F * 1 => F
 
-(-F_1) * (-F_2) => (+F_1) * (+F_2)
 
-(-1) * (+F) => -F
-// Multiplications ^
+-(-F) => F
+-1 * F => -F
+F * -1 => -F
+(-F_1) * (-F_2) => (F_1) * (F_2)
+(-1) * (F) => -F
+//// Multiplications ^
 
 
-
-// Divisions
+//// Divisions
 C / 1 => 1
 V / 1 => V
 F / 0 => undef
@@ -18,30 +20,44 @@ F / inf => 0
 inf / inf => undef
 
 
-// Addition and Subtractions
+//// Addition and Subtractions
 0 + F => F
 F + 0 => F
 F - 0 => F
-//0 - F => -F
+0 - F => -F
+F + (-F_2) => F - F_2
+(-F) + F_2 => F_2 - F
 
+F - (-F_2) => F + F_2
+(-F) - F_2 => -(F_2 + F)
 
-// Undefined Exponents
+//// Undefined Exponents
 0 ^ 0 => undef
 F ^ 1 => F
 F ^ 0 => 1
 F ^ inf => inf
-//F ^ -inf => 0
+F ^ -inf => 0
 
 
-// Numeric Constant operations
+//// Numeric Constant operations
+N * (-N_2) => -(N * N_2)
+(-N) * N_2 => -(N * N_2)
+
+N / (-N_2) => -(N / N_2)
+(-N) / N_2 => -(N / N_2)
+
+
 N + N_2 => Addition()
 N - N_2 => Subtraction()
 N * N_2 => Multiplication()
 N / N_2 => Division()
 N ^ N_2 => Exponential()
+(-N) ^ N_2 => SignedExponential()
+N ^ (-N_2) => SignedExponential()
+(-N) ^ (-N_2) => SignedExponential()
 
 
-// Commutative
+//// Commutative
 V * C => C * V
 (C * V) * C_1 => C * C_1 * V
 C * (V * C_1) => C * C_1 * V
@@ -56,15 +72,15 @@ V * (V ^ C) => V ^ (C + 1)
 C * (C ^ N) => C ^ (N + 1)
 
 
-//i ^ 2 => -1
-//i ^ C => imaginaryExponents()
+i ^ 2 => -1
+////i ^ C => imaginaryExponents()
 
 
 // Trig Rules
 sin(0) => 0
 sin(pi) => 0
 cos(0) => 1
-//cos(pi) => -1
+cos(pi) => -1
 
 // Log rules
 log(e) => 1
@@ -75,6 +91,7 @@ log(F / F_2) => log(F) - log(F_2)
 
 
 // Derivatives
+D(-F) => -D(F)
 D(C) => 0
 D(V) => VarDerivative()
 D(C * V) => C*D(V)
@@ -87,4 +104,3 @@ D(sin(F)) => D(F) * cos(F)
 D(cos(F)) => 0 - D(F) * sin(F)
 D(log(F)) => D(F) / F
 D(dV) => dV ^ 2
-

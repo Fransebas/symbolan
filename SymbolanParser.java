@@ -43,7 +43,7 @@ public class SymbolanParser extends Parser {
 		null, "'()'", "'=>'", "'^'", "'**'", "'*'", "'/'", "'+'", "'-'", "'('", 
 		"')'", "'{'", "'}'", "'['", "']'", "'='", "','", "'!'", "'min'", "'max'", 
 		"'sin'", "'cos'", "'tan'", "'log'", "'sqrt'", "'D'", "'pi'", null, null, 
-		null, null, null, "'undef'"
+		null, null, null, "'undef'", null, null, null, null, null, "'i'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
 		null, null, null, null, null, null, null, null, null, "L_PAREN", "R_PAREN", 
@@ -138,7 +138,7 @@ public class SymbolanParser extends Parser {
 			setState(57);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__6) | (1L << T__7) | (1L << L_PAREN) | (1L << MIN) | (1L << MAX) | (1L << SIN) | (1L << COS) | (1L << TAN) | (1L << LOG) | (1L << DERIVATIVE_OPERATOR) | (1L << PI) | (1L << DERIVATIVE) | (1L << VAR) | (1L << CONST) | (1L << EULER) | (1L << INFINITE) | (1L << UNDEFINED) | (1L << DERIVATE_RULE) | (1L << NUMERIC_RULE) | (1L << CONST_RULE) | (1L << VAR_RULE) | (1L << EXPR_RULE) | (1L << DECIMAL_LIT) | (1L << OCTAL_LIT) | (1L << HEX_LIT) | (1L << FLOAT_LIT) | (1L << IMAGINARY_LIT))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__6) | (1L << T__7) | (1L << L_PAREN) | (1L << MIN) | (1L << MAX) | (1L << SIN) | (1L << COS) | (1L << TAN) | (1L << LOG) | (1L << DERIVATIVE_OPERATOR) | (1L << PI) | (1L << DERIVATIVE) | (1L << VAR) | (1L << CONST) | (1L << EULER) | (1L << INFINITE) | (1L << UNDEFINED) | (1L << DERIVATE_RULE) | (1L << NUMERIC_RULE) | (1L << CONST_RULE) | (1L << VAR_RULE) | (1L << EXPR_RULE) | (1L << IMAGINARY) | (1L << DECIMAL_LIT) | (1L << OCTAL_LIT) | (1L << HEX_LIT) | (1L << FLOAT_LIT) | (1L << IMAGINARY_LIT))) != 0)) {
 				{
 				{
 				setState(48);
@@ -494,6 +494,7 @@ public class SymbolanParser extends Parser {
 			case EULER:
 			case INFINITE:
 			case UNDEFINED:
+			case IMAGINARY:
 			case DECIMAL_LIT:
 			case OCTAL_LIT:
 			case HEX_LIT:
@@ -1115,6 +1116,7 @@ public class SymbolanParser extends Parser {
 		public TerminalNode EULER() { return getToken(SymbolanParser.EULER, 0); }
 		public TerminalNode INFINITE() { return getToken(SymbolanParser.INFINITE, 0); }
 		public TerminalNode UNDEFINED() { return getToken(SymbolanParser.UNDEFINED, 0); }
+		public TerminalNode IMAGINARY() { return getToken(SymbolanParser.IMAGINARY, 0); }
 		public Math_constantContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -1138,7 +1140,7 @@ public class SymbolanParser extends Parser {
 			{
 			setState(147);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << PI) | (1L << EULER) | (1L << INFINITE) | (1L << UNDEFINED))) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << PI) | (1L << EULER) | (1L << INFINITE) | (1L << UNDEFINED) | (1L << IMAGINARY))) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -1514,9 +1516,9 @@ public class SymbolanParser extends Parser {
 		"\3\21\5\21\u0094\n\21\3\22\3\22\3\23\3\23\3\24\3\24\3\25\3\25\3\26\3\26"+
 		"\3\27\3\27\3\30\3\30\3\31\3\31\3\31\5\31\u00a7\n\31\3\31\2\3\f\32\2\4"+
 		"\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&(*,.\60\2\b\4\2\24\31\33\33\3"+
-		"\2\5\6\3\2\7\b\3\2\t\n\4\2\34\34 \"\3\2),\2\u00a8\2;\3\2\2\2\4C\3\2\2"+
-		"\2\6E\3\2\2\2\bG\3\2\2\2\nR\3\2\2\2\fc\3\2\2\2\16z\3\2\2\2\20|\3\2\2\2"+
-		"\22~\3\2\2\2\24\u0080\3\2\2\2\26\u0082\3\2\2\2\30\u0084\3\2\2\2\32\u0086"+
+		"\2\5\6\3\2\7\b\3\2\t\n\5\2\34\34 \"((\3\2),\2\u00a8\2;\3\2\2\2\4C\3\2"+
+		"\2\2\6E\3\2\2\2\bG\3\2\2\2\nR\3\2\2\2\fc\3\2\2\2\16z\3\2\2\2\20|\3\2\2"+
+		"\2\22~\3\2\2\2\24\u0080\3\2\2\2\26\u0082\3\2\2\2\30\u0084\3\2\2\2\32\u0086"+
 		"\3\2\2\2\34\u0088\3\2\2\2\36\u008a\3\2\2\2 \u0093\3\2\2\2\"\u0095\3\2"+
 		"\2\2$\u0097\3\2\2\2&\u0099\3\2\2\2(\u009b\3\2\2\2*\u009d\3\2\2\2,\u009f"+
 		"\3\2\2\2.\u00a1\3\2\2\2\60\u00a6\3\2\2\2\62\66\5\n\6\2\63\65\7/\2\2\64"+

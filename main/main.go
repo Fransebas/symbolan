@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"symbolan/main/Latex"
 	"symbolan/main/Node"
 )
 
@@ -24,4 +25,7 @@ func main() {
 	node := symbolanProcessor.ProcessString(string(input))
 
 	fmt.Println(node.String())
+	latexStr := node.Latex()
+	fmt.Println(latexStr)
+	Latex.ProcessLatex(latexStr)
 }

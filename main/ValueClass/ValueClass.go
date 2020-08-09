@@ -13,6 +13,7 @@ const (
 	VARIABLE_EXPRESSION         ValueClass = "VARIABLE_EXPRESSION"
 	NUMERIC_CONSTANT_EXPRESSION ValueClass = "NUMERIC_CONSTANT_EXPRESSION"
 	SYSTEM_FUNCTION             ValueClass = "SYSTEM_FUNCTION"
+	SIGN                        ValueClass = "SIGN"
 )
 
 const (

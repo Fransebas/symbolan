@@ -17,4 +17,5 @@ const (
 	LEAF            OperationClass = "LEAF"
 	SYSTEM_FUNCTION OperationClass = "SYSTEM_FUNCTION"
 	RULE            OperationClass = "RULE"
+	SIGN            OperationClass = "SIGN"
 )
