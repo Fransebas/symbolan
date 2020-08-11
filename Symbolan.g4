@@ -150,12 +150,22 @@ COMMA                  : ',';
 FACTORIAL              : '!';
 
 // Keywords
-
-MIN                  : 'min';
-MAX                  : 'max';
 SIN                  : 'sin';
 COS                  : 'cos';
 TAN                  : 'tan';
+COT                  : 'cot'; 
+CSC                  : 'csc';
+SEC                  : 'sec';
+
+SINH                  : 'sinh';
+COSH                  : 'cosh';
+TANH                  : 'tanh';
+COTH                  : 'coth'; 
+CSCH                  : 'csch';
+SECH                  : 'sech';
+
+MIN                  : 'min';
+MAX                  : 'max';
 LOG                  : 'log';
 SQRT                 : 'sqrt';
 DERIVATIVE_OPERATOR  : 'D';

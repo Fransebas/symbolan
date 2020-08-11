@@ -1,7 +1,6 @@
 package Node
 
 import (
-	"fmt"
 	"symbolan/main/ValueClass"
 )
 
@@ -47,10 +46,9 @@ func (this *Simplyfier) Simplify(node Node) Node {
 
 	rules := this.manager.GetRules(&node)
 
-	for i, rule := range rules {
+	for _, rule := range rules {
 		matchRule := rule.node.Left
 		resultRule := rule.node.Right
-		fmt.Println(i)
 		substitutions, ok := Compare(&node, matchRule)
 		if ok {
 			if resultRule.ValueClass() == ValueClass.RULE_FUNCTION {

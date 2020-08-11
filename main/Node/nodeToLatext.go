@@ -6,8 +6,8 @@ import (
 )
 
 func (this *Node) Latex() string {
-	beginLatex := `\documentclass[12pt]{article} \begin{document} \begin{equation}` + "\n"
-	endLatex := "\n" + `\end{equation}  \end{document}`
+	beginLatex := `\begin{equation}` + "\n"
+	endLatex := "\n" + `\end{equation}`
 
 	return beginLatex + this.latex() + endLatex
 }
@@ -17,12 +17,33 @@ func (this *Node) latex() string {
 		return this.Value
 	}
 	if this.classByOperation == OperationClass.SYSTEM_FUNCTION {
-		return this.Left.String() + "(" + this.Right.String() + ")"
+		return this.Left.latex() + "(" + this.Right.latex() + ")"
 	} else {
 		if this.OperationClass() == OperationClass.ADDITION {
-			return this.Left.String() + this.Operation + this.Right.String()
+			return this.Left.latex() + this.Operation + this.Right.latex()
 		} else if this.OperationClass() == OperationClass.DIVISION {
-			return fmt.Sprintf(`\frac{%v}{%v}`, this.Left.String(), this.Right.String())
+			return fmt.Sprintf(`\frac{%v}{%v}`, this.Left.latex(), this.Right.latex())
+		} else if this.OperationClass() == OperationClass.EXPONENTIAL {
+			return fmt.Sprintf(`{%v}^{%v}`, this.Left.latex(), this.Right.latex())
+		} else if this.OperationClass() == OperationClass.MULTIPLICATION {
+			operation := ""
+			left := ""
+			if this.Left.OperationClass() == OperationClass.MULTIPLICATION || this.Left.OperationClass() == OperationClass.SYSTEM_FUNCTION || this.Left.IsLeaf {
+				left = fmt.Sprintf("%v", this.Left.latex())
+			} else {
+				left = fmt.Sprintf("(%v)", this.Left.latex())
+				operation = "*"
+			}
+
+			right := ""
+			if this.Right.OperationClass() == OperationClass.MULTIPLICATION || this.Right.OperationClass() == OperationClass.SYSTEM_FUNCTION || this.Right.IsLeaf {
+				right = fmt.Sprintf("%v", this.Right.latex())
+			} else {
+				right = fmt.Sprintf("(%v)", this.Right.latex())
+				operation = "*"
+			}
+			return left + operation + right
+
 		} else if this.Right != nil {
 			operation := this.Operation
 			if this.OperationClass() == OperationClass.SIGN {
@@ -30,19 +51,19 @@ func (this *Node) latex() string {
 			}
 			left := ""
 			if this.Left.treeSize > 1 {
-				left = fmt.Sprintf("(%v)", this.Left.String())
+				left = fmt.Sprintf("(%v)", this.Left.latex())
 			} else {
-				left = fmt.Sprintf("%v", this.Left.String())
+				left = fmt.Sprintf("%v", this.Left.latex())
 			}
 			right := ""
 			if this.Right.treeSize > 1 {
-				right = fmt.Sprintf("(%v)", this.Right.String())
+				right = fmt.Sprintf("(%v)", this.Right.latex())
 			} else {
-				right = fmt.Sprintf("%v", this.Right.String())
+				right = fmt.Sprintf("%v", this.Right.latex())
 			}
 			return left + operation + right
 		} else {
-			return this.Left.String() + this.Operation
+			return this.Left.latex() + this.Operation
 		}
 	}
 

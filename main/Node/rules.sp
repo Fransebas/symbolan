@@ -79,8 +79,12 @@ i ^ 2 => -1
 // Trig Rules
 sin(0) => 0
 sin(pi) => 0
+sin(pi/2) => 1
+sin(-(pi/2)) => -1
 cos(0) => 1
 cos(pi) => -1
+cos(pi/2) => 0
+cos(-(pi/2)) => 0
 
 // Log rules
 log(e) => 1
@@ -98,9 +102,16 @@ D(C * V) => C*D(V)
 D(F * F_2) => D(F) * F_2 + F * D(F_2)
 D(F + F_2) => D(F) + D(F_2)
 D(F - F_2) => D(F) - D(F_2)
-D(F ^ F_2) => F_2 * (F ^ F_2 - 1) D(F) + (F ^ F_2) * log(F) * D(F_2)
+D(F ^ F_2) => F_2 * (F ^ (F_2 - 1)) D(F) + (F ^ F_2) * log(F) * D(F_2)
 D(F / F_2) => (D(F) * F_2 - F * D(F_2))/(F_2^2)
-D(sin(F)) => D(F) * cos(F)
-D(cos(F)) => 0 - D(F) * sin(F)
+
+D(sin(F)) => cos(F) * D(F)
+D(cos(F)) => sin(F) * D(F)
+D(tan(F)) => ((1/cos(F))^2)*D(F)
+
+D(sinh(F)) => cosh(F) * D(F)
+D(cosh(F)) => sinh(F) * D(F)
+D(tanh(F)) => (1 - tanh(F)^2) * D(F)
+
 D(log(F)) => D(F) / F
 D(dV) => dV ^ 2
