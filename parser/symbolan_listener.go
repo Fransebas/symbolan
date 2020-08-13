@@ -53,6 +53,18 @@ type SymbolanListener interface {
 	// EnterExpr_rule is called when entering the expr_rule production.
 	EnterExpr_rule(c *Expr_ruleContext)
 
+	// EnterNumeric_tree_rule is called when entering the numeric_tree_rule production.
+	EnterNumeric_tree_rule(c *Numeric_tree_ruleContext)
+
+	// EnterConst_tree_rule is called when entering the const_tree_rule production.
+	EnterConst_tree_rule(c *Const_tree_ruleContext)
+
+	// EnterVar_tree_rule is called when entering the var_tree_rule production.
+	EnterVar_tree_rule(c *Var_tree_ruleContext)
+
+	// EnterSystem_tree_rule is called when entering the system_tree_rule production.
+	EnterSystem_tree_rule(c *System_tree_ruleContext)
+
 	// EnterAtom is called when entering the atom production.
 	EnterAtom(c *AtomContext)
 
@@ -124,6 +136,18 @@ type SymbolanListener interface {
 
 	// ExitExpr_rule is called when exiting the expr_rule production.
 	ExitExpr_rule(c *Expr_ruleContext)
+
+	// ExitNumeric_tree_rule is called when exiting the numeric_tree_rule production.
+	ExitNumeric_tree_rule(c *Numeric_tree_ruleContext)
+
+	// ExitConst_tree_rule is called when exiting the const_tree_rule production.
+	ExitConst_tree_rule(c *Const_tree_ruleContext)
+
+	// ExitVar_tree_rule is called when exiting the var_tree_rule production.
+	ExitVar_tree_rule(c *Var_tree_ruleContext)
+
+	// ExitSystem_tree_rule is called when exiting the system_tree_rule production.
+	ExitSystem_tree_rule(c *System_tree_ruleContext)
 
 	// ExitAtom is called when exiting the atom production.
 	ExitAtom(c *AtomContext)

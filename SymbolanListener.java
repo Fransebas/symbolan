@@ -157,6 +157,46 @@ public interface SymbolanListener extends ParseTreeListener {
 	 */
 	void exitExpr_rule(SymbolanParser.Expr_ruleContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link SymbolanParser#numeric_tree_rule}.
+	 * @param ctx the parse tree
+	 */
+	void enterNumeric_tree_rule(SymbolanParser.Numeric_tree_ruleContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SymbolanParser#numeric_tree_rule}.
+	 * @param ctx the parse tree
+	 */
+	void exitNumeric_tree_rule(SymbolanParser.Numeric_tree_ruleContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SymbolanParser#const_tree_rule}.
+	 * @param ctx the parse tree
+	 */
+	void enterConst_tree_rule(SymbolanParser.Const_tree_ruleContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SymbolanParser#const_tree_rule}.
+	 * @param ctx the parse tree
+	 */
+	void exitConst_tree_rule(SymbolanParser.Const_tree_ruleContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SymbolanParser#var_tree_rule}.
+	 * @param ctx the parse tree
+	 */
+	void enterVar_tree_rule(SymbolanParser.Var_tree_ruleContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SymbolanParser#var_tree_rule}.
+	 * @param ctx the parse tree
+	 */
+	void exitVar_tree_rule(SymbolanParser.Var_tree_ruleContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SymbolanParser#system_tree_rule}.
+	 * @param ctx the parse tree
+	 */
+	void enterSystem_tree_rule(SymbolanParser.System_tree_ruleContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SymbolanParser#system_tree_rule}.
+	 * @param ctx the parse tree
+	 */
+	void exitSystem_tree_rule(SymbolanParser.System_tree_ruleContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link SymbolanParser#atom}.
 	 * @param ctx the parse tree
 	 */

@@ -111,6 +111,30 @@ func (s *BaseSymbolanListener) EnterExpr_rule(ctx *Expr_ruleContext) {}
 // ExitExpr_rule is called when production expr_rule is exited.
 func (s *BaseSymbolanListener) ExitExpr_rule(ctx *Expr_ruleContext) {}
 
+// EnterNumeric_tree_rule is called when production numeric_tree_rule is entered.
+func (s *BaseSymbolanListener) EnterNumeric_tree_rule(ctx *Numeric_tree_ruleContext) {}
+
+// ExitNumeric_tree_rule is called when production numeric_tree_rule is exited.
+func (s *BaseSymbolanListener) ExitNumeric_tree_rule(ctx *Numeric_tree_ruleContext) {}
+
+// EnterConst_tree_rule is called when production const_tree_rule is entered.
+func (s *BaseSymbolanListener) EnterConst_tree_rule(ctx *Const_tree_ruleContext) {}
+
+// ExitConst_tree_rule is called when production const_tree_rule is exited.
+func (s *BaseSymbolanListener) ExitConst_tree_rule(ctx *Const_tree_ruleContext) {}
+
+// EnterVar_tree_rule is called when production var_tree_rule is entered.
+func (s *BaseSymbolanListener) EnterVar_tree_rule(ctx *Var_tree_ruleContext) {}
+
+// ExitVar_tree_rule is called when production var_tree_rule is exited.
+func (s *BaseSymbolanListener) ExitVar_tree_rule(ctx *Var_tree_ruleContext) {}
+
+// EnterSystem_tree_rule is called when production system_tree_rule is entered.
+func (s *BaseSymbolanListener) EnterSystem_tree_rule(ctx *System_tree_ruleContext) {}
+
+// ExitSystem_tree_rule is called when production system_tree_rule is exited.
+func (s *BaseSymbolanListener) ExitSystem_tree_rule(ctx *System_tree_ruleContext) {}
+
 // EnterAtom is called when production atom is entered.
 func (s *BaseSymbolanListener) EnterAtom(ctx *AtomContext) {}
 

@@ -21,8 +21,16 @@ system_functions
     | COS
     | TAN
     | LOG
+    | SINH
+	| COSH
+	| TANH
+	| COTH
+	| CSCH
+	| SECH
     | DERIVATIVE_OPERATOR
     ;
+
+	
 
 rule_function
 	: IDENTIFIER '()'
@@ -68,6 +76,10 @@ ruleAtom
 	| expr_rule
 	| numeric_rule
 	| derivative_rule
+	| numeric_tree_rule
+	| const_tree_rule
+	| var_tree_rule
+	| system_tree_rule
 	;
 
 sign: '+' | '-';
@@ -80,6 +92,11 @@ numeric_rule: NUMERIC_RULE;
 const_rule: CONST_RULE;
 var_rule: VAR_RULE;
 expr_rule: EXPR_RULE;
+
+numeric_tree_rule: NUMERIC_TREE_RULE;
+const_tree_rule: CONST_TREE_RULE;
+var_tree_rule: VAR_TREE_RULE;
+system_tree_rule: SYSTEM_TREE_RULE;
 
 
 atom 
@@ -162,7 +179,7 @@ COSH                  : 'cosh';
 TANH                  : 'tanh';
 COTH                  : 'coth'; 
 CSCH                  : 'csch';
-SECH                  : 'sech';
+SECH                  : 'sech'; 
 
 MIN                  : 'min';
 MAX                  : 'max';
@@ -185,6 +202,11 @@ NUMERIC_RULE 	: [N] (('_')[0-9]+)? ;
 CONST_RULE 		: [C] (('_')[0-9]+)? ;
 VAR_RULE 		: [V] (('_')[0-9]+)? ;
 EXPR_RULE 		: [F] (('_')[0-9]+)? ;
+
+NUMERIC_TREE_RULE	 	: 'F' [N] (('_')[0-9]+)? ;
+CONST_TREE_RULE 		: 'F' [C] (('_')[0-9]+)? ;
+VAR_TREE_RULE 			: 'F' [V] (('_')[0-9]+)? ;
+SYSTEM_TREE_RULE 		: 'SF'    (('_')[0-9]+)? ;
 
 IMAGINARY  : 'i';
 

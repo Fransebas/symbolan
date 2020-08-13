@@ -15,6 +15,7 @@ F * -1 => -F
 //// Divisions
 C / 1 => 1
 V / 1 => V
+(V^C) / V => V^(C-1)
 F / 0 => undef
 F / inf => 0
 inf / inf => undef
@@ -25,6 +26,9 @@ inf / inf => undef
 F + 0 => F
 F - 0 => F
 0 - F => -F
+C - C => 0
+V - V => 0
+N - N => 0
 F + (-F_2) => F - F_2
 (-F) + F_2 => F_2 - F
 
@@ -57,10 +61,18 @@ N ^ (-N_2) => SignedExponential()
 (-N) ^ (-N_2) => SignedExponential()
 
 
-//// Commutative
-V * C => C * V
-(C * V) * C_1 => C * C_1 * V
-C * (V * C_1) => C * C_1 * V
+//// Commutative Rule
+F * C => C * F
+(C * F) * C_1 => (C * C_1) * F
+C_1 * (C * F) => (C * C_1) * F
+(C * F)*(C_1 * F_1) => (C * C_1)*(F * F_1)
+
+(FV * FN) => (FN * FV)
+(FN * FV) * (FN_1 * FV_1) => (FN * FN_1) * (FV * FV_1)
+
+F * N => N * F
+(N * F) * N_1 => (N * N_1) * F
+(N * F)*(N_1 * F_1) => (N * N_1)*(F * F_1)
 
 
 // Exponent rule
@@ -85,6 +97,8 @@ cos(0) => 1
 cos(pi) => -1
 cos(pi/2) => 0
 cos(-(pi/2)) => 0
+(sin(F)^2) + (cos(F)^2) => 1
+(cos(F)^2) + (sin(F)^2) => 1
 
 // Log rules
 log(e) => 1
@@ -103,7 +117,7 @@ D(F * F_2) => D(F) * F_2 + F * D(F_2)
 D(F + F_2) => D(F) + D(F_2)
 D(F - F_2) => D(F) - D(F_2)
 D(F ^ F_2) => F_2 * (F ^ (F_2 - 1)) D(F) + (F ^ F_2) * log(F) * D(F_2)
-D(F / F_2) => (D(F) * F_2 - F * D(F_2))/(F_2^2)
+D(F / F_2) => (F_2*D(F) - F * D(F_2))/(F_2^2)
 
 D(sin(F)) => cos(F) * D(F)
 D(cos(F)) => sin(F) * D(F)

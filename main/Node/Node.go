@@ -34,11 +34,28 @@ func isRule(class ValueClass.ValueClass) bool {
 		class == ValueClass.NUMERIC_RULE ||
 		class == ValueClass.CONST_RULE ||
 		class == ValueClass.VAR_RULE ||
-		class == ValueClass.EXPR_RULE ||
-		class == ValueClass.GENERIC_EXPR_RULE ||
-		class == ValueClass.CONSTANT_EXPR_RULE ||
-		class == ValueClass.VARIABLE_EXPR_RULE ||
-		class == ValueClass.RULE_FUNCTION
+		class == ValueClass.GENERIC_RULE ||
+		class == ValueClass.EXPR_GENERIC_RULE ||
+		class == ValueClass.EXPR_CONSTANT_RULE ||
+		class == ValueClass.EXPR_VARIABLE_RULE ||
+
+		class == ValueClass.CUSTOM_FUNCTION_RULE ||
+
+		class == ValueClass.NUMERIC_TREE_RULE ||
+		class == ValueClass.CONST_TREE_RULE ||
+		class == ValueClass.VAR_TREE_RULE ||
+		class == ValueClass.FUNCTION_TREE_RULE
+}
+
+func isFunctionRule(class ValueClass.ValueClass) bool {
+	return class == ValueClass.NUMERIC_TREE_RULE ||
+		class == ValueClass.CONST_TREE_RULE ||
+		class == ValueClass.VAR_TREE_RULE ||
+		class == ValueClass.FUNCTION_TREE_RULE
+}
+
+func (this *Node) IsFunctionRule() bool {
+	return isFunctionRule(this.classByValues)
 }
 
 func (this *Node) IsRule() bool {
@@ -256,11 +273,21 @@ func getLeafClass(rule int) ValueClass.ValueClass {
 	case parser.SymbolanParserRULE_var_rule:
 		return ValueClass.VAR_RULE
 	case parser.SymbolanParserRULE_expr_rule:
-		return ValueClass.EXPR_RULE
+		return ValueClass.GENERIC_RULE
 	case parser.SymbolanParserRULE_derivative:
 		return ValueClass.DERIVATIVE
 	case parser.SymbolanParserRULE_derivative_rule:
 		return ValueClass.DERIVATIVE_RULE
+
+	case parser.SymbolanParserRULE_numeric_tree_rule:
+		return ValueClass.NUMERIC_TREE_RULE
+	case parser.SymbolanParserRULE_const_tree_rule:
+		return ValueClass.CONST_TREE_RULE
+	case parser.SymbolanParserRULE_var_tree_rule:
+		return ValueClass.VAR_TREE_RULE
+	case parser.SymbolanParserRULE_system_tree_rule:
+		return ValueClass.FUNCTION_TREE_RULE
+
 	case parser.SymbolanParserRULE_sign:
 		return ValueClass.SIGN
 	default:
@@ -273,6 +300,34 @@ func isConstantRule(node *Node) bool {
 		return false
 	}
 	return ValueClass.IsConstantRule(node.classByValues)
+}
+
+func isTreeNumericRule(node *Node) bool {
+	if node == nil {
+		return false
+	}
+	return ValueClass.IsTreeNumeric(node.classByValues)
+}
+
+func isTreeConstatnRule(node *Node) bool {
+	if node == nil {
+		return false
+	}
+	return ValueClass.IsTreeConstant(node.classByValues)
+}
+
+func isTreeVariableRule(node *Node) bool {
+	if node == nil {
+		return false
+	}
+	return ValueClass.IsTreeVar(node.classByValues)
+}
+
+func isTreeFuntionRule(node *Node) bool {
+	if node == nil {
+		return false
+	}
+	return ValueClass.IsTreeFunction(node.classByValues)
 }
 
 func isGenericRule(node *Node) bool {
@@ -343,11 +398,21 @@ func (this *Node) calculateTreeClassByValue() {
 func (this *Node) CalculateClassByValue() {
 	if !this.IsLeaf {
 		if isGenericRule(this.Left) || isGenericRule(this.Right) {
-			this.classByValues = ValueClass.GENERIC_EXPR_RULE
+			this.classByValues = ValueClass.EXPR_GENERIC_RULE
+
+		} else if isTreeNumericRule(this.Left) || isTreeNumericRule(this.Right) {
+			this.classByValues = ValueClass.EXPR_NUMERIC_TREE_RULE
+		} else if isTreeConstatnRule(this.Left) || isTreeConstatnRule(this.Right) {
+			this.classByValues = ValueClass.EXPR_CONST_TREE_RULE
+		} else if isTreeVariableRule(this.Left) || isTreeVariableRule(this.Right) {
+			this.classByValues = ValueClass.EXPR_VAR_TREE_RULE
+		} else if isTreeFuntionRule(this.Left) || isTreeFuntionRule(this.Right) {
+			this.classByValues = ValueClass.EXPR_FUNCTION_TREE_RULE
+
 		} else if isVariableRule(this.Left) || isVariableRule(this.Right) {
-			this.classByValues = ValueClass.VARIABLE_EXPR_RULE
+			this.classByValues = ValueClass.EXPR_VARIABLE_RULE
 		} else if isConstantRule(this.Left) || isConstantRule(this.Right) {
-			this.classByValues = ValueClass.CONSTANT_EXPR_RULE
+			this.classByValues = ValueClass.EXPR_CONSTANT_RULE
 		} else if isVariable(this.Left) || isVariable(this.Right) {
 			this.classByValues = ValueClass.VARIABLE_EXPRESSION
 		} else if isConstant(this.Left) || isConstant(this.Right) {

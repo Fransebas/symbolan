@@ -6,8 +6,8 @@ import (
 )
 
 func (this *Node) Latex() string {
-	beginLatex := `\begin{equation}` + "\n"
-	endLatex := "\n" + `\end{equation}`
+	beginLatex := ``
+	endLatex := ``
 
 	return beginLatex + this.latex() + endLatex
 }

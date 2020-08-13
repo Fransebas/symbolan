@@ -76,7 +76,10 @@ func (this *SymbolanProcessor) initializeRoot() {
 	this.Root.calculateTreeClassByValue()
 	//this.Root.calculateClassByOperation()
 	simplyfier := NewSimplyfier()
-	node := simplyfier.Simplify(*this.Root)
+	node := *this.Root
+	if this.config.Simplify != NONE {
+		node = simplyfier.Simplify(node)
+	}
 	this.Root = &node
 	this.Root.CalculateHeightAndSize()
 }
@@ -103,7 +106,7 @@ func RuleFunction(ctx antlr.Tree) *Node {
 
 	node.Value = ctx.GetChild(0).(antlr.TerminalNode).GetText()
 	node.IsLeaf = true
-	node.classByValues = ValueClass.RULE_FUNCTION
+	node.classByValues = ValueClass.CUSTOM_FUNCTION_RULE
 
 	return node
 }

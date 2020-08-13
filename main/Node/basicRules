@@ -1,0 +1,57 @@
+F * 0 => 0
+0 * F => 0
+1 * F => F
+F * 1 => F
+
+
+-(-F) => F
+-1 * F => -F
+F * -1 => -F
+(-F_1) * (-F_2) => (F_1) * (F_2)
+(-1) * (F) => -F
+//// Multiplications ^
+
+
+//// Divisions
+C / 1 => 1
+V / 1 => V
+F / 0 => undef
+F / inf => 0
+inf / inf => undef
+
+
+//// Addition and Subtractions
+0 + F => F
+F + 0 => F
+F - 0 => F
+0 - F => -F
+F + (-F_2) => F - F_2
+(-F) + F_2 => F_2 - F
+
+F - (-F_2) => F + F_2
+(-F) - F_2 => -(F_2 + F)
+
+//// Undefined Exponents
+0 ^ 0 => undef
+F ^ 1 => F
+F ^ 0 => 1
+F ^ inf => inf
+F ^ -inf => 0
+
+
+//// Numeric Constant operations
+N * (-N_2) => -(N * N_2)
+(-N) * N_2 => -(N * N_2)
+
+N / (-N_2) => -(N / N_2)
+(-N) / N_2 => -(N / N_2)
+
+
+N + N_2 => Addition()
+N - N_2 => Subtraction()
+N * N_2 => Multiplication()
+N / N_2 => Division()
+N ^ N_2 => Exponential()
+(-N) ^ N_2 => SignedExponential()
+N ^ (-N_2) => SignedExponential()
+(-N) ^ (-N_2) => SignedExponential()
