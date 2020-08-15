@@ -24,6 +24,9 @@ func (this *Node) latex() string {
 		} else if this.OperationClass() == OperationClass.DIVISION {
 			return fmt.Sprintf(`\frac{%v}{%v}`, this.Left.latex(), this.Right.latex())
 		} else if this.OperationClass() == OperationClass.EXPONENTIAL {
+			if this.Left.treeSize > 1 {
+				return fmt.Sprintf(`{(%v)}^{%v}`, this.Left.latex(), this.Right.latex())
+			}
 			return fmt.Sprintf(`{%v}^{%v}`, this.Left.latex(), this.Right.latex())
 		} else if this.OperationClass() == OperationClass.MULTIPLICATION {
 			operation := ""

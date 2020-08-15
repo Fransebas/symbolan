@@ -62,15 +62,12 @@ N ^ (-N_2) => SignedExponential()
 
 
 //// Commutative Rule
-F * C => C * F
-(C * F) * C_1 => (C * C_1) * F
-C_1 * (C * F) => (C * C_1) * F
-(C * F)*(C_1 * F_1) => (C * C_1)*(F * F_1)
+//F * C => C * F
+//(C * F) * C_1 => (C * C_1) * F
+//C_1 * (C * F) => (C * C_1) * F
+//(C * F)*(C_1 * F_1) => (C * C_1)*(F * F_1)
 
-(FV * FN) => (FN * FV)
-(FN * FV) * (FN_1 * FV_1) => (FN * FN_1) * (FV * FV_1)
-
-F * N => N * F
+//F * N => N * F
 (N * F) * N_1 => (N * N_1) * F
 (N * F)*(N_1 * F_1) => (N * N_1)*(F * F_1)
 
@@ -116,8 +113,8 @@ D(C * V) => C*D(V)
 D(F * F_2) => D(F) * F_2 + F * D(F_2)
 D(F + F_2) => D(F) + D(F_2)
 D(F - F_2) => D(F) - D(F_2)
-D(F ^ F_2) => F_2 * (F ^ (F_2 - 1)) D(F) + (F ^ F_2) * log(F) * D(F_2)
-D(F / F_2) => (F_2*D(F) - F * D(F_2))/(F_2^2)
+D(F ^ F_2) => F_2 * (F ^ (F_2 - 1)) * D(F) + (F ^ F_2) * log(F) * D(F_2)
+D(F / F_2) => (D(F)/F_2) - ((F/(F_2^2))*D(F_2))
 
 D(sin(F)) => cos(F) * D(F)
 D(cos(F)) => sin(F) * D(F)
@@ -129,3 +126,24 @@ D(tanh(F)) => (1 - tanh(F)^2) * D(F)
 
 D(log(F)) => D(F) / F
 D(dV) => dV ^ 2
+
+
+////// Sorting Multiplication
+
+!FN * FN => FN * !FN
+
+(FN * !FN) * (FN_1 * !FN_3) => (FN * FN_1) * (!FN * !FN_3)
+
+( !FN ) * (FN * !FN_3) => FN * (!FN * !FN_3)
+(FN * !FN) * !FN_3 => FN * (!FN * !FN_3)
+( FN ) * (FN_1 * !FN) => (FN * FN_1) * (!FN)
+
+// Sorting Addition
+
+!FN + FN => FN + !FN
+
+(FN + !FN) + (FN_1 + !FN_3) => (FN + FN_1) + (!FN + !FN_3)
+
+( !FN ) + (FN + !FN_3) => FN + (!FN + !FN_3)
+(FN + !FN) + !FN_3 => FN + (!FN + !FN_3)
+( FN ) + (FN_1 + !FN) => (FN + FN_1) + (!FN)

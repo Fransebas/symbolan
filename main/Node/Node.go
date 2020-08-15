@@ -47,15 +47,15 @@ func isRule(class ValueClass.ValueClass) bool {
 		class == ValueClass.FUNCTION_TREE_RULE
 }
 
-func isFunctionRule(class ValueClass.ValueClass) bool {
+func isTreeRule(class ValueClass.ValueClass) bool {
 	return class == ValueClass.NUMERIC_TREE_RULE ||
 		class == ValueClass.CONST_TREE_RULE ||
 		class == ValueClass.VAR_TREE_RULE ||
 		class == ValueClass.FUNCTION_TREE_RULE
 }
 
-func (this *Node) IsFunctionRule() bool {
-	return isFunctionRule(this.classByValues)
+func (this *Node) IsTreeRule() bool {
+	return isTreeRule(this.classByValues)
 }
 
 func (this *Node) IsRule() bool {
@@ -65,6 +65,13 @@ func (this *Node) IsRule() bool {
 func (this *Node) SetNumericValue(value float64) {
 	this.numericValue = value
 	this.setValueFromNumeric()
+}
+
+func (this *Node) IsNegativeRule() bool {
+	if this.IsRule() {
+		return this.Value[:1] == "!"
+	}
+	return false
 }
 
 func (this *Node) Height() int64 {
@@ -88,6 +95,19 @@ func (this *Node) NumericValue() float64 {
 		panic("Can't get numeric value from non numeric constant")
 	}
 	return this.numericValue
+}
+
+func (this *Node) PrintTree(tabs string) {
+	value := this.Value
+	if this.OperationClass() == OperationClass.MULTIPLICATION {
+		value = "*"
+	}
+	fmt.Println(tabs + value)
+	if this.IsLeaf {
+		return
+	}
+	this.Left.PrintTree(tabs + "_")
+	this.Right.PrintTree(tabs + "_")
 }
 
 func (this *Node) String() string {

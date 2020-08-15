@@ -41,16 +41,17 @@ expressionRule
 	| expr '=>' rule_function
 	;
 
-expr 
-	: left_par expr right_par
-    | expr ('^'|'**') expr 
-    | expr ('*'|'/') expr 
+expr:<assoc=right>  expr '^'expr 
+	| atom atom
+
+    | expr ('*'|'/') expr
+
     | expr ('+'|'-') expr
-    | expr expr
+    | left_par expr right_par
     | system_functions left_par expr right_par
-    | sign expr
     | atom
     | ruleAtom
+    | sign expr 
     ;
 
 //
@@ -203,10 +204,10 @@ CONST_RULE 		: [C] (('_')[0-9]+)? ;
 VAR_RULE 		: [V] (('_')[0-9]+)? ;
 EXPR_RULE 		: [F] (('_')[0-9]+)? ;
 
-NUMERIC_TREE_RULE	 	: 'F' [N] (('_')[0-9]+)? ;
-CONST_TREE_RULE 		: 'F' [C] (('_')[0-9]+)? ;
-VAR_TREE_RULE 			: 'F' [V] (('_')[0-9]+)? ;
-SYSTEM_TREE_RULE 		: 'SF'    (('_')[0-9]+)? ;
+NUMERIC_TREE_RULE	 	: ('!')? 'F' [N] (('_')[0-9]+)? ;
+CONST_TREE_RULE 		: ('!')? 'F' [C] (('_')[0-9]+)? ;
+VAR_TREE_RULE 			: ('!')? 'F' [V] (('_')[0-9]+)? ;
+SYSTEM_TREE_RULE 		: ('!')? 'SF'    (('_')[0-9]+)? ;
 
 IMAGINARY  : 'i';
 

@@ -3,7 +3,6 @@ package Node
 import (
 	"fmt"
 	"io/ioutil"
-	"os"
 	"symbolan/main/OperationClass"
 	"symbolan/main/ValueClass"
 )
@@ -95,8 +94,7 @@ func processRules(data string) *[]Node {
 }
 
 func (this *Manager) readRules() {
-	path, _ := os.Getwd()
-	fmt.Println(path)
+	//path, _ := os.Getwd()
 	byteData, e := ioutil.ReadFile(rulesFile)
 	if e != nil {
 		panic(e)

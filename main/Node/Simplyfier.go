@@ -81,7 +81,7 @@ func Compare(node *Node, rule *Node) (*map[string]*Node, bool) {
 	return nil, false
 }
 
-func compare(node *Node, rule *Node, knownNodes *map[string]*Node) bool {
+func compare(node *Node, rule *Node, knownNodes *map[string]*Node) (res bool) {
 	//generic case
 	if node.ValueClass() != ValueClass.SIGN && rule.ValueClass() == ValueClass.GENERIC_RULE {
 		ruleName := rule.Value
@@ -93,19 +93,27 @@ func compare(node *Node, rule *Node, knownNodes *map[string]*Node) bool {
 		return equalToExisting(ruleName, node, knownNodes)
 	}
 
-	if node.OperationClass() != rule.OperationClass() {
+	if !rule.IsTreeRule() && node.OperationClass() != rule.OperationClass() {
 		return false
 	}
 
 	//base case
-	if !rule.IsFunctionRule() && !node.IsLeaf && rule.IsLeaf {
+	if !rule.IsTreeRule() && !node.IsLeaf && rule.IsLeaf {
 		return false
 	}
 
 	if node.IsLeaf && rule.IsLeaf {
-		return compareLeafs(node, rule, knownNodes)
-	} else if node.IsLeaf {
+		res = compareLeafs(node, rule, knownNodes)
+		if res {
+			return res
+		}
+	}
 
+	if rule.IsLeaf {
+		if rule.IsNegativeRule() {
+			return compareNegativeTreeRules(node, rule, knownNodes)
+		}
+		return compareTreeRules(node, rule, knownNodes)
 	} else {
 		return compareNonLeafs(node, rule, knownNodes)
 	}
@@ -177,33 +185,59 @@ func compareLeafs(node *Node, rule *Node, knownNodes *map[string]*Node) bool {
 	return false
 }
 
+// In these case the comparison between knownNodes is removed because it can be really expensive
+// but it could be added
+// In other words rules with repeating tree rules wont work i.e. FC_
 func compareTreeRules(node *Node, rule *Node, knownNodes *map[string]*Node) bool {
+	ruleName := rule.Value
 	ruleValueClass := rule.ValueClass()
 	switch ruleValueClass {
-	case ValueClass.EXPR_GENERIC_RULE:
-		return compare(node.Left, rule.Left, knownNodes) && compare(node.Right, rule.Right, knownNodes)
-	case ValueClass.EXPR_VARIABLE_RULE:
-		if node.ValueClass() == ValueClass.VARIABLE_EXPRESSION {
-			return compare(node.Left, rule.Left, knownNodes) && compare(node.Right, rule.Right, knownNodes)
+	case ValueClass.NUMERIC_TREE_RULE:
+		if isNumeric(node) {
+			(*knownNodes)[ruleName] = node
+			return true
 		}
-	case ValueClass.EXPR_CONSTANT_RULE:
-		if node.ValueClass() == ValueClass.CONSTANT_EXPRESSION || node.ValueClass() == ValueClass.NUMERIC_CONSTANT_EXPRESSION {
-			return compare(node.Left, rule.Left, knownNodes) && compare(node.Right, rule.Right, knownNodes)
-		}
-	case ValueClass.CONSTANT_EXPRESSION:
+
+	case ValueClass.CONST_TREE_RULE:
 		if isConstant(node) {
-			return compare(node.Left, rule.Left, knownNodes) && compare(node.Right, rule.Right, knownNodes)
+			(*knownNodes)[ruleName] = node
+			return true
 		}
 
-	case ValueClass.NUMERIC_CONSTANT_EXPRESSION:
-		if node.ValueClass() == ValueClass.NUMERIC_CONSTANT_EXPRESSION {
-			return compare(node.Left, rule.Left, knownNodes) && compare(node.Right, rule.Right, knownNodes)
+	case ValueClass.VAR_TREE_RULE:
+		if isVariable(node) {
+			(*knownNodes)[ruleName] = node
+			return true
 		}
 
-	case ValueClass.SYSTEM_FUNCTION:
-		if node.ValueClass() == ValueClass.SYSTEM_FUNCTION {
-			return compare(node.Right, rule.Right, knownNodes)
+	default:
+		return false
+	}
+	return false
+}
+
+func compareNegativeTreeRules(node *Node, rule *Node, knownNodes *map[string]*Node) bool {
+	ruleName := rule.Value
+	ruleValueClass := rule.ValueClass()
+	switch ruleValueClass {
+	case ValueClass.NUMERIC_TREE_RULE:
+		if !isNumeric(node) {
+			(*knownNodes)[ruleName] = node
+			return true
 		}
+
+	case ValueClass.CONST_TREE_RULE:
+		if !isConstant(node) {
+			(*knownNodes)[ruleName] = node
+			return true
+		}
+
+	case ValueClass.VAR_TREE_RULE:
+		if !isVariable(node) {
+			(*knownNodes)[ruleName] = node
+			return true
+		}
+
 	default:
 		return false
 	}
@@ -211,7 +245,9 @@ func compareTreeRules(node *Node, rule *Node, knownNodes *map[string]*Node) bool
 }
 
 func compareNonLeafs(node *Node, rule *Node, knownNodes *map[string]*Node) bool {
+
 	ruleValueClass := rule.ValueClass()
+
 	switch ruleValueClass {
 	case ValueClass.EXPR_GENERIC_RULE:
 		return compare(node.Left, rule.Left, knownNodes) && compare(node.Right, rule.Right, knownNodes)
@@ -235,23 +271,20 @@ func compareNonLeafs(node *Node, rule *Node, knownNodes *map[string]*Node) bool 
 
 	case ValueClass.SYSTEM_FUNCTION:
 		if node.ValueClass() == ValueClass.SYSTEM_FUNCTION {
-			return compare(node.Right, rule.Right, knownNodes)
+			return compare(node.Left, rule.Left, knownNodes) && compare(node.Right, rule.Right, knownNodes)
 		}
 
 	case ValueClass.EXPR_NUMERIC_TREE_RULE:
-		if node.ValueClass() == ValueClass.EXPR_CONSTANT_RULE {
-			return compare(node.Right, rule.Right, knownNodes)
-		}
+		return compare(node.Left, rule.Left, knownNodes) && compare(node.Right, rule.Right, knownNodes)
 
 	case ValueClass.EXPR_CONST_TREE_RULE:
-		if node.ValueClass() == ValueClass.EXPR_CONSTANT_RULE {
-			return compare(node.Right, rule.Right, knownNodes)
-		}
+		return compare(node.Left, rule.Left, knownNodes) && compare(node.Right, rule.Right, knownNodes)
 
 	case ValueClass.EXPR_VAR_TREE_RULE:
-		if node.ValueClass() == ValueClass.EXPR_VARIABLE_RULE {
-			return compare(node.Right, rule.Right, knownNodes)
-		}
+		//if node.ValueClass() != ValueClass.EXPR_CONST_TREE_RULE {
+		//	return compare(node.Left, rule.Left, knownNodes) && compare(node.Right, rule.Right, knownNodes)
+		//}
+		return compare(node.Left, rule.Left, knownNodes) && compare(node.Right, rule.Right, knownNodes)
 	default:
 		return false
 	}
