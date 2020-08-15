@@ -64,7 +64,7 @@ func derivative(w http.ResponseWriter, req *http.Request) {
 	}
 }
 
-func Run() {
+func Run(port string) {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/derivative", derivative)
 
@@ -72,5 +72,5 @@ func Run() {
 	// all origins accepted with simple methods (GET, POST). See
 	// documentation below for more options.
 	handler := cors.Default().Handler(mux)
-	log.Fatal(http.ListenAndServe(":7777", handler))
+	log.Fatal(http.ListenAndServe(":"+port, handler))
 }

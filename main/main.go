@@ -1,7 +1,10 @@
 package main
 
-import "symbolan/main/server"
+import (
+	"os"
+	"symbolan/main/server"
+)
 
 func main() {
-	server.Run()
+	server.Run(os.Args[1])
 }
