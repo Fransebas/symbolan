@@ -43,7 +43,7 @@ function App() {
             //setPdfBase64(xhr.responseText);
         });
         // open the request with the verb and the url
-        xhr.open('POST', 'http://localhost:7777/derivative');
+        xhr.open('POST', '/derivative');
         // send the request
         xhr.send(input)
     }

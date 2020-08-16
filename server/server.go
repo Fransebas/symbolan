@@ -80,6 +80,11 @@ func Run(port string) {
 	mux.HandleFunc("/derivative", derivative)
 	mux.HandleFunc("/index", page)
 
+	fs := http.FileServer(http.Dir("./webapp/build"))
+
+	//mux.Handle("/webpage/", http.StripPrefix("/static/", fs))
+	mux.Handle("/", fs)
+
 	// cors.Default() setup the middleware with default options being
 	// all origins accepted with simple methods (GET, POST). See
 	// documentation below for more options.
