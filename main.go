@@ -6,6 +6,6 @@ import (
 )
 
 func main() {
-	port := os.Getenv("FOO")
+	port := os.Getenv("PORT")
 	server.Run(port)
 }
