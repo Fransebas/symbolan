@@ -72,5 +72,6 @@ func Run(port string) {
 	// all origins accepted with simple methods (GET, POST). See
 	// documentation below for more options.
 	handler := cors.Default().Handler(mux)
+	fmt.Println("Server running on port " + port)
 	log.Fatal(http.ListenAndServe(":"+port, handler))
 }
