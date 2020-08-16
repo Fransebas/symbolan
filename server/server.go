@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"symbolan/Node"
 )
 
@@ -66,6 +67,11 @@ func derivative(w http.ResponseWriter, req *http.Request) {
 
 func page(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Requesting webpage")
+	dir, err := os.Getwd()
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println("Current dir" + dir)
 	http.ServeFile(w, r, "./webapp/build/index.html")
 }
 
