@@ -1,1 +1,1 @@
-web : symbolan $PORT
+web : ./bin/symbolan $PORT
