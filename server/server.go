@@ -64,9 +64,14 @@ func derivative(w http.ResponseWriter, req *http.Request) {
 	}
 }
 
+func page(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "webapp/build/index.html")
+}
+
 func Run(port string) {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/derivative", derivative)
+	mux.HandleFunc("/index.html", page)
 
 	// cors.Default() setup the middleware with default options being
 	// all origins accepted with simple methods (GET, POST). See
