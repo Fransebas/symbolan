@@ -3,11 +3,11 @@ package Node
 import (
 	"fmt"
 	"io/ioutil"
-	"symbolan/main/OperationClass"
-	"symbolan/main/ValueClass"
+	"symbolan/OperationClass"
+	"symbolan/ValueClass"
 )
 
-const rulesFile = "./main/Node/rules.sp"
+const rulesFile = "./Node/rules.sp"
 
 type Rule struct {
 	node *Node

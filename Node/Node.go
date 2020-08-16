@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"math"
 	"strconv"
-	"symbolan/main/OperationClass"
-	"symbolan/main/ValueClass"
-	"symbolan/main/utils"
+	"symbolan/OperationClass"
+	"symbolan/ValueClass"
 	"symbolan/parser"
+	"symbolan/utils"
 )
 
 const delta = 0.000001

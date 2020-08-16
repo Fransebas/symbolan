@@ -2,7 +2,7 @@ package main
 
 import (
 	"os"
-	"symbolan/main/server"
+	"symbolan/server"
 )
 
 func main() {

@@ -1,7 +1,7 @@
 package Node
 
 import (
-	"symbolan/main/ValueClass"
+	"symbolan/ValueClass"
 )
 
 type Simplyfier struct {

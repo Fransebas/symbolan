@@ -3,8 +3,8 @@ package Node
 import (
 	"fmt"
 	"github.com/antlr/antlr4/runtime/Go/antlr"
-	"symbolan/main/OperationClass"
-	"symbolan/main/ValueClass"
+	"symbolan/OperationClass"
+	"symbolan/ValueClass"
 	"symbolan/parser"
 )
 

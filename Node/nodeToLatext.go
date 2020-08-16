@@ -2,7 +2,7 @@ package Node
 
 import (
 	"fmt"
-	"symbolan/main/OperationClass"
+	"symbolan/OperationClass"
 )
 
 func (this *Node) Latex() string {

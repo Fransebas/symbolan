@@ -7,7 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"symbolan/main/Node"
+	"symbolan/Node"
 )
 
 type DerivativeResponse struct {
