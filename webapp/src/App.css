@@ -39,12 +39,12 @@ body {
 
 .column {
   background-color: white;
-  display: flex;
   align-items: stretch;
-  flex-direction: column;
   flex-basis: 500px;
   /*flex-grow: 1;*/
   padding: 10px;
+  overflow: scroll;
+  height: 100%;
 }
 
 
