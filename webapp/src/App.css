@@ -67,6 +67,7 @@ body {
 
 .inputDiv {
   display: flex;
+  min-height: 35px;
 }
 
 .inputDiv input {
