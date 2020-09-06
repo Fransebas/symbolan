@@ -110,6 +110,15 @@ function App() {
                     <div className="bottomBox"/>
                 </div>
 
+
+                <div className="explanation">
+                    <h5 className="resultTitle"> Contact </h5>
+                    <p>If you are interested in knowing how this works, please let me know sending me a mail at ffransebas@gmail.com with the subject INFO SYMBOLAN or opening an issue in Github so that I know that is a thing worth doing.
+                        Just let me tell you that the way it works is extremely simple and recursively beautiful.</p>
+                    <p>But if you want to figure it out for yourself, this file has most of the logic needed in a readable way <a href="https://github.com/Fransebas/symbolan/blob/master/Node/rules.sp"> rules </a> </p>
+                    <div className="bottomBox"/>
+                </div>
+
             </div>
         </div>
     );

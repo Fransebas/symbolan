@@ -12,7 +12,7 @@ body {
   /*box-shadow: 0 1px 3px black;*/
   margin-top: 20px;
   overflow: hidden;
-  border: 1px solid ghostwhite;
+  border: 1px solid #d8d8d9;
   min-height: 200px;
 }
 
@@ -21,7 +21,7 @@ body {
   /*box-shadow: 0 1px 3px black;*/
   margin-top: 20px;
   overflow: hidden;
-  border: 1px solid ghostwhite;
+  border: 1px solid #d8d8d9;
 }
 
 .resultTitle {
