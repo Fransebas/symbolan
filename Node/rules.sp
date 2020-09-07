@@ -117,7 +117,7 @@ D(F ^ F_2) => F_2 * (F ^ (F_2 - 1)) * D(F) + (F ^ F_2) * log(F) * D(F_2)
 D(F / F_2) => (D(F)/F_2) - ((F/(F_2^2))*D(F_2))
 
 D(sin(F)) => cos(F) * D(F)
-D(cos(F)) => sin(F) * D(F)
+D(cos(F)) => - sin(F) * D(F)
 D(tan(F)) => ((1/cos(F))^2)*D(F)
 
 D(sinh(F)) => cosh(F) * D(F)
